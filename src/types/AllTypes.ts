@@ -7,6 +7,8 @@ export interface TProduct {
   brand: string;
   quantity: number;
   rating: number;
+  price: number;
+  product_image_url: string;
 }
 
 export interface TInitialState {
