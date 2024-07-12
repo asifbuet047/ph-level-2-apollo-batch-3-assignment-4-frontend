@@ -14,8 +14,8 @@ function HomePage() {
     <div className="h-screen">
       <body className="border-red-500 border-2">
         {isSuccess &&
-          products.data.map((product) => (
-            <div className="card bg-base-100 w-96 shadow-xl">
+          products.data.map((product, index) => (
+            <div key={index} className="card bg-base-100 w-96 shadow-xl">
               <figure>
                 <img src={product.product_image_url} alt={product.name} />
               </figure>
