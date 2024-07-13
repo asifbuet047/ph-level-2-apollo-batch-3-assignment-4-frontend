@@ -5,6 +5,7 @@ import ManageProductsPage from "@/pages/ManageProductsPage";
 import { createBrowserRouter } from "react-router-dom";
 import NoRouteFoundPage from "../pages/NoRouteFoundPage";
 import App from "../App";
+import HomePage from "../pages/HomePage";
 
 const browserRouter = createBrowserRouter([
   {
@@ -12,22 +13,26 @@ const browserRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "products",
+        path: "/",
+        element: <HomePage></HomePage>,
+        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+      },
+      {
+        path: "/products",
         element: <AllProductsPage />,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
       },
       {
-        path: "manage",
+        path: "/manage",
         element: <ManageProductsPage />,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
       },
       {
-        path: "cart",
+        path: "/cart",
         element: <CartPage />,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
       },
     ],
-    errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
   },
 ]);
 
