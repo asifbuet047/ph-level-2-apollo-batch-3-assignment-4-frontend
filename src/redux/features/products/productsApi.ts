@@ -9,12 +9,17 @@ export const productsApi = productsBaseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       createProduct: builder.mutation({
-        query: (product) => {
-          console.log(product);
+        query: ({ data, file }) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          //when sending data with file FormData should send dat this way or cant be pasrsed in server side
+          for (const key in data) {
+            formData.append(key, data[key]);
+          }
           return {
             url: "/",
             method: "POST",
-            body: product,
+            body: formData,
           };
         },
       }),

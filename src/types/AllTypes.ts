@@ -8,7 +8,7 @@ export interface TProduct {
   quantity: number;
   rating: number;
   price: number;
-  product_image_url: string;
+  product_image_file: string;
 }
 
 export interface TInitialState {
