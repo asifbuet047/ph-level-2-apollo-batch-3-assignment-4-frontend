@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ProductValidation } from "../utils/validationSchema";
 import { useCreateProductMutation } from "../redux/features/products/productsApi";
 import { TProduct } from "../types/AllTypes";
+import { BarLoader } from "react-spinners";
 
 function AddProduct() {
   const {
@@ -12,7 +13,7 @@ function AddProduct() {
     getValues,
     formState: { errors },
   } = useForm();
-  const [creatProduct, { data, isError, isSuccess }] =
+  const [creatProduct, { data, isError, isSuccess, isLoading }] =
     useCreateProductMutation();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,6 +56,7 @@ function AddProduct() {
           <form
             onSubmit={handleSubmit(submit)}
             className="flex flex-col justify-center align-middle items-center p-5 w-full"
+            encType="multipart/form-data"
           >
             <input
               type="text"
@@ -111,6 +113,7 @@ function AddProduct() {
             <button className="btn mt-2 mb-2" type="submit">
               Add product
             </button>
+            {isLoading && <BarLoader></BarLoader>}
           </form>
         </div>
       </Card>

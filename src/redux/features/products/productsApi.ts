@@ -22,6 +22,12 @@ export const productsApi = productsBaseApi.injectEndpoints({
             body: formData,
           };
         },
+        transformResponse: (response: TReduxResponse<TProduct>) => {
+          console.log(response);
+          return {
+            data: response.data,
+          };
+        },
       }),
       getProduct: builder.query({
         query: (productId) => {
