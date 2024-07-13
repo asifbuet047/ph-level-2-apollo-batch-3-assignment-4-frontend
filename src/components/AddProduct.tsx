@@ -5,6 +5,7 @@ import { ProductValidation } from "../utils/validationSchema";
 import { useCreateProductMutation } from "../redux/features/products/productsApi";
 import { TProduct } from "../types/AllTypes";
 import { BarLoader } from "react-spinners";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function AddProduct() {
   const {
@@ -15,6 +16,7 @@ function AddProduct() {
   } = useForm();
   const [creatProduct, { data, isError, isSuccess, isLoading }] =
     useCreateProductMutation();
+  const navigate = useNavigate();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const validateWithZodSchema = (data: any) => {
@@ -42,7 +44,9 @@ function AddProduct() {
       file: product_image_file,
     };
   };
-
+  const onHomeClick = () => {
+    navigate("/");
+  };
   const submit = () => {
     creatProduct(parseInputForSubmit());
   };
@@ -110,10 +114,23 @@ function AddProduct() {
               })}
             />
             {errors.product_image_file && <p>File is required</p>}
-            <button className="btn mt-2 mb-2" type="submit">
-              Add product
-            </button>
+            {isSuccess ? (
+              <div>
+                <button className="btn mt-2 mb-2" onClick={onHomeClick}>
+                  Go to Home page
+                </button>
+                <button className="btn mt-2 mb-2" type="submit">
+                  Add another product
+                </button>
+              </div>
+            ) : (
+              <button className="btn mt-2 mb-2" type="submit">
+                Add product
+              </button>
+            )}
+
             {isLoading && <BarLoader></BarLoader>}
+            {isSuccess && <p>{data.data.name} is succeesfully created</p>}
           </form>
         </div>
       </Card>
