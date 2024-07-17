@@ -12,7 +12,7 @@ export interface TProduct {
 }
 
 export interface TInitialState {
-  value: number;
+  products: TProduct[];
 }
 
 export interface TGenericSuccessfulResponse<T> {

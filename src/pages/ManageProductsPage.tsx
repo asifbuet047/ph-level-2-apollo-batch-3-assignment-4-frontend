@@ -23,15 +23,19 @@ function ManageProductsPage() {
     navigate("/manage/delete");
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center align-middle items-center">
-      <Card className="border-2 border-red-300">
-        <div onClick={addProduct}>
+    <div className="flex flex-col md:flex-row justify-between align-middle items-center">
+      <Card>
+        <div onClick={addProduct} className="mt-2 mb-2">
           <AddProductButton></AddProductButton>
         </div>
-        <div onClick={updateProduct}>
+      </Card>
+      <Card>
+        <div onClick={updateProduct} className="mt-2 mb-2">
           <UpdateProductButton></UpdateProductButton>
         </div>
-        <div onClick={deleteProduct}>
+      </Card>
+      <Card>
+        <div onClick={deleteProduct} className="mt-2 mb-2">
           <DeleteProductButton></DeleteProductButton>
         </div>
       </Card>
