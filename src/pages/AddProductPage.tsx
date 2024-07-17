@@ -5,7 +5,7 @@ import { useCreateProductMutation } from "../redux/features/products/productsApi
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useMotionValue, motion, useAnimate } from "framer-motion";
-import SingleProductCard from "./SingleProductCard";
+import SingleProductCard from "../components/SingleProductCard";
 import { useEffect, useRef, useState } from "react";
 
 function AddProduct() {

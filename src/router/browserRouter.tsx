@@ -6,6 +6,9 @@ import { createBrowserRouter } from "react-router-dom";
 import NoRouteFoundPage from "../pages/NoRouteFoundPage";
 import App from "../App";
 import HomePage from "../pages/HomePage";
+import AddProduct from "../pages/AddProductPage";
+import UpdateProductPage from "../pages/UpdateProductPage";
+import DeleteProductPage from "../pages/DeleteProductPage";
 
 const browserRouter = createBrowserRouter([
   {
@@ -30,6 +33,21 @@ const browserRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+      },
+      {
+        path: "/manage/add",
+        element: <AddProduct></AddProduct>,
+        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+      },
+      {
+        path: "/manage/update",
+        element: <UpdateProductPage></UpdateProductPage>,
+        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+      },
+      {
+        path: "/manage/delete",
+        element: <DeleteProductPage></DeleteProductPage>,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
       },
     ],
