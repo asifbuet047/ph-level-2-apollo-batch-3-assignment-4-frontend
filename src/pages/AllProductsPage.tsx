@@ -11,7 +11,7 @@ function AllProductsPage() {
     isSuccess,
   } = useGetAllProductsQuery(undefined);
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
       {isSuccess &&
         products.data.map((product, index) => (
           <SingleProductCard product={product} key={index}></SingleProductCard>

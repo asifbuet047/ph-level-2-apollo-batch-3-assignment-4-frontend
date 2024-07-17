@@ -1,7 +1,7 @@
 import MainLayout from "@/layouts/MainLayout";
-import AllProductsPage from "@/pages/AllProductsPage";
-import CartPage from "@/pages/CartPage";
-import ManageProductsPage from "@/pages/ManageProductsPage";
+import AllProductsPage from "../pages/AllProductsPage";
+import CartPage from "../pages/CartPage";
+import ManageProductsPage from "../pages/ManageProductsPage";
 import { createBrowserRouter } from "react-router-dom";
 import NoRouteFoundPage from "../pages/NoRouteFoundPage";
 import App from "../App";
