@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import AddProduct from "../pages/AddProductPage";
 import UpdateProductPage from "../pages/UpdateProductPage";
 import DeleteProductPage from "../pages/DeleteProductPage";
+import ProductDetailPage from "../pages/ProductDetailPage";
 
 const browserRouter = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const browserRouter = createBrowserRouter([
         path: "/manage/delete",
         element: <DeleteProductPage></DeleteProductPage>,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+      },
+      {
+        path: "/details/:productId",
+        element: <ProductDetailPage></ProductDetailPage>,
       },
     ],
   },

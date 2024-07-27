@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import NavigationBar from "./components/NavigationBar";
-import MainLayout from "./layouts/MainLayout";
-import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <div>
+    <div className="bg-[#FEFAE0] text-black">
       <NavigationBar></NavigationBar>
       <Outlet></Outlet>
       <Footer></Footer>

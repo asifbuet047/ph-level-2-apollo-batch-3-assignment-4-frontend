@@ -10,6 +10,7 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {
     storeAllProducts: (state, action: PayloadAction<TProduct[]>) => {
+      console.log(state.products);
       state.products = action.payload;
     },
     storeSingleProduct: (state, action: PayloadAction<TProduct>) => {

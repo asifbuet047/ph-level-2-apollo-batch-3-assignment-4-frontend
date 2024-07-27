@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { RouterProvider } from "react-router-dom";
 import browserRouter from "./router/browserRouter.tsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -14,5 +16,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </RouterProvider>
     </Provider>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={3000}
+      hideProgressBar={true}
+    />
   </React.StrictMode>
 );

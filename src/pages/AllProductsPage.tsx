@@ -11,23 +11,22 @@ import { TProduct } from "../types/AllTypes";
 function AllProductsPage() {
   const appState = useAppSelector((state) => state.products.products);
   const dispatch = useAppDispatch();
-  const {
-    data: products,
-    isFetching,
-    isSuccess,
-  } = useGetAllProductsQuery(undefined);
-
-  const saveIntoLocalState = () => {};
+  const [products, setProducts] = useState([]);
+  const { data, isFetching, isSuccess } = useGetAllProductsQuery([]);
 
   useEffect(() => {
-    console.log(products.data);
-    dispatch(storeAllProducts(products.data));
-  }, [products]);
+    console.log(
+      `isFetching:${isFetching},isSuccess:${isSuccess},Length: ${appState.length}`
+    );
+    if (isSuccess) {
+      dispatch(storeAllProducts(data.data as TProduct[]));
+    }
+  }, [isSuccess]); // use useEffect hook with isSuccess dependency to ensure whenever rtk query is completed then all data will stored in local state and ensure re render
 
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
       {isSuccess &&
-        products.data.map((product, index) => (
+        data.data.map((product, index) => (
           <SingleProductCard product={product} key={index}></SingleProductCard>
         ))}
       {isFetching && <BarLoader></BarLoader>}

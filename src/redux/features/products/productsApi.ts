@@ -29,6 +29,22 @@ export const productsApi = productsBaseApi.injectEndpoints({
           };
         },
       }),
+      updateproduct: builder.mutation({
+        query: (product: TProduct) => {
+          console.log(product);
+          return {
+            url: "/",
+            method: "PUT",
+            body: product,
+          };
+        },
+        transformResponse: (response: TReduxResponse<TProduct>) => {
+          console.log(response);
+          return {
+            data: response,
+          };
+        },
+      }),
       getProduct: builder.query({
         query: (productId) => {
           return {
@@ -66,4 +82,5 @@ export const {
   useCreateProductMutation,
   useGetProductQuery,
   useGetAllProductsQuery,
+  useUpdateproductMutation,
 } = productsApi;

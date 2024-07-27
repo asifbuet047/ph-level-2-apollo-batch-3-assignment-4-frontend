@@ -1,28 +1,45 @@
 import { TProduct } from "../types/AllTypes";
 
 import { motion } from "framer-motion";
+import { Button, Image } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 function SingleProductCard({ product }) {
+  const navigation = useNavigate();
   const temp: Partial<TProduct> = { ...product };
+
+  const gotoProductDetailPage = () => {
+    navigation(`/details/${temp._id}`);
+  };
+
   return (
-    <motion.div
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 1.1 }}
-      className="card bg-base-100 w-96 shadow-xl"
+    <div
+      className="border-2 shadow-md rounded-md flex flex-col justify-between items-center p-2"
+      onClick={gotoProductDetailPage}
     >
-      <figure className="px-10 pt-10">
-        <img
+      <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 1.05 }}>
+        <Image
           src={temp.product_image_url}
           alt={temp.name}
-          className="rounded-xl w-32 h-32"
-        />
-      </figure>
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">{temp.name}</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions"></div>
+          preview={false}
+          className="w-full h-full"
+        ></Image>
+      </motion.div>
+
+      <div className="items-center text-center">
+        <motion.h1>{temp.name}</motion.h1>
+        <p className="p-2">{temp.brand}</p>
+        <p className="p-2">{temp.price}</p>
+        <Button
+          icon={<ShoppingCartOutlined />}
+          iconPosition="start"
+          type="default"
+        >
+          <p>ADD TO CART</p>
+        </Button>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

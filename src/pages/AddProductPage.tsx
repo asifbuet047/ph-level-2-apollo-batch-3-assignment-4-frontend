@@ -15,6 +15,7 @@ function AddProduct() {
     getValues,
     formState: { errors },
   } = useForm();
+  
   const [creatProduct, { data, isError, isSuccess, isLoading, error }] =
     useCreateProductMutation();
   const navigate = useNavigate();
@@ -34,7 +35,6 @@ function AddProduct() {
 
   useEffect(() => {
     if (ref.current) {
-      console.log(ref.current.offsetWidth);
       setViewWidth(ref.current.offsetWidth);
     }
   }, []);
