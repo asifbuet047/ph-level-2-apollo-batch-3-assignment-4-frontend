@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Modal } from "antd";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
 import { BarLoader } from "react-spinners";
@@ -11,7 +11,6 @@ import { TProduct } from "../types/AllTypes";
 function AllProductsPage() {
   const appState = useAppSelector((state) => state.products.products);
   const dispatch = useAppDispatch();
-  const [products, setProducts] = useState([]);
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([]);
 
   useEffect(() => {
@@ -24,12 +23,18 @@ function AllProductsPage() {
   }, [isSuccess]); // use useEffect hook with isSuccess dependency to ensure whenever rtk query is completed then all data will stored in local state and ensure re render
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
-      {isSuccess &&
-        data.data.map((product, index) => (
-          <SingleProductCard product={product} key={index}></SingleProductCard>
-        ))}
-      {isFetching && <BarLoader></BarLoader>}
+    <div className="flex flex-col items-center">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-2">
+        {isSuccess &&
+          data.data.map((product, index) => (
+            <SingleProductCard
+              product={product}
+              key={index}
+            ></SingleProductCard>
+          ))}
+      </div>
+
+      <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>
   );
 }
