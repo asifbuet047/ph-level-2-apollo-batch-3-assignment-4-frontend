@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useMotionValue, motion, useAnimate } from "framer-motion";
 import SingleProductCard from "../components/SingleProductCard";
 import { useEffect, useRef, useState } from "react";
+import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
 
 function AddProduct() {
   const {
@@ -15,23 +16,12 @@ function AddProduct() {
     getValues,
     formState: { errors },
   } = useForm();
-  
+
   const [creatProduct, { data, isError, isSuccess, isLoading, error }] =
     useCreateProductMutation();
   const navigate = useNavigate();
   const ref = useRef(null);
   const [viewWidth, setViewWidth] = useState(0);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const validateWithZodSchema = (data: any) => {
-    const result =
-      ProductValidation.productCreationValidationSchema.safeParse(data);
-    if (result.error) {
-      return result.error.issues;
-    } else {
-      return result.success;
-    }
-  };
 
   useEffect(() => {
     if (ref.current) {
@@ -39,26 +29,11 @@ function AddProduct() {
     }
   }, []);
 
-  const parseInputForSubmit = () => {
-    const temp = { ...getValues() };
-    for (const key in temp) {
-      if (key === "quantity" || key === "price" || key === "rating") {
-        temp[key] = Number.parseInt(temp[key]);
-      } else if (key === "product_image_file") {
-        temp[key] = temp[key][0];
-      }
-    }
-    const { product_image_file, ...data } = temp;
-    return {
-      data,
-      file: product_image_file,
-    };
-  };
   const onHomeClick = () => {
     navigate("/");
   };
   const submit = () => {
-    creatProduct(parseInputForSubmit());
+    creatProduct(parseInputForProductAddSubmit(getValues()));
   };
   return (
     <div className="flex flex-col items-center">

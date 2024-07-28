@@ -33,7 +33,7 @@ export const productsApi = productsBaseApi.injectEndpoints({
         query: (product: TProduct) => {
           console.log(product);
           return {
-            url: "/",
+            url: `/${product._id}`,
             method: "PUT",
             body: product,
           };
@@ -41,7 +41,7 @@ export const productsApi = productsBaseApi.injectEndpoints({
         transformResponse: (response: TReduxResponse<TProduct>) => {
           console.log(response);
           return {
-            data: response,
+            response: response,
           };
         },
       }),
