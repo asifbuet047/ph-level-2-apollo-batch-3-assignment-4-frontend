@@ -20,18 +20,15 @@ function AddProduct() {
   const [creatProduct, { data, isError, isSuccess, isLoading, error }] =
     useCreateProductMutation();
   const navigate = useNavigate();
-  const ref = useRef(null);
+  const refForWidth = useRef(null);
   const [viewWidth, setViewWidth] = useState(0);
 
   useEffect(() => {
-    if (ref.current) {
-      setViewWidth(ref.current.offsetWidth);
+    if (refForWidth.current) {
+      setViewWidth(refForWidth.current.offsetWidth);
     }
-  }, []);
+  }, [refForWidth]);
 
-  const onHomeClick = () => {
-    navigate("/");
-  };
   const submit = () => {
     creatProduct(parseInputForProductAddSubmit(getValues()));
   };
@@ -44,7 +41,7 @@ function AddProduct() {
               onSubmit={handleSubmit(submit)}
               className="flex flex-col justify-center align-middle items-center p-5 w-full"
               encType="multipart/form-data"
-              ref={ref}
+              ref={refForWidth}
             >
               <input
                 type="text"

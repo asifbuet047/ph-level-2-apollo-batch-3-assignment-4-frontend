@@ -9,14 +9,10 @@ import { date } from "zod";
 import { TProduct } from "../types/AllTypes";
 
 function AllProductsPage() {
-  const appState = useAppSelector((state) => state.products.products);
   const dispatch = useAppDispatch();
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([]);
 
   useEffect(() => {
-    console.log(
-      `isFetching:${isFetching},isSuccess:${isSuccess},Length: ${appState.length}`
-    );
     if (isSuccess) {
       dispatch(storeAllProducts(data.data as TProduct[]));
     }
@@ -33,7 +29,6 @@ function AllProductsPage() {
             ></SingleProductCard>
           ))}
       </div>
-
       <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>
   );
