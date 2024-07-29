@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
 function NavigationBar() {
@@ -41,7 +40,7 @@ function NavigationBar() {
           </ul>
         </div>
       </div>
-      <div className="navbar-center hidden md:flex md:flex-col">
+      <div className="navbar-center hidden lg:flex lg:flex-col">
         <ul className="menu menu-horizontal px-1">
           <li>
             <NavLink to={"/"}>Homepage</NavLink>

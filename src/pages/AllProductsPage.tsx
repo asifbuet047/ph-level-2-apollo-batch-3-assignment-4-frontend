@@ -10,7 +10,9 @@ import { TProduct } from "../types/AllTypes";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
-  const { data, isFetching, isSuccess } = useGetAllProductsQuery([]);
+  const { data, isFetching, isSuccess } = useGetAllProductsQuery([],{
+
+  });
 
   useEffect(() => {
     if (isSuccess) {

@@ -4,9 +4,9 @@ import { Card } from "antd";
 
 function AddProductButton() {
   return (
-    <motion.div whileHover={{ scaleX: 1.1 }} whileTap={{ scale: 1.1 }}>
+    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 1.06 }}>
       <Card>
-        <p>Add product</p>
+        <p className="text-center">Add product</p>
       </Card>
     </motion.div>
   );
