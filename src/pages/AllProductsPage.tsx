@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
 import { BarLoader } from "react-spinners";
 import SingleProductCard from "../components/SingleProductCard";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/products/productsSlice";
 import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
@@ -13,14 +13,14 @@ function AllProductsPage() {
   const dispatch = useAppDispatch();
   const { control, register, setValue } = useForm();
   const searchWatch = useWatch({ control, name: "search" });
+  const allProducts = useAppSelector((state) => state.products.products);
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(storeAllProducts(data.data as TProduct[]));
     }
-    console.log(searchWatch);
-  }, [isSuccess, searchWatch]); // use useEffect hook with isSuccess dependency to ensure whenever rtk query is completed then all data will stored in local state and ensure re render
+  }, [isSuccess]);
 
   const onSearchCloseIconClick = () => {
     setValue("search", "");
@@ -55,13 +55,25 @@ function AllProductsPage() {
         </div>
       </div>
       <div className="grid lg:grid-cols-8 md:grid-cols-2 gap-2">
-        {isSuccess &&
-          data.data.map((product, index) => (
-            <SingleProductCard
-              product={product}
-              key={index}
-            ></SingleProductCard>
-          ))}
+        {isSuccess && (
+          <>
+            {!searchWatch
+              ? allProducts.map((product, index) => (
+                  <SingleProductCard
+                    product={product}
+                    key={index}
+                  ></SingleProductCard>
+                ))
+              : allProducts
+                  .filter((product) => product.name.includes(searchWatch))
+                  .map((product, index) => (
+                    <SingleProductCard
+                      product={product}
+                      key={index}
+                    ></SingleProductCard>
+                  ))}
+          </>
+        )}
       </div>
       <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>
