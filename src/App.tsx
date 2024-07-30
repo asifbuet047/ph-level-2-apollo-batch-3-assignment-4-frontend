@@ -4,7 +4,7 @@ import NavigationBar from "./components/NavigationBar";
 
 function App() {
   return (
-    <div className="bg-[#FEFAE0] text-black">
+    <div className=" text-black">
       <NavigationBar></NavigationBar>
       <Outlet></Outlet>
       <Footer></Footer>

@@ -9,7 +9,7 @@ import {
 } from "../redux/features/products/productsApi";
 import { Card } from "antd";
 import { BarLoader } from "react-spinners";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { TProduct } from "../types/AllTypes";
 import {
   parseInputForProductUpdateSubmit,
@@ -36,6 +36,7 @@ function UpdateProductPage() {
     setValue,
     formState: { errors },
   } = useForm();
+
   const refForWidth = useRef(null);
 
   const submit = () => {
@@ -57,7 +58,7 @@ function UpdateProductPage() {
   }, [refForWidth, isError, isSuccessQuery]);
 
   return (
-    <div className="flex flex-col items-center justify-between align-middle w-full border-2 border-red-800">
+    <div className="flex flex-col items-center justify-between align-middle w-full">
       {isSuccessQuery ? (
         <>
           {isSuccess ? (
@@ -160,6 +161,7 @@ function UpdateProductPage() {
                     variant="outlined"
                     label="Product name"
                     fullWidth
+                    disabled={isLoading}
                     type="text"
                     defaultValue={products?.data[0].name}
                     sx={{ marginBottom: 2 }}
@@ -202,6 +204,7 @@ function UpdateProductPage() {
                     className="mt-2 mb-2"
                     error={errors.description ? true : false}
                     fullWidth
+                    disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("description", { required: true })}
                   />
@@ -243,6 +246,7 @@ function UpdateProductPage() {
                     className="mt-2 mb-2"
                     error={errors.category ? true : false}
                     fullWidth
+                    disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("category", { required: true })}
                   />
@@ -284,6 +288,7 @@ function UpdateProductPage() {
                     className="mt-2 mb-2"
                     error={errors.brand ? true : false}
                     fullWidth
+                    disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("brand", { required: true })}
                   />
@@ -325,6 +330,7 @@ function UpdateProductPage() {
                     className="mt-2 mb-2"
                     error={errors.quantity ? true : false}
                     fullWidth
+                    disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("quantity", { required: true, min: 1 })}
                   />
@@ -366,6 +372,7 @@ function UpdateProductPage() {
                     className="mt-2 mb-2"
                     error={errors.price ? true : false}
                     fullWidth
+                    disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("price", { required: true, min: 0 })}
                   />
