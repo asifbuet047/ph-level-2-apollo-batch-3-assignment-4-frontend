@@ -1,7 +1,12 @@
 import React from "react";
+import ProductFilterPanel from "../components/ProductFilterPanel";
 
 function DeleteProductPage() {
-  return <div>DeleteProductPage</div>;
+  return (
+    <div>
+      <ProductFilterPanel></ProductFilterPanel>
+    </div>
+  );
 }
 
 export default DeleteProductPage;

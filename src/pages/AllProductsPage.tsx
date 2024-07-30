@@ -8,6 +8,7 @@ import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import ProductFilterPanel from "../components/ProductFilterPanel";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
@@ -54,26 +55,29 @@ function AllProductsPage() {
           ></TextField>
         </div>
       </div>
-      <div className="grid lg:grid-cols-8 md:grid-cols-2 gap-2">
-        {isSuccess && (
-          <>
-            {!searchWatch
-              ? allProducts.map((product, index) => (
-                  <SingleProductCard
-                    product={product}
-                    key={index}
-                  ></SingleProductCard>
-                ))
-              : allProducts
-                  .filter((product) => product.name.includes(searchWatch))
-                  .map((product, index) => (
+      <div className="flex flex-row justify-around">
+        <ProductFilterPanel></ProductFilterPanel>
+        <div className="grid lg:grid-cols-8 md:grid-cols-2 gap-2">
+          {isSuccess && (
+            <>
+              {!searchWatch
+                ? allProducts.map((product, index) => (
                     <SingleProductCard
                       product={product}
                       key={index}
                     ></SingleProductCard>
-                  ))}
-          </>
-        )}
+                  ))
+                : allProducts
+                    .filter((product) => product.name.includes(searchWatch))
+                    .map((product, index) => (
+                      <SingleProductCard
+                        product={product}
+                        key={index}
+                      ></SingleProductCard>
+                    ))}
+            </>
+          )}
+        </div>
       </div>
       <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>
