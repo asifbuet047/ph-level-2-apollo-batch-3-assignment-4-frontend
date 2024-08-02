@@ -15,6 +15,15 @@ export interface TInitialState {
   products: TProduct[];
 }
 
+export interface TFilterData {
+  name: string;
+  quantity: number;
+}
+
+export interface TFilterState {
+  filters: TFilterData[];
+}
+
 export interface TGenericSuccessfulResponse<T> {
   success: boolean;
   statusCode: number;

@@ -3,7 +3,6 @@ import { useAppSelector } from "../redux/hooks";
 import { motion } from "framer-motion";
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   Divider,
   Typography,

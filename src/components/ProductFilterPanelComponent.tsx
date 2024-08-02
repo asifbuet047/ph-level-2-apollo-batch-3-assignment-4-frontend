@@ -1,15 +1,20 @@
-import { Checkbox, Divider, FormControlLabel } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import PropTypes from "prop-types";
-import { TProduct } from "../types/AllTypes";
+import { TFilterData, TProduct } from "../types/AllTypes";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useEffect } from "react";
+import { storeFilter } from "../redux/features/products/filterSlice";
 
 function ProductFilterPanelComponent({ property, products }) {
-  const [data, setData] = useState();
+  const filterState = useAppSelector((state) => state.filters.filters);
+  const filterDispatch = useAppDispatch();
+  console.log(filterState);
   const allProducts = products as TProduct[];
-  let displayData: {
-    name: string;
-    quantity: number;
-  }[] = [];
+  let displayData: TFilterData[] = [];
+
+  useEffect(() => {
+    console.log(filterState);
+  }, [filterState]);
 
   switch (property) {
     case "brand":
@@ -49,13 +54,11 @@ function ProductFilterPanelComponent({ property, products }) {
       break;
   }
 
-  console.log(displayData);
-
   return (
     <div>
       {displayData &&
-        displayData.map((each) => (
-          <div className="flex flex-row justify-between m-2">
+        displayData.map((each, index) => (
+          <div key={index} className="flex flex-row justify-between m-2">
             <FormControlLabel
               control={<Checkbox />}
               label={each.name}
