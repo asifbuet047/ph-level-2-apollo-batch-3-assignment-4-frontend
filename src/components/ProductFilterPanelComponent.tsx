@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import { TFilterData, TProduct } from "../types/AllTypes";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
-import { storeFilter } from "../redux/features/products/filterSlice";
 
 function ProductFilterPanelComponent({ property, products }) {
   const filterState = useAppSelector((state) => state.filters.filters);
   const filterDispatch = useAppDispatch();
-  console.log(filterState);
+
   const allProducts = products as TProduct[];
   let displayData: TFilterData[] = [];
 
@@ -28,8 +27,10 @@ function ProductFilterPanelComponent({ property, products }) {
             product.brand.includes(name)
           ).length;
           return {
-            name,
-            quantity,
+            filter_name: property,
+            filter_checked: false,
+            filter_quantity: quantity,
+            filter_value: name,
           };
         });
       break;
@@ -44,8 +45,10 @@ function ProductFilterPanelComponent({ property, products }) {
             product.category.includes(name)
           ).length;
           return {
-            name,
-            quantity,
+            filter_name: property,
+            filter_checked: false,
+            filter_quantity: quantity,
+            filter_value: name,
           };
         });
       break;
@@ -60,11 +63,17 @@ function ProductFilterPanelComponent({ property, products }) {
         displayData.map((each, index) => (
           <div key={index} className="flex flex-row justify-between m-2">
             <FormControlLabel
-              control={<Checkbox />}
-              label={each.name}
+              control={
+                <Checkbox
+                  onChange={(event) => {
+                    console.log({ each, checked: event.target.checked });
+                  }}
+                />
+              }
+              label={each.filter_value}
             ></FormControlLabel>
             <p className=" pl-2 pr-2 border-2 rounded-md text-center">
-              {each.quantity}
+              {each.filter_quantity}
             </p>
           </div>
         ))}

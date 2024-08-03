@@ -16,8 +16,10 @@ export interface TInitialState {
 }
 
 export interface TFilterData {
-  name: string;
-  quantity: number;
+  filter_name: string;
+  filter_value: string;
+  filter_quantity: number;
+  filter_checked: boolean;
 }
 
 export interface TFilterState {
