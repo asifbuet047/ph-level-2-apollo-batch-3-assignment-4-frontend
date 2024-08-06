@@ -42,11 +42,8 @@ function UpdateProductPage() {
   const submit = () => {
     const temp = parseInputForProductUpdateSubmit(getValues());
     if (validateWithZodSchema(temp) == true) {
-      console.log("Data valdiated");
       const { __v, product_image_url, ...data } = temp;
       updateProduct(data);
-    } else {
-      console.log("Not ok");
     }
   };
 

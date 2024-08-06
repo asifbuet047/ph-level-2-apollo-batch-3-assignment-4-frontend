@@ -15,13 +15,14 @@ function AllProductsPage() {
   const { control, register, setValue } = useForm();
   const searchWatch = useWatch({ control, name: "search" });
   const allProducts = useAppSelector((state) => state.products.products);
+  const filterData = useAppSelector((state) => state.filters.filters);
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(storeAllProducts(data.data as TProduct[]));
     }
-  }, [isSuccess]);
+  }, [isSuccess, filterData]);
 
   const onSearchCloseIconClick = () => {
     setValue("search", "");

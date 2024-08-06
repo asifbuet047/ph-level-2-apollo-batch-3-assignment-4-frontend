@@ -2,18 +2,26 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import PropTypes from "prop-types";
 import { TFilterData, TProduct } from "../types/AllTypes";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { updateFilter } from "../redux/features/products/filterSlice";
 
 function ProductFilterPanelComponent({ property, products }) {
   const filterState = useAppSelector((state) => state.filters.filters);
   const filterDispatch = useAppDispatch();
+  const [localState, setLocalState] = useState<
+    {
+      name: string;
+      value: boolean;
+    }[]
+  >([]);
 
   const allProducts = products as TProduct[];
   let displayData: TFilterData[] = [];
 
   useEffect(() => {
-    console.log(filterState);
-  }, [filterState]);
+    console.log(localState);
+    const temp = [...localState];
+  }, [localState]);
 
   switch (property) {
     case "brand":
@@ -58,7 +66,7 @@ function ProductFilterPanelComponent({ property, products }) {
   }
 
   return (
-    <div>
+    <div className="border-2 border-red-200">
       {displayData &&
         displayData.map((each, index) => (
           <div key={index} className="flex flex-row justify-between m-2">
@@ -66,7 +74,15 @@ function ProductFilterPanelComponent({ property, products }) {
               control={
                 <Checkbox
                   onChange={(event) => {
-                    console.log({ each, checked: event.target.checked });
+                    each.filter_checked = event.target.checked;
+                    setLocalState([
+                      ...localState,
+                      {
+                        name: each.filter_value,
+                        value: each.filter_checked,
+                      },
+                    ]);
+                    filterDispatch(updateFilter(each as TFilterData));
                   }}
                 />
               }

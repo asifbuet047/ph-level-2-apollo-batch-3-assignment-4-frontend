@@ -19,7 +19,6 @@ export const productsSlice = createSlice({
       const index = state.products.findIndex(
         (value) => value._id == action.payload._id
       );
-      console.log(index);
       if (index >= 0) {
         state.products[index] = action.payload;
       }

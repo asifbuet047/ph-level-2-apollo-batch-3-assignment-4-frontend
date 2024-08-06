@@ -29,7 +29,6 @@ function ProductDetailPage() {
   };
 
   useEffect(() => {
-    console.log(product);
   }, [product]);
   return (
     <div>

@@ -9,15 +9,18 @@ const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    storeFilter: (state, action: PayloadAction<TFilterData>) => {
+    updateFilter: (state, action: PayloadAction<TFilterData>) => {
       state.filters.push(action.payload);
     },
     clearFilter: (state) => {
       state.filters = [];
     },
+    storeFilter: (state, action: PayloadAction<TFilterData[]>) => {
+      state.filters = action.payload;
+    },
   },
 });
 
-export const { storeFilter, clearFilter } = filterSlice.actions;
+export const { updateFilter, clearFilter, storeFilter } = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;

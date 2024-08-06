@@ -23,7 +23,6 @@ export const productsApi = productsBaseApi.injectEndpoints({
           };
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
-          console.log(response);
           return {
             data: response.data,
           };
@@ -38,7 +37,7 @@ export const productsApi = productsBaseApi.injectEndpoints({
           };
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
-          console.log(response);
+        
           return {
             response: response,
           };
