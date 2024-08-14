@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
 import { BarLoader } from "react-spinners";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/products/productsSlice";
 import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
@@ -14,12 +14,15 @@ function AllProductsPage() {
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
+  const filterState = useAppSelector((state) => state.filters.filters);
 
   useEffect(() => {
     if (isSuccess && data) {
-      dispatch(storeAllProducts(data.data as TProduct[]));
+      if (filterState.length == 0) {
+        dispatch(storeAllProducts(data.data as TProduct[]));
+      }
     }
-  }, [isSuccess, data]);
+  });
 
   const onSearchCloseIconClick = () => {
     setSearch("");

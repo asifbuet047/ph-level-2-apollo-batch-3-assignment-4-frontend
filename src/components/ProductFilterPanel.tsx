@@ -17,7 +17,6 @@ import {
 import {
   removeAllProducts,
   storeAllProducts,
-  storeSingleProduct,
   updateProducts,
 } from "../redux/features/products/productsSlice";
 import { TFilterData, TProduct } from "../types/AllTypes";
@@ -26,7 +25,9 @@ function ProductFilterPanel({ products }) {
   const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
   const filterState = useAppSelector((state) => state.filters.filters);
-  let activeFilters: TFilterData[] = [];
+  let activeFilters: TFilterData[] = filterState.filter(
+    (each) => each.filter_checked
+  );
 
   const brandPanelData = allProducts
     .map((product) => product.brand)
@@ -63,10 +64,11 @@ function ProductFilterPanel({ products }) {
     });
 
   useEffect(() => {
-    activeFilters = filterState.filter((each) => each.filter_checked);
     if (activeFilters.length == 0) {
+      console.log(activeFilters.length);
       dispatch(storeAllProducts(allProducts));
     } else {
+      console.log(activeFilters.length);
       dispatch(removeAllProducts());
       activeFilters.map((each) => {
         switch (each.filter_name) {
@@ -105,7 +107,7 @@ function ProductFilterPanel({ products }) {
   });
 
   return (
-    <motion.div className="flex flex-col justify-start border-2 border-red-600">
+    <motion.div className="flex flex-col justify-start">
       <div className="flex flex-row justify-around items-center bg-[#72BF44]">
         <Typography className="text-white" variant="h5" fontSize={20}>
           Filter By
