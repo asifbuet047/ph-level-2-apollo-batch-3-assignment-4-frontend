@@ -65,10 +65,8 @@ function ProductFilterPanel({ products }) {
 
   useEffect(() => {
     if (activeFilters.length == 0) {
-      console.log(activeFilters.length);
       dispatch(storeAllProducts(allProducts));
     } else {
-      console.log(activeFilters.length);
       dispatch(removeAllProducts());
       activeFilters.map((each) => {
         switch (each.filter_name) {
@@ -125,7 +123,7 @@ function ProductFilterPanel({ products }) {
       </div>
       <Divider />
       <div>
-        <Accordion>
+        <Accordion expanded={true}>
           <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
             Brand
           </AccordionSummary>
