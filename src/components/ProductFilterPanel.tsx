@@ -4,28 +4,65 @@ import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionSummary,
+  Checkbox,
   Divider,
+  FormControlLabel,
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ProductFilterPanelComponent from "./ProductFilterPanelComponent";
 import { clearFilter } from "../redux/features/products/filterSlice";
+import { storeAllProducts } from "../redux/features/products/productsSlice";
+import { TProduct } from "../types/AllTypes";
 
-function ProductFilterPanel() {
-  const allProducts = useAppSelector((state) => state.products.products);
-  const filterDispatch = useAppDispatch();
+function ProductFilterPanel({ products }) {
+  const allProducts: TProduct[] = products as TProduct[];
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {}, [allProducts]);
+  const brandPanelData = allProducts
+    .map((product) => product.brand)
+    .filter((name, index, array) => {
+      return array.indexOf(name) === index;
+    })
+    .map((name) => {
+      const quantity = allProducts.filter((product) =>
+        product.brand.includes(name)
+      ).length;
+      return {
+        filter_name: "brand",
+        filter_checked: false,
+        filter_quantity: quantity,
+        filter_value: name,
+      };
+    });
+
+  const categoryPanelData = allProducts
+    .map((product) => product.category)
+    .filter((name, index, array) => {
+      return array.indexOf(name) === index;
+    })
+    .map((name) => {
+      const quantity = allProducts.filter((product) =>
+        product.category.includes(name)
+      ).length;
+      return {
+        filter_name: "category",
+        filter_checked: false,
+        filter_quantity: quantity,
+        filter_value: name,
+      };
+    });
+
+
 
   return (
-    <motion.div className="flex flex-col justify-start">
+    <motion.div className="flex flex-col justify-start border-2 border-red-600">
       <div className="flex flex-row justify-around items-center bg-[#72BF44]">
         <Typography className="text-white" variant="h5" fontSize={20}>
           Filter By
         </Typography>
         <Typography
           onClick={() => {
-            filterDispatch(clearFilter());
+            dispatch(clearFilter());
           }}
           className="text-white"
           variant="h6"
@@ -40,20 +77,78 @@ function ProductFilterPanel() {
           <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
             Brand
           </AccordionSummary>
-          <ProductFilterPanelComponent
-            property="brand"
-            products={allProducts}
-          ></ProductFilterPanelComponent>
+          <div>
+            {brandPanelData.map((each, index) => (
+              <div key={index} className="flex flex-row justify-between m-2">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(event) => {
+                        if (event.target.checked) {
+                          dispatch(
+                            storeAllProducts(
+                              allProducts.filter((product) => {
+                                if (product.brand == each.filter_value) {
+                                  return true;
+                                } else {
+                                  return false;
+                                }
+                              })
+                            )
+                          );
+                        } else {
+                          dispatch(storeAllProducts(allProducts));
+                        }
+                      }}
+                    />
+                  }
+                  label={each.filter_value}
+                ></FormControlLabel>
+                <p className="pl-2 pr-2 border-2 rounded-md text-center">
+                  {each.filter_quantity}
+                </p>
+              </div>
+            ))}
+          </div>
         </Accordion>
         <Divider />
         <Accordion>
           <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
             Category
           </AccordionSummary>
-          <ProductFilterPanelComponent
-            property="category"
-            products={allProducts}
-          ></ProductFilterPanelComponent>
+          <div>
+            {categoryPanelData.map((each, index) => (
+              <div key={index} className="flex flex-row justify-between m-2">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(event) => {
+                        if (event.target.checked) {
+                          dispatch(
+                            storeAllProducts(
+                              allProducts.filter((product) => {
+                                if (product.category == each.filter_value) {
+                                  return true;
+                                } else {
+                                  return false;
+                                }
+                              })
+                            )
+                          );
+                        } else {
+                          dispatch(storeAllProducts(allProducts));
+                        }
+                      }}
+                    />
+                  }
+                  label={each.filter_value}
+                ></FormControlLabel>
+                <p className="pl-2 pr-2 border-2 rounded-md text-center">
+                  {each.filter_quantity}
+                </p>
+              </div>
+            ))}
+          </div>
         </Accordion>
       </div>
     </motion.div>

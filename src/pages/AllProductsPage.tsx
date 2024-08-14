@@ -1,32 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
 import { BarLoader } from "react-spinners";
-import SingleProductCard from "../components/SingleProductCard";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/products/productsSlice";
 import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
-import { useForm, useWatch } from "react-hook-form";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanel from "../components/ProductFilterPanel";
+import AllProducts from "../components/AllProducts";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
-  const { control, register, setValue } = useForm();
-  const searchWatch = useWatch({ control, name: "search" });
-  const allProducts = useAppSelector((state) => state.products.products);
-  const filterData = useAppSelector((state) => state.filters.filters);
+  const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
 
   useEffect(() => {
-    if (isSuccess) {
+    console.log(isSuccess);
+    if (isSuccess && data) {
       dispatch(storeAllProducts(data.data as TProduct[]));
     }
-  }, [isSuccess, filterData]);
+  }, [isSuccess, data]);
 
   const onSearchCloseIconClick = () => {
-    setValue("search", "");
+    setSearch("");
   };
+
   return (
     <div className="flex flex-col items-center border-2 border-red-800 p-4">
       <div className="flex flex-row justify-between rounded-md border-2 w-full mt-2 mb-2">
@@ -52,33 +50,18 @@ function AllProductsPage() {
                 </InputAdornment>
               ),
             }}
-            {...register("search")}
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
           ></TextField>
         </div>
       </div>
       <div className="flex flex-row justify-around">
-        <ProductFilterPanel></ProductFilterPanel>
-        <div className="grid lg:grid-cols-8 md:grid-cols-2 gap-2">
-          {isSuccess && (
-            <>
-              {!searchWatch
-                ? allProducts.map((product, index) => (
-                    <SingleProductCard
-                      product={product}
-                      key={index}
-                    ></SingleProductCard>
-                  ))
-                : allProducts
-                    .filter((product) => product.name.includes(searchWatch))
-                    .map((product, index) => (
-                      <SingleProductCard
-                        product={product}
-                        key={index}
-                      ></SingleProductCard>
-                    ))}
-            </>
-          )}
-        </div>
+        {isSuccess && (
+          <>
+            <ProductFilterPanel products={data.data}></ProductFilterPanel>{" "}
+            <AllProducts></AllProducts>
+          </>
+        )}
       </div>
       <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>

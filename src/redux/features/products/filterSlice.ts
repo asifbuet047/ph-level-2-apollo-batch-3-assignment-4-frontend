@@ -10,7 +10,16 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     updateFilter: (state, action: PayloadAction<TFilterData>) => {
-      state.filters.push(action.payload);
+      const index = state.filters.findIndex(
+        (each) =>
+          each.filter_name == action.payload.filter_name &&
+          each.filter_value == action.payload.filter_value
+      );
+      if (index >= 0) {
+        state.filters[index].filter_checked = action.payload.filter_checked;
+      } else {
+        state.filters.push(action.payload);
+      }
     },
     clearFilter: (state) => {
       state.filters = [];

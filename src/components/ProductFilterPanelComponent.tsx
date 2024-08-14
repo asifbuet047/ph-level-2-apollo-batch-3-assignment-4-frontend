@@ -2,26 +2,15 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import PropTypes from "prop-types";
 import { TFilterData, TProduct } from "../types/AllTypes";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { updateFilter } from "../redux/features/products/filterSlice";
+import { storeAllProducts } from "../redux/features/products/productsSlice";
 
 function ProductFilterPanelComponent({ property, products }) {
-  const filterState = useAppSelector((state) => state.filters.filters);
-  const filterDispatch = useAppDispatch();
-  const [localState, setLocalState] = useState<
-    {
-      name: string;
-      value: boolean;
-    }[]
-  >([]);
+  const dispatch = useAppDispatch();
+  const allProducts = useAppSelector((state) => state.products.products);
 
-  const allProducts = products as TProduct[];
   let displayData: TFilterData[] = [];
-
-  useEffect(() => {
-    console.log(localState);
-    const temp = [...localState];
-  }, [localState]);
 
   switch (property) {
     case "brand":
@@ -66,33 +55,38 @@ function ProductFilterPanelComponent({ property, products }) {
   }
 
   return (
-    <div className="border-2 border-red-200">
-      {displayData &&
-        displayData.map((each, index) => (
-          <div key={index} className="flex flex-row justify-between m-2">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  onChange={(event) => {
-                    each.filter_checked = event.target.checked;
-                    setLocalState([
-                      ...localState,
-                      {
-                        name: each.filter_value,
-                        value: each.filter_checked,
-                      },
-                    ]);
-                    filterDispatch(updateFilter(each as TFilterData));
-                  }}
-                />
-              }
-              label={each.filter_value}
-            ></FormControlLabel>
-            <p className=" pl-2 pr-2 border-2 rounded-md text-center">
-              {each.filter_quantity}
-            </p>
-          </div>
-        ))}
+    <div>
+      {displayData.map((each, index) => (
+        <div key={index} className="flex flex-row justify-between m-2">
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={(event) => {
+                  if (event.target.checked) {
+                    dispatch(
+                      storeAllProducts(
+                        allProducts.filter((product) => {
+                          if (product.brand == each.filter_value) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        })
+                      )
+                    );
+                  } else {
+                    dispatch(storeAllProducts(products));
+                  }
+                }}
+              />
+            }
+            label={each.filter_value}
+          ></FormControlLabel>
+          <p className="pl-2 pr-2 border-2 rounded-md text-center">
+            {each.filter_quantity}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
