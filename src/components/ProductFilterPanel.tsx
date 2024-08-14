@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { motion } from "framer-motion";
 import {
@@ -25,9 +25,10 @@ function ProductFilterPanel({ products }) {
   const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
   const filterState = useAppSelector((state) => state.filters.filters);
-  let activeFilters: TFilterData[] = filterState.filter(
+  const activeFilters: TFilterData[] = filterState.filter(
     (each) => each.filter_checked
   );
+  const [open, setOpen] = useState<boolean>(true);
 
   const brandPanelData = allProducts
     .map((product) => product.brand)
@@ -123,24 +124,65 @@ function ProductFilterPanel({ products }) {
       </div>
       <Divider />
       <div>
-        <Accordion expanded={true}>
-          <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
+        <Accordion expanded={open}>
+          <AccordionSummary
+            expandIcon={<ArrowDownwardIcon onClick={() => setOpen(!open)} />}
+          >
             Brand
           </AccordionSummary>
           <div>
             {brandPanelData.map((each, index) => (
               <div key={index} className="flex flex-row justify-between m-2">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={(event) => {
-                        each.filter_checked = event.target.checked;
-                        dispatch(updateFilter(each));
-                      }}
-                    />
-                  }
-                  label={each.filter_value}
-                ></FormControlLabel>
+                {activeFilters.length > 0 &&
+                activeFilters.findIndex(
+                  (filter) => filter.filter_name == "brand"
+                ) >= 0 ? (
+                  <>
+                    {activeFilters.findIndex(
+                      (filter) => filter.filter_value == each.filter_value
+                    ) >= 0 ? (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            defaultChecked={true}
+                            onChange={(event) => {
+                              each.filter_checked = event.target.checked;
+                              dispatch(updateFilter(each));
+                            }}
+                          />
+                        }
+                        label={each.filter_value}
+                      ></FormControlLabel>
+                    ) : (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={(event) => {
+                              each.filter_checked = event.target.checked;
+                              dispatch(updateFilter(each));
+                            }}
+                          />
+                        }
+                        label={each.filter_value}
+                      ></FormControlLabel>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={(event) => {
+                            each.filter_checked = event.target.checked;
+                            dispatch(updateFilter(each));
+                          }}
+                        />
+                      }
+                      label={each.filter_value}
+                    ></FormControlLabel>
+                  </>
+                )}
+
                 <p className="pl-2 pr-2 border-2 rounded-md text-center">
                   {each.filter_quantity}
                 </p>
@@ -156,17 +198,56 @@ function ProductFilterPanel({ products }) {
           <div>
             {categoryPanelData.map((each, index) => (
               <div key={index} className="flex flex-row justify-between m-2">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={(event) => {
-                        each.filter_checked = event.target.checked;
-                        dispatch(updateFilter(each));
-                      }}
-                    />
-                  }
-                  label={each.filter_value}
-                ></FormControlLabel>
+                {activeFilters.length > 0 &&
+                activeFilters.findIndex(
+                  (filter) => filter.filter_name == "category"
+                ) >= 0 ? (
+                  <>
+                    {activeFilters.findIndex(
+                      (filter) => filter.filter_value == each.filter_value
+                    ) >= 0 ? (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            defaultChecked={true}
+                            onChange={(event) => {
+                              each.filter_checked = event.target.checked;
+                              dispatch(updateFilter(each));
+                            }}
+                          />
+                        }
+                        label={each.filter_value}
+                      ></FormControlLabel>
+                    ) : (
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={(event) => {
+                              each.filter_checked = event.target.checked;
+                              dispatch(updateFilter(each));
+                            }}
+                          />
+                        }
+                        label={each.filter_value}
+                      ></FormControlLabel>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={(event) => {
+                            each.filter_checked = event.target.checked;
+                            dispatch(updateFilter(each));
+                          }}
+                        />
+                      }
+                      label={each.filter_value}
+                    ></FormControlLabel>
+                  </>
+                )}
+
                 <p className="pl-2 pr-2 border-2 rounded-md text-center">
                   {each.filter_quantity}
                 </p>
