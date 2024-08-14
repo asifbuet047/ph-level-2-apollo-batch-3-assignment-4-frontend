@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Button, Image } from "antd";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
-import { useGetProductQuery } from "../redux/features/products/productsApi";
+import { useGetProductQuery } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 
 function ProductDetailPage() {
@@ -28,8 +28,7 @@ function ProductDetailPage() {
     setQuantity(quantity - 1);
   };
 
-  useEffect(() => {
-  }, [product]);
+  useEffect(() => {}, [product]);
   return (
     <div>
       {isSuccess && (

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import {
   useGetAllProductsQuery,
   useUpdateproductMutation,
-} from "../redux/features/products/productsApi";
+} from "../redux/features/products/allApiEndpoints";
 import { Card } from "antd";
 import { BarLoader } from "react-spinners";
 import { useForm, useWatch } from "react-hook-form";

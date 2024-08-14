@@ -33,4 +33,12 @@ export interface TGenericSuccessfulResponse<T> {
   data: T;
 }
 
+export interface TDiscount {
+  title: string;
+  product_name: string;
+  product_price: number;
+  product_discount: number;
+  productId: string;
+}
+
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

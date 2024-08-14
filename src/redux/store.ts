@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { productsApi } from "./features/products/productsApi";
+import { allApiEndPoints } from "./features/products/allApiEndpoints";
 import { productsReducer } from "./features/products/productsSlice";
 import { filterReducer } from "./features/products/filterSlice";
 import { searchReducer } from "./features/products/searchSlice";
@@ -9,10 +9,10 @@ const store = configureStore({
     products: productsReducer,
     filters: filterReducer,
     search: searchReducer,
-    [productsApi.reducerPath]: productsApi.reducer,
+    [allApiEndPoints.reducerPath]: allApiEndPoints.reducer,
   },
   middleware: (defaultMiddlewares) =>
-    defaultMiddlewares().concat(productsApi.middleware),
+    defaultMiddlewares().concat(allApiEndPoints.middleware),
 });
 
 export default store;

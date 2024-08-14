@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
+import { useGetAllProductsQuery } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/products/productsSlice";

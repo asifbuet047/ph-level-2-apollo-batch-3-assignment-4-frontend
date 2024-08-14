@@ -1,23 +1,24 @@
 import {
+  TDiscount,
   TGenericSuccessfulResponse,
   TProduct,
   TReduxResponse,
 } from "../../../types/AllTypes";
-import { productsBaseApi } from "../../api/productsBaseApi";
+import { baseApi } from "../../api/baseApi";
 
-export const productsApi = productsBaseApi.injectEndpoints({
+export const allApiEndPoints = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       createProduct: builder.mutation({
         query: ({ data, file }) => {
           const formData = new FormData();
           formData.append("file", file);
-          //when sending data with file FormData should send dat this way or cant be pasrsed in server side
+          //when sending data with file FormData should send data this way or cant be parsed in server side
           for (const key in data) {
             formData.append(key, data[key]);
           }
           return {
-            url: "/",
+            url: "/product",
             method: "POST",
             body: formData,
           };
@@ -31,27 +32,25 @@ export const productsApi = productsBaseApi.injectEndpoints({
       updateproduct: builder.mutation({
         query: (product: TProduct) => {
           return {
-            url: `/${product._id}`,
+            url: `/product/${product._id}`,
             method: "PUT",
             body: product,
           };
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
-        
           return {
-            response: response,
+            response: response.data,
           };
         },
       }),
       getProduct: builder.query({
         query: (productId) => {
           return {
-            url: `/${productId}`,
+            url: `/product/${productId}`,
             method: "GET",
           };
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
-
           return {
             data: response.data,
           };
@@ -60,12 +59,27 @@ export const productsApi = productsBaseApi.injectEndpoints({
       getAllProducts: builder.query({
         query: () => {
           return {
-            url: "/",
+            url: "/product",
             method: "GET",
           };
         },
         transformResponse: (
           response: TGenericSuccessfulResponse<TProduct[]>
+        ) => {
+          return {
+            data: response.data,
+          };
+        },
+      }),
+      getAllDiscounts: builder.query({
+        query: () => {
+          return {
+            url: "/discount",
+            method: "GET",
+          };
+        },
+        transformResponse: (
+          response: TGenericSuccessfulResponse<TDiscount[]>
         ) => {
           return {
             data: response.data,
@@ -81,4 +95,5 @@ export const {
   useGetProductQuery,
   useGetAllProductsQuery,
   useUpdateproductMutation,
-} = productsApi;
+  useGetAllDiscountsQuery,
+} = allApiEndPoints;

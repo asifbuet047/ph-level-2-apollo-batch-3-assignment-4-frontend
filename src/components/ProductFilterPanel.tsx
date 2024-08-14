@@ -28,6 +28,7 @@ function ProductFilterPanel({ products }) {
   const activeFilters: TFilterData[] = filterState.filter(
     (each) => each.filter_checked
   );
+  console.log(activeFilters);
   const [open, setOpen] = useState<boolean>(true);
 
   const brandPanelData = allProducts
@@ -144,7 +145,7 @@ function ProductFilterPanel({ products }) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            defaultChecked={true}
+                            checked={true}
                             onChange={(event) => {
                               each.filter_checked = event.target.checked;
                               dispatch(updateFilter(each));
@@ -172,6 +173,7 @@ function ProductFilterPanel({ products }) {
                     <FormControlLabel
                       control={
                         <Checkbox
+                          checked={false}
                           onChange={(event) => {
                             each.filter_checked = event.target.checked;
                             dispatch(updateFilter(each));
@@ -209,7 +211,7 @@ function ProductFilterPanel({ products }) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            defaultChecked={true}
+                            checked={true}
                             onChange={(event) => {
                               each.filter_checked = event.target.checked;
                               dispatch(updateFilter(each));
@@ -237,6 +239,7 @@ function ProductFilterPanel({ products }) {
                     <FormControlLabel
                       control={
                         <Checkbox
+                          checked={false}
                           onChange={(event) => {
                             each.filter_checked = event.target.checked;
                             dispatch(updateFilter(each));

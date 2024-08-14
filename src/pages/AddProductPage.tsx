@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import { useForm } from "react-hook-form";
 import { ProductValidation } from "../utils/validationSchema";
-import { useCreateProductMutation } from "../redux/features/products/productsApi";
+import { useCreateProductMutation } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useMotionValue, motion, useAnimate } from "framer-motion";
