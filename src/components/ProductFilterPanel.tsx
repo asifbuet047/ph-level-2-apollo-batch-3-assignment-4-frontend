@@ -10,13 +10,23 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { clearFilter } from "../redux/features/products/filterSlice";
-import { storeAllProducts } from "../redux/features/products/productsSlice";
-import { TProduct } from "../types/AllTypes";
+import {
+  clearFilter,
+  updateFilter,
+} from "../redux/features/products/filterSlice";
+import {
+  removeAllProducts,
+  storeAllProducts,
+  storeSingleProduct,
+  updateProducts,
+} from "../redux/features/products/productsSlice";
+import { TFilterData, TProduct } from "../types/AllTypes";
 
 function ProductFilterPanel({ products }) {
   const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
+  const filterState = useAppSelector((state) => state.filters.filters);
+  let activeFilters: TFilterData[] = [];
 
   const brandPanelData = allProducts
     .map((product) => product.brand)
@@ -52,7 +62,47 @@ function ProductFilterPanel({ products }) {
       };
     });
 
+  useEffect(() => {
+    activeFilters = filterState.filter((each) => each.filter_checked);
+    if (activeFilters.length == 0) {
+      dispatch(storeAllProducts(allProducts));
+    } else {
+      dispatch(removeAllProducts());
+      activeFilters.map((each) => {
+        switch (each.filter_name) {
+          case "brand":
+            dispatch(
+              updateProducts(
+                allProducts.filter((product) => {
+                  if (product.brand == each.filter_value) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+              )
+            );
+            break;
+          case "category":
+            dispatch(
+              updateProducts(
+                allProducts.filter((product) => {
+                  if (product.category == each.filter_value) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })
+              )
+            );
+            break;
 
+          default:
+            break;
+        }
+      });
+    }
+  });
 
   return (
     <motion.div className="flex flex-col justify-start border-2 border-red-600">
@@ -84,21 +134,8 @@ function ProductFilterPanel({ products }) {
                   control={
                     <Checkbox
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          dispatch(
-                            storeAllProducts(
-                              allProducts.filter((product) => {
-                                if (product.brand == each.filter_value) {
-                                  return true;
-                                } else {
-                                  return false;
-                                }
-                              })
-                            )
-                          );
-                        } else {
-                          dispatch(storeAllProducts(allProducts));
-                        }
+                        each.filter_checked = event.target.checked;
+                        dispatch(updateFilter(each));
                       }}
                     />
                   }
@@ -123,21 +160,8 @@ function ProductFilterPanel({ products }) {
                   control={
                     <Checkbox
                       onChange={(event) => {
-                        if (event.target.checked) {
-                          dispatch(
-                            storeAllProducts(
-                              allProducts.filter((product) => {
-                                if (product.category == each.filter_value) {
-                                  return true;
-                                } else {
-                                  return false;
-                                }
-                              })
-                            )
-                          );
-                        } else {
-                          dispatch(storeAllProducts(allProducts));
-                        }
+                        each.filter_checked = event.target.checked;
+                        dispatch(updateFilter(each));
                       }}
                     />
                   }

@@ -15,6 +15,9 @@ export const productsSlice = createSlice({
     storeSingleProduct: (state, action: PayloadAction<TProduct>) => {
       state.products.push(action.payload);
     },
+    updateProducts: (state, action: PayloadAction<TProduct[]>) => {
+      state.products.push(...action.payload);
+    },
     updateSingleProduct: (state, action: PayloadAction<TProduct>) => {
       const index = state.products.findIndex(
         (value) => value._id == action.payload._id
@@ -28,6 +31,9 @@ export const productsSlice = createSlice({
         (product) => product.name != action.payload.name
       );
     },
+    removeAllProducts: (state) => {
+      state.products = [];
+    },
   },
 });
 
@@ -36,6 +42,8 @@ export const {
   storeSingleProduct,
   removeSingleProduct,
   updateSingleProduct,
+  updateProducts,
+  removeAllProducts,
 } = productsSlice.actions;
 
 export const productsReducer = productsSlice.reducer;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllProductsQuery } from "../redux/features/products/productsApi";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch } from "../redux/hooks";
@@ -8,6 +8,7 @@ import { InputAdornment, TextField, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanel from "../components/ProductFilterPanel";
 import AllProducts from "../components/AllProducts";
+import { updateSearch } from "../redux/features/products/searchSlice";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
@@ -15,7 +16,6 @@ function AllProductsPage() {
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess && data) {
       dispatch(storeAllProducts(data.data as TProduct[]));
     }
@@ -23,6 +23,7 @@ function AllProductsPage() {
 
   const onSearchCloseIconClick = () => {
     setSearch("");
+    dispatch(updateSearch(""));
   };
 
   return (
@@ -51,7 +52,10 @@ function AllProductsPage() {
               ),
             }}
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              dispatch(updateSearch(search));
+            }}
           ></TextField>
         </div>
       </div>
