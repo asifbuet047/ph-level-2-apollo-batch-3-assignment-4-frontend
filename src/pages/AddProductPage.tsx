@@ -5,7 +5,7 @@ import { useCreateProductMutation } from "../redux/features/products/allApiEndpo
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { useMotionValue, motion, useAnimate } from "framer-motion";
-import SingleProductCard from "../components/SingleProductCard";
+import SingleProductCardComponent from "../components/SingleProductCardComponent";
 import { useEffect, useRef, useState } from "react";
 import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
 
@@ -113,7 +113,7 @@ function AddProduct() {
           )}
 
           {isSuccess && (
-            <SingleProductCard product={data.data}></SingleProductCard>
+            <SingleProductCardComponent product={data.data}></SingleProductCardComponent>
           )}
         </div>
       </Card>

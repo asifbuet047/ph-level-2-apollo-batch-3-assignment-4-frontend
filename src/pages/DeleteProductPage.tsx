@@ -1,10 +1,10 @@
 import React from "react";
-import ProductFilterPanel from "../components/ProductFilterPanel";
+import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
 
 function DeleteProductPage() {
   return (
     <div>
-      <ProductFilterPanel></ProductFilterPanel>
+      <ProductFilterPanelComponent></ProductFilterPanelComponent>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
-import Footer from "./components/Footer";
-import NavigationBar from "./components/NavigationBar";
+import FooterComponent from "./components/FooterComponent";
+import NavigationBarComponent from "./components/NavigationBarComponent";
 
 function App() {
   return (
     <div className=" text-black">
-      <NavigationBar></NavigationBar>
+      <NavigationBarComponent></NavigationBarComponent>
       <Outlet></Outlet>
-      <Footer></Footer>
+      <FooterComponent></FooterComponent>
     </div>
   );
 }

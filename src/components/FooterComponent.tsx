@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer() {
+function FooterComponent() {
   return (
     <footer className="footer bg-[#fefae0] p-10 rounded-md">
       <nav>
@@ -59,4 +59,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterComponent;

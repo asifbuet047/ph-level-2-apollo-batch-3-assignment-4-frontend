@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card } from "antd";
 
-function UpdateProductButton() {
+function UpdateProductButtonComponent() {
   return (
     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 1.05 }}>
       <Card>
@@ -12,4 +12,4 @@ function UpdateProductButton() {
   );
 }
 
-export default UpdateProductButton;
+export default UpdateProductButtonComponent;

@@ -10,8 +10,7 @@ function DiscountComponent({ discount }) {
   const titles: string[] = discountInfo.title.split(" ");
   const navigate = useNavigate();
 
-  const onBuyNowButtonClick = (event) => {
-    console.log(discountInfo);
+  const onBuyNowButtonClick = () => {
     navigate(`/details/${discountInfo.productId}`);
   };
 
@@ -43,9 +42,7 @@ function DiscountComponent({ discount }) {
           className="p-4"
         >
           <Grid item>
-            <p className="text-4xl font-bold">
-              {discountInfo.product_name}
-            </p>
+            <p className="text-4xl font-bold">{discountInfo.product_name}</p>
           </Grid>
 
           <Grid

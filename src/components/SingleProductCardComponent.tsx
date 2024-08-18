@@ -5,7 +5,7 @@ import { Button, Image } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
-function SingleProductCard({ product }) {
+function SingleProductCardComponent({ product }) {
   const navigation = useNavigate();
   const temp: Partial<TProduct> = { ...product };
 
@@ -43,4 +43,4 @@ function SingleProductCard({ product }) {
   );
 }
 
-export default SingleProductCard;
+export default SingleProductCardComponent;

@@ -1,9 +1,11 @@
 import DiscountCarouselComponent from "../components/DiscountCarouselComponent";
+import FeaturedProducts from "../components/FeaturedProducts";
 
 function HomePage() {
   return (
-    <div className="h-screen">
+    <div className="h-auto">
       <DiscountCarouselComponent />
+      <FeaturedProducts />
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import SingleProductCard from "./SingleProductCard";
+import SingleProductCardComponent from "./SingleProductCardComponent";
 import { useAppSelector } from "../redux/hooks";
 import { useEffect } from "react";
 
-function AllProducts() {
+function AllProductsComponent() {
   const products = useAppSelector((state) => state.products.products);
   const searchField = useAppSelector((state) => state.search.field);
 
@@ -12,16 +12,16 @@ function AllProducts() {
         ? products
             .filter((product) => product.name.includes(searchField))
             .map((product, index) => (
-              <SingleProductCard
+              <SingleProductCardComponent
                 product={product}
                 key={index}
-              ></SingleProductCard>
+              ></SingleProductCardComponent>
             ))
         : products.map((product, index) => (
-            <SingleProductCard product={product} key={index} />
+            <SingleProductCardComponent product={product} key={index} />
           ))}
     </div>
   );
 }
 
-export default AllProducts;
+export default AllProductsComponent;

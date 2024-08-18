@@ -6,8 +6,8 @@ import { storeAllProducts } from "../redux/features/products/productsSlice";
 import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import ProductFilterPanel from "../components/ProductFilterPanel";
-import AllProducts from "../components/AllProducts";
+import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
+import AllProductsComponent from "../components/AllProductsComponent";
 import { updateSearch } from "../redux/features/products/searchSlice";
 
 function AllProductsPage() {
@@ -65,8 +65,8 @@ function AllProductsPage() {
       <div className="flex flex-row justify-around">
         {isSuccess && (
           <>
-            <ProductFilterPanel products={data.data}></ProductFilterPanel>{" "}
-            <AllProducts></AllProducts>
+            <ProductFilterPanelComponent products={data.data}></ProductFilterPanelComponent>{" "}
+            <AllProductsComponent></AllProductsComponent>
           </>
         )}
       </div>

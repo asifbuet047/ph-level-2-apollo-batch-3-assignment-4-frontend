@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function NavigationBar() {
+function NavigationBarComponent() {
   return (
     <div className="navbar bg-[#fefae0] rounded-md">
       <div className="navbar-start">
@@ -60,4 +60,4 @@ function NavigationBar() {
   );
 }
 
-export default NavigationBar;
+export default NavigationBarComponent;

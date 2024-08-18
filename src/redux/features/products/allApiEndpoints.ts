@@ -86,6 +86,21 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
       }),
+      getLatestProducts: builder.query({
+        query: () => {
+          return {
+            url: "/product?latest=1",
+            method: "GET",
+          };
+        },
+        transformResponse: (
+          response: TGenericSuccessfulResponse<TProduct[]>
+        ) => {
+          return {
+            data: response.data,
+          };
+        },
+      }),
     };
   },
 });
@@ -96,4 +111,5 @@ export const {
   useGetAllProductsQuery,
   useUpdateproductMutation,
   useGetAllDiscountsQuery,
+  useGetLatestProductsQuery,
 } = allApiEndPoints;
