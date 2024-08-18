@@ -3,10 +3,17 @@ import { Grid } from "@mui/material";
 import { Button } from "antd";
 import { motion } from "framer-motion";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useNavigate } from "react-router-dom";
 
 function DiscountComponent({ discount }) {
-  const dis: TDiscount = discount;
-  const titles: string[] = dis.title.split(" ");
+  const discountInfo: TDiscount = discount;
+  const titles: string[] = discountInfo.title.split(" ");
+  const navigate = useNavigate();
+
+  const onBuyNowButtonClick = (event) => {
+    console.log(discountInfo);
+    navigate(`/details/${discountInfo.productId}`);
+  };
   return (
     <Grid
       container
@@ -22,7 +29,7 @@ function DiscountComponent({ discount }) {
         className="p-4"
       >
         <Grid container item>
-          <p className="text-4xl font-bold mb-3">{dis.product_name}</p>
+          <p className="text-4xl font-bold mb-3">{discountInfo.product_name}</p>
         </Grid>
 
         <Grid
@@ -43,7 +50,7 @@ function DiscountComponent({ discount }) {
             className="rounded-full p-4 inline-block border-4 border-red-500"
           >
             <div className="flex flex-row">
-              <p className="text-5xl">{dis.product_discount}</p>
+              <p className="text-5xl">{discountInfo.product_discount}</p>
               <svg
                 className="w-12"
                 viewBox="0 0 48 48"
@@ -79,6 +86,7 @@ function DiscountComponent({ discount }) {
             iconPosition="start"
             icon={<ShoppingCartOutlinedIcon />}
             className="w-1/2 font-bold"
+            onClick={onBuyNowButtonClick}
           >
             Buy now
           </Button>
