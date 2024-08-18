@@ -17,7 +17,7 @@ function DiscountComponent({ discount }) {
   return (
     <Grid
       container
-      className="bg-[url('sales_2.jpg')] bg-cover bg-center h-64 text-black"
+      className="bg-[url('sales_2.jpg')] bg-cover bg-center text-black"
     >
       <Grid
         container
@@ -25,16 +25,15 @@ function DiscountComponent({ discount }) {
         direction={"column"}
         md={6}
         justifyContent={"space-around"}
-        alignItems={"flex-start"}
-        className="p-4"
+        alignContent={"space-evenly"}
+        className="p-4 border-2 border-red-800"
       >
-        <Grid container item>
+        <Grid item>
           <p className="text-4xl font-bold mb-3">{discountInfo.product_name}</p>
         </Grid>
 
         <Grid
           container
-          item
           justifyContent={"flex-start"}
           alignItems={"center"}
           direction={"row"}
@@ -77,7 +76,9 @@ function DiscountComponent({ discount }) {
               </svg>
             </div>
           </motion.div>
-          <p className="text-3xl ml-4 ">discount</p>
+          <Grid item>
+            <p className="text-3xl ml-4 ">discount</p>
+          </Grid>
         </Grid>
         <Grid container item>
           <Button
