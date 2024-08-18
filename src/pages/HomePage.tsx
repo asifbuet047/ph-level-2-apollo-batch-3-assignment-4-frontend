@@ -2,7 +2,7 @@ import DiscountCarouselComponent from "../components/DiscountCarouselComponent";
 
 function HomePage() {
   return (
-    <div className="">
+    <div className="h-screen">
       <DiscountCarouselComponent />
     </div>
   );
