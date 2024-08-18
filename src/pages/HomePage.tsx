@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <div>
       {isSuccess && (
-        <Carousel autoplay={true}>
+        <Carousel autoplay={true} autoplaySpeed={5000} arrows={true}>
           {discounts.map((discount) => {
             return <DiscountComponent discount={discount}></DiscountComponent>;
           })}
