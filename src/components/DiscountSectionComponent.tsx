@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 
-function DiscountComponent({ discount }) {
+function DiscountSectionComponent({ discount }) {
   const discountInfo: TDiscount = discount;
   const titles: string[] = discountInfo.title.split(" ");
   const navigate = useNavigate();
@@ -126,4 +126,4 @@ function DiscountComponent({ discount }) {
   );
 }
 
-export default DiscountComponent;
+export default DiscountSectionComponent;

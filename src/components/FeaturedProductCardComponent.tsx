@@ -33,7 +33,6 @@ function FeaturedProductCardComponent({ product }) {
                 initialRating={productDetails.rating}
                 emptySymbol={<StarBorderOutlinedIcon />}
                 fullSymbol={<StarOutlinedIcon />}
-                onChange={(rate) => console.log(rate)}
                 stop={10}
                 className="pt-2 pb-2 w-56"
               ></Rating>

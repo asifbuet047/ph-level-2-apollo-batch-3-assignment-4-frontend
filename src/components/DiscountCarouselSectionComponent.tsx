@@ -1,11 +1,11 @@
 import { Carousel } from "antd";
 import { useGetAllDiscountsQuery } from "../redux/features/products/allApiEndpoints";
 import { TDiscount } from "../types/AllTypes";
-import DiscountComponent from "./DiscountComponent";
+import DiscountSectionComponent from "./DiscountSectionComponent";
 import { PropagateLoader } from "react-spinners";
 import { Box, Stack } from "@mui/material";
 
-function DiscountCarouselComponent() {
+function DiscountCarouselSectionComponent() {
   const { data, isSuccess, isFetching } = useGetAllDiscountsQuery([], {});
   const discounts: TDiscount[] = data?.data as TDiscount[];
   return (
@@ -19,9 +19,12 @@ function DiscountCarouselComponent() {
             adaptiveHeight={true}
             className="border-4 border-indigo-900"
           >
-            {discounts.map((discount) => {
+            {discounts.map((discount, index) => {
               return (
-                <DiscountComponent discount={discount}></DiscountComponent>
+                <DiscountSectionComponent
+                  discount={discount}
+                  key={index}
+                ></DiscountSectionComponent>
               );
             })}
           </Carousel>
@@ -40,4 +43,4 @@ function DiscountCarouselComponent() {
   );
 }
 
-export default DiscountCarouselComponent;
+export default DiscountCarouselSectionComponent;

@@ -101,6 +101,24 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
       }),
+      getCategories: builder.query({
+        query: () => {
+          return {
+            url: "/product/categories",
+            method: "GET",
+          };
+        },
+        transformResponse: (response: TGenericSuccessfulResponse<string[]>) => {
+          return {
+            data: response.data,
+          };
+        },
+        transformErrorResponse: (response) => {
+          return {
+            data: response.data,
+          };
+        },
+      }),
     };
   },
 });
@@ -112,4 +130,5 @@ export const {
   useUpdateproductMutation,
   useGetAllDiscountsQuery,
   useGetLatestProductsQuery,
+  useGetCategoriesQuery,
 } = allApiEndPoints;

@@ -5,7 +5,7 @@ import { useGetLatestProductsQuery } from "../redux/features/products/allApiEndp
 import { Grid, Stack } from "@mui/material";
 import { TProduct } from "../types/AllTypes";
 
-function FeaturedProducts() {
+function FeaturedProductsSectionComponent() {
   const { data, isSuccess, isFetching } = useGetLatestProductsQuery([], {});
   const featuredProducts: TProduct[] = data?.data as TProduct[];
   return (
@@ -39,4 +39,4 @@ function FeaturedProducts() {
   );
 }
 
-export default FeaturedProducts;
+export default FeaturedProductsSectionComponent;
