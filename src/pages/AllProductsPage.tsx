@@ -9,9 +9,11 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
 import AllProductsComponent from "../components/AllProductsComponent";
 import { updateSearch } from "../redux/features/products/searchSlice";
+import { useLocation } from "react-router-dom";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
+  const { state } = useLocation();
   const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
   const filterState = useAppSelector((state) => state.filters.filters);
@@ -65,7 +67,9 @@ function AllProductsPage() {
       <div className="flex flex-row justify-around">
         {isSuccess && (
           <>
-            <ProductFilterPanelComponent products={data.data}></ProductFilterPanelComponent>{" "}
+            <ProductFilterPanelComponent
+              products={data.data}
+            ></ProductFilterPanelComponent>{" "}
             <AllProductsComponent></AllProductsComponent>
           </>
         )}

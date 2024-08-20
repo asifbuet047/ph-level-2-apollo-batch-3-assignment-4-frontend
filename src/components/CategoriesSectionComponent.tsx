@@ -3,11 +3,23 @@ import { useGetCategoriesQuery } from "../redux/features/products/allApiEndpoint
 import { PropagateLoader } from "react-spinners";
 import { Grid, Stack } from "@mui/material";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { updateFilter } from "../redux/features/products/filterSlice";
+import { TFilterData } from "../types/AllTypes";
 
 function CategoriesSectionComponent() {
   const { data, isSuccess, isFetching } = useGetCategoriesQuery([], {});
   const allCategories: string[] = data?.data as string[];
-  console.log(allCategories);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  let filterData: TFilterData = {
+    filter_name: "category",
+    filter_value: "",
+    filter_quantity: 0,
+    filter_checked: true,
+  };
+
   return (
     <Grid
       container
@@ -28,6 +40,11 @@ function CategoriesSectionComponent() {
               whileHover={{ scale: 1.1 }}
               key={index}
               className="text-xl"
+              onClick={() => {
+                filterData.filter_value = category;
+                dispatch(updateFilter(filterData));
+                navigate("/products");
+              }}
             >
               #{category}
             </motion.button>

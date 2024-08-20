@@ -1,16 +1,16 @@
 import AllProductsPage from "../pages/AllProductsPage";
 import CartPage from "../pages/CartPage";
 import ManageProductsPage from "../pages/ManageProductsPage";
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouterProps, createBrowserRouter } from "react-router-dom";
 import NoRouteFoundPage from "../pages/ErrorPages/NoRouteFoundPage";
 import App from "../App";
 import HomePage from "../pages/HomePage";
-import AddProduct from "../pages/AddProductPage";
+import AddProductPage from "../pages/AddProductPage";
 import UpdateProductPage from "../pages/UpdateProductPage";
 import DeleteProductPage from "../pages/DeleteProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
 
-const browserRouter = createBrowserRouter([
+const browserRouter: BrowserRouterProps = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -37,7 +37,7 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: "/manage/add",
-        element: <AddProduct></AddProduct>,
+        element: <AddProductPage></AddProductPage>,
         errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
       },
       {

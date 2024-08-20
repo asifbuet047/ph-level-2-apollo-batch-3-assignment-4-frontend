@@ -1,15 +1,13 @@
 import { Card } from "antd";
 import { useForm } from "react-hook-form";
-import { ProductValidation } from "../utils/validationSchema";
 import { useCreateProductMutation } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { useMotionValue, motion, useAnimate } from "framer-motion";
 import SingleProductCardComponent from "../components/SingleProductCardComponent";
 import { useEffect, useRef, useState } from "react";
 import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
 
-function AddProduct() {
+function AddProductPage() {
   const {
     register,
     handleSubmit,
@@ -113,7 +111,9 @@ function AddProduct() {
           )}
 
           {isSuccess && (
-            <SingleProductCardComponent product={data.data}></SingleProductCardComponent>
+            <SingleProductCardComponent
+              product={data.data}
+            ></SingleProductCardComponent>
           )}
         </div>
       </Card>
@@ -121,4 +121,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default AddProductPage;

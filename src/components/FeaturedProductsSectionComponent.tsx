@@ -1,4 +1,3 @@
-import React from "react";
 import { PropagateLoader } from "react-spinners";
 import FeaturedProductCardComponent from "./FeaturedProductCardComponent";
 import { useGetLatestProductsQuery } from "../redux/features/products/allApiEndpoints";

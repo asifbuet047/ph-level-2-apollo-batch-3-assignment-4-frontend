@@ -28,7 +28,6 @@ function ProductFilterPanelComponent({ products }) {
   const activeFilters: TFilterData[] = filterState.filter(
     (each) => each.filter_checked
   );
-  console.log(activeFilters);
   const [open, setOpen] = useState<boolean>(true);
 
   const brandPanelData = allProducts
