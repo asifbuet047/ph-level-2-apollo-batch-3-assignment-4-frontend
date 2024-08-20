@@ -17,7 +17,7 @@ function FeaturedProductsSectionComponent() {
       direction={"row"}
       columns={10}
     >
-      <Grid md={10} className="">
+      <Grid item md={10}>
         <p className="text-6xl text-center p-5 font-bold">Featured products</p>
       </Grid>
       {isSuccess &&

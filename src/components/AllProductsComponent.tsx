@@ -1,6 +1,5 @@
 import SingleProductCardComponent from "./SingleProductCardComponent";
 import { useAppSelector } from "../redux/hooks";
-import { useEffect } from "react";
 
 function AllProductsComponent() {
   const products = useAppSelector((state) => state.products.products);
