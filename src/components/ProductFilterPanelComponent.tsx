@@ -7,6 +7,7 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
+  Slider,
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -24,6 +25,7 @@ import { TFilterData, TProduct } from "../types/AllTypes";
 function ProductFilterPanelComponent({ products }) {
   const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
+  const [priceRange, setPriceRange] = useState<number[]>([0, 200]);
   const filterState = useAppSelector((state) => state.filters.filters);
   const activeFilters: TFilterData[] = filterState.filter(
     (each) => each.filter_checked
@@ -134,6 +136,25 @@ function ProductFilterPanelComponent({ products }) {
     });
   }
 
+  const handlePriceSlider = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+    if (activeThumb === 0) {
+      setPriceRange([Math.min(newValue[0], priceRange[1] - 10), priceRange[1]]);
+    } else {
+      setPriceRange([priceRange[0], Math.max(newValue[1], priceRange[0] + 10)]);
+    }
+  };
+
+  useEffect(() => {
+    console.log(priceRange);
+  }, [priceRange]);
+
   return (
     <motion.div className="flex flex-col justify-start">
       <div className="flex flex-row justify-around items-center bg-[#72BF44]">
@@ -153,6 +174,12 @@ function ProductFilterPanelComponent({ products }) {
       </div>
       <Divider />
       <div>
+        <Slider
+          value={priceRange}
+          onChange={handlePriceSlider}
+          valueLabelDisplay="auto"
+          disableSwap
+        ></Slider>
         <Accordion expanded={open} onClick={() => setOpen(!open)}>
           <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
             Brand
