@@ -9,11 +9,13 @@ function HomePage() {
   return (
     <div className="">
       <DiscountCarouselSectionComponent />
+      <Divider />
       <FeaturedProductsSectionComponent />
+      <Divider />
       <CategoriesSectionComponent />
-      <Divider/>
+      <Divider />
       <ContactUsSectionComponent />
-      <Divider/>
+      <Divider />
       <OurTeamSectionComponent />
     </div>
   );
