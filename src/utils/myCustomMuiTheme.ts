@@ -10,4 +10,10 @@ export const myCustomMuiTheme = createTheme({
       xl: 1280,
     },
   },
+  palette: {
+    primary: {
+      light: "#000000",
+      main: "#000000",
+    },
+  },
 });
