@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import AddProductButtonComponent from "../components/AddProductButtonComponent";
 import UpdateProductButtonComponent from "../components/UpdateProductButtonComponent";
 import DeleteProductButtonComponent from "../components/DeleteProductButtonComponent";
