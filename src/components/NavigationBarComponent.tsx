@@ -37,6 +37,9 @@ function NavigationBarComponent() {
             <li>
               <NavLink to={"/cart"}>My Cart</NavLink>
             </li>
+            <li>
+              <NavLink to={"/about"}>About Us</NavLink>
+            </li>
           </ul>
         </div>
       </div>
@@ -53,6 +56,9 @@ function NavigationBarComponent() {
           </li>
           <li>
             <NavLink to={"/cart"}>My Cart</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/about"}>About Us</NavLink>
           </li>
         </ul>
       </div>

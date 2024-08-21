@@ -9,6 +9,7 @@ import AddProductPage from "../pages/AddProductPage";
 import UpdateProductPage from "../pages/UpdateProductPage";
 import DeleteProductPage from "../pages/DeleteProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
+import AboutUsPage from "../pages/AboutUsPage";
 
 const browserRouter: BrowserRouterProps = createBrowserRouter([
   {
@@ -17,42 +18,46 @@ const browserRouter: BrowserRouterProps = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage></HomePage>,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        element: <HomePage />,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/products",
         element: <AllProductsPage />,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/manage",
         element: <ManageProductsPage />,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/cart",
         element: <CartPage />,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/manage/add",
-        element: <AddProductPage></AddProductPage>,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        element: <AddProductPage />,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/manage/update",
-        element: <UpdateProductPage></UpdateProductPage>,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        element: <UpdateProductPage />,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/manage/delete",
-        element: <DeleteProductPage></DeleteProductPage>,
-        errorElement: <NoRouteFoundPage></NoRouteFoundPage>,
+        element: <DeleteProductPage />,
+        errorElement: <NoRouteFoundPage />,
       },
       {
         path: "/details/:productId",
-        element: <ProductDetailPage></ProductDetailPage>,
+        element: <ProductDetailPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutUsPage />,
       },
     ],
   },

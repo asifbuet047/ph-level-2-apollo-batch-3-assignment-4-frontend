@@ -32,7 +32,7 @@ function AllProductsPage() {
   };
 
   return (
-    <div className="flex flex-col items-center border-2 border-red-800 p-4">
+    <div className="flex flex-col items-center p-4">
       <div className="flex flex-row justify-between rounded-md border-2 w-full mt-2 mb-2">
         <div className="flex flex-row justify-start items-center p-2">
           <Typography className="text-2xl font-bold">

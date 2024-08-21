@@ -10,6 +10,7 @@ function HomePage() {
       <DiscountCarouselSectionComponent />
       <FeaturedProductsSectionComponent />
       <CategoriesSectionComponent />
+      <Divider/>
       <ContactUsSectionComponent />
     </div>
   );
