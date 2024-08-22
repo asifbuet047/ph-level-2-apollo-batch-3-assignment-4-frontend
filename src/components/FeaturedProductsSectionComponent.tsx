@@ -1,40 +1,32 @@
 import { PropagateLoader } from "react-spinners";
 import FeaturedProductCardComponent from "./FeaturedProductCardComponent";
-import { useGetLatestProductsQuery } from "../redux/features/products/allApiEndpoints";
-import { Grid, Stack } from "@mui/material";
 import { TProduct } from "../types/AllTypes";
+import { useGetLatestProductsQuery } from "../redux/api/allApiEndpoints";
 
 function FeaturedProductsSectionComponent() {
-  const { data, isSuccess, isFetching } = useGetLatestProductsQuery([], {});
+  const { data, isSuccess, isFetching, isError } = useGetLatestProductsQuery(
+    [],
+    {}
+  );
   const featuredProducts: TProduct[] = data?.data as TProduct[];
+  console.log(isSuccess, isFetching, isError);
   return (
-    <Grid
-      container
-      spacing={2}
-      rowGap={1}
-      justifyContent={"space-between"}
-      direction={"row"}
-      columns={10}
-    >
-      <Grid item md={10}>
+    <div>
+      <div>
         <p className="text-6xl text-center p-5 font-bold">Featured products</p>
-      </Grid>
+      </div>
       {isSuccess &&
         featuredProducts.map((product) => (
-          <Grid item md={2} className="">
+          <div>
             <FeaturedProductCardComponent product={product} />
-          </Grid>
+          </div>
         ))}
       {isFetching && (
-        <Stack
-          direction={"row"}
-          justifyContent={"space-evenly"}
-          alignItems={"stretch"}
-        >
+        <div className="flex flex-row justify-center items-center">
           <PropagateLoader color="#CBA32A" />
-        </Stack>
+        </div>
       )}
-    </Grid>
+    </div>
   );
 }
 

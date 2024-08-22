@@ -1,11 +1,11 @@
 import { Card } from "antd";
 import { useForm } from "react-hook-form";
-import { useCreateProductMutation } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import SingleProductCardComponent from "../components/SingleProductCardComponent";
 import { useEffect, useRef, useState } from "react";
 import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
+import { useCreateProductMutation } from "../redux/api/allApiEndpoints";
 
 function AddProductPage() {
   const {

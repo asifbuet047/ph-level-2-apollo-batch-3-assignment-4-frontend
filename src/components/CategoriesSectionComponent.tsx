@@ -1,12 +1,10 @@
-import React from "react";
-import { useGetCategoriesQuery } from "../redux/features/products/allApiEndpoints";
 import { PropagateLoader } from "react-spinners";
-import { Grid, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { updateFilter } from "../redux/features/products/filterSlice";
 import { TFilterData } from "../types/AllTypes";
+import { useGetCategoriesQuery } from "../redux/api/allApiEndpoints";
 
 function CategoriesSectionComponent() {
   const { data, isSuccess, isFetching } = useGetCategoriesQuery([], {});
@@ -21,21 +19,13 @@ function CategoriesSectionComponent() {
   };
 
   return (
-    <Grid
-      container
-      justifyContent={"center"}
-      spacing={1}
-      alignItems={"center"}
-      direction={"row"}
-      columns={allCategories ? allCategories.length : 12}
-      className=""
-    >
-      <Grid item md={allCategories ? allCategories.length : 12} className="">
+    <div>
+      <div>
         <p className="text-6xl text-center p-5 font-bold">Product Categories</p>
-      </Grid>
+      </div>
       {isSuccess &&
         allCategories.map((category, index) => (
-          <Grid item container md={1} justifyContent={"center"}>
+          <div>
             <motion.button
               whileHover={{ scale: 1.1 }}
               key={index}
@@ -48,18 +38,14 @@ function CategoriesSectionComponent() {
             >
               #{category}
             </motion.button>
-          </Grid>
+          </div>
         ))}
       {isFetching && (
-        <Stack
-          direction={"row"}
-          justifyContent={"space-evenly"}
-          alignItems={"stretch"}
-        >
+        <div className="flex flex-row justify-center items-center">
           <PropagateLoader color="#CBA32A" />
-        </Stack>
+        </div>
       )}
-    </Grid>
+    </div>
   );
 }
 

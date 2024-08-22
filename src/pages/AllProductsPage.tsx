@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useGetAllProductsQuery } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/products/productsSlice";
@@ -10,6 +9,7 @@ import ProductFilterPanelComponent from "../components/ProductFilterPanelCompone
 import AllProductsComponent from "../components/AllProductsComponent";
 import { updateSearch } from "../redux/features/products/searchSlice";
 import SortSelectComponent from "../components/SortSelectComponent";
+import { useGetAllProductsQuery } from "../redux/api/allApiEndpoints";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();

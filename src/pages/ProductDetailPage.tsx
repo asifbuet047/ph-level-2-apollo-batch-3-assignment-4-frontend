@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { Button, Image } from "antd";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
-import { useGetProductQuery } from "../redux/features/products/allApiEndpoints";
 import { BarLoader } from "react-spinners";
+import { useGetProductQuery } from "../redux/api/allApiEndpoints";
 
 function ProductDetailPage() {
   const { productId } = useParams();

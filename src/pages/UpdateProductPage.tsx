@@ -3,10 +3,6 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { motion } from "framer-motion";
-import {
-  useGetAllProductsQuery,
-  useUpdateproductMutation,
-} from "../redux/features/products/allApiEndpoints";
 import { Card } from "antd";
 import { BarLoader } from "react-spinners";
 import { useForm, useWatch } from "react-hook-form";
@@ -15,8 +11,8 @@ import {
   parseInputForProductUpdateSubmit,
   validateWithZodSchema,
 } from "../utils/DataValidationUtilFunctions";
-import { updateSingleProduct } from "../redux/features/products/productsSlice";
 import { toast } from "react-toastify";
+import { useGetAllProductsQuery, useUpdateproductMutation } from "../redux/api/allApiEndpoints";
 
 function UpdateProductPage() {
   const {

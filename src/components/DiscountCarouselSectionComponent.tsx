@@ -1,23 +1,24 @@
 import { Carousel } from "antd";
-import { useGetAllDiscountsQuery } from "../redux/features/products/allApiEndpoints";
 import { TDiscount } from "../types/AllTypes";
 import DiscountSectionComponent from "./DiscountSectionComponent";
 import { PropagateLoader } from "react-spinners";
-import { Box, Stack } from "@mui/material";
+import { useGetAllDiscountsQuery } from "../redux/api/allApiEndpoints";
 
 function DiscountCarouselSectionComponent() {
-  const { data, isSuccess, isFetching } = useGetAllDiscountsQuery([], {});
+  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery(
+    [],
+    {}
+  );
   const discounts: TDiscount[] = data?.data as TDiscount[];
   return (
-    <Box>
+    <div>
       {isSuccess && (
-        <div className="overflow-clip h-auto">
+        <div className="overflow-clip">
           <Carousel
             autoplay={true}
             autoplaySpeed={5000}
             arrows={true}
             adaptiveHeight={true}
-            className="border-4 border-indigo-900"
           >
             {discounts.map((discount, index) => {
               return (
@@ -31,15 +32,12 @@ function DiscountCarouselSectionComponent() {
         </div>
       )}
       {isFetching && (
-        <Stack
-          direction={"row"}
-          justifyContent={"space-evenly"}
-          alignItems={"stretch"}
-        >
+        <div className="flex flex-row justify-center items-center">
           <PropagateLoader color="#CBA32A" />
-        </Stack>
+        </div>
       )}
-    </Box>
+      {isError && <div>Error</div>}
+    </div>
   );
 }
 

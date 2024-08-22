@@ -3,8 +3,8 @@ import {
   TGenericSuccessfulResponse,
   TProduct,
   TReduxResponse,
-} from "../../../types/AllTypes";
-import { baseApi } from "../../api/baseApi";
+} from "../../types/AllTypes";
+import { baseApi } from "./baseApi";
 
 export const allApiEndPoints = baseApi.injectEndpoints({
   endpoints: (builder) => {
