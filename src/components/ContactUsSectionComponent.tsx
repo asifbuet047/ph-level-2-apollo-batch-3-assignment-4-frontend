@@ -46,7 +46,6 @@ function ContactUsSectionComponent() {
       })
       .catch((error) => toast.error(error));
   };
-  console.log(isInternet);
   return (
     <Grid container direction={"row"} className="pt-2 pb-2 mt-2 mb-2">
       <Grid item md={12}>

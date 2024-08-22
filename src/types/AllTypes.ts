@@ -55,7 +55,7 @@ export interface TCartData {
 }
 
 export interface TCartState {
-  cart: TCartData[];
+  items: TCartData[];
 }
 
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

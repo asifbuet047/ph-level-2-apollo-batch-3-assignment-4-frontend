@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TCartData, TCartState } from "../../types/AllTypes";
 
 const initialState: TCartState = {
-  cart: [],
+  items: [],
 };
 
 const cart = createSlice({
@@ -10,13 +10,15 @@ const cart = createSlice({
   initialState,
   reducers: {
     addToCart: (state: TCartState, action: PayloadAction<TCartData>) => {
-      state.cart.push(action.payload);
+      state.items.push(action.payload);
     },
     removeFromCart: (state: TCartState, action: PayloadAction<string>) => {
-      state.cart = state.cart.filter((product) => product.id != action.payload);
+      state.items = state.items.filter(
+        (product) => product.id != action.payload
+      );
     },
     clearCart: (state: TCartState) => {
-      state.cart = [];
+      state.items = [];
     },
   },
 });

@@ -1,8 +1,11 @@
 import SingleProductCardComponent from "./SingleProductCardComponent";
 import { useAppSelector } from "../redux/hooks";
+import { TProduct } from "../types/AllTypes";
 
 function AllProductsComponent() {
-  const products = useAppSelector((state) => state.products.products);
+  const products = useAppSelector(
+    (state) => state.products.products
+  ) as TProduct[];
   const searchField = useAppSelector((state) => state.search.field);
 
   return (

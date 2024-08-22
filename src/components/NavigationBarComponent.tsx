@@ -5,7 +5,7 @@ import { useAppSelector } from "../redux/hooks";
 import { TCartData } from "../types/AllTypes";
 
 function NavigationBarComponent() {
-  const cart = useAppSelector((state) => state.cart.cart) as TCartData[];
+  const cart = useAppSelector((state) => state.cart.items) as TCartData[];
   return (
     <div className="navbar bg-[#fefae0] rounded-md justify-between">
       <div className="rounded-full overflow-clip">
@@ -23,7 +23,7 @@ function NavigationBarComponent() {
             <NavLink to={"/manage"}>Manage Products</NavLink>
           </li>
           <li className="pl-2 pr-2">
-            {cart.length > 0 ? (
+            {cart?.length > 0 ? (
               <Badge
                 variant="standard"
                 badgeContent={<Button shape="circle">{cart.length}</Button>}

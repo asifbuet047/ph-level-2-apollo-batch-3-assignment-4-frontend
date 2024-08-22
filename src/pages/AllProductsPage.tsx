@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/productsSlice";
-import { TProduct } from "../types/AllTypes";
+import { TFilterData, TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
@@ -16,7 +16,9 @@ function AllProductsPage() {
   const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
   const allProducts: TProduct[] = data?.data as TProduct[];
-  const filterState = useAppSelector((state) => state.filters.filters);
+  const filterState = useAppSelector(
+    (state) => state.filters.filters
+  ) as TFilterData[];
 
   useEffect(() => {
     if (isSuccess && data) {
