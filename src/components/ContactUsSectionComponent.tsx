@@ -1,11 +1,12 @@
 import { Grid, IconButton, TextField } from "@mui/material";
-import Lottie from "lottie-react";
+import Lottie from "react-lottie";
 import gmail from "../../public/gmail.json";
 import SendIcon from "@mui/icons-material/Send";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../redux/hooks";
 
 function ContactUsSectionComponent() {
   const {
@@ -14,6 +15,8 @@ function ContactUsSectionComponent() {
     getValues,
     formState: { errors },
   } = useForm();
+
+  const isInternet = useAppSelector((state) => state.general.general.internet);
 
   emailjs.init({
     publicKey: "MeXa0qVlupvi7AdyI",
@@ -43,6 +46,7 @@ function ContactUsSectionComponent() {
       })
       .catch((error) => toast.error(error));
   };
+  console.log(isInternet);
   return (
     <Grid container direction={"row"} className="pt-2 pb-2 mt-2 mb-2">
       <Grid item md={12}>
@@ -64,7 +68,7 @@ function ContactUsSectionComponent() {
             justifyContent={"center"}
             className="h-full"
           >
-            <Lottie animationData={gmail} size={50} className="w-56"></Lottie>
+            <Lottie options={{ animationData: gmail }} width={100}></Lottie>
           </Grid>
           <Grid
             item
@@ -96,6 +100,7 @@ function ContactUsSectionComponent() {
                 justifyContent={"flex-start"}
               >
                 <TextField
+                  disabled={!isInternet}
                   label="Mail"
                   {...register("mail", {
                     required: "Mail must be given",
@@ -116,7 +121,10 @@ function ContactUsSectionComponent() {
                 }}
                 className=""
               >
-                <IconButton onClick={handleSubmit(onSubmit)}>
+                <IconButton
+                  disabled={!isInternet}
+                  onClick={handleSubmit(onSubmit)}
+                >
                   <SendIcon fontSize="large" />
                 </IconButton>
               </motion.div>
@@ -134,6 +142,7 @@ function ContactUsSectionComponent() {
         >
           <Grid item>
             <TextField
+              disabled={!isInternet}
               label="Your name"
               {...register("name", { required: "Name should be given" })}
             />
@@ -143,6 +152,7 @@ function ContactUsSectionComponent() {
           </Grid>
           <Grid item>
             <TextField
+              disabled={!isInternet}
               label="Title"
               {...register("title", { required: "Title must be given" })}
             />
@@ -152,6 +162,7 @@ function ContactUsSectionComponent() {
           </Grid>
           <Grid item>
             <TextField
+              disabled={!isInternet}
               label="Your message"
               fullWidth
               multiline

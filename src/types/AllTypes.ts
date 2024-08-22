@@ -41,4 +41,10 @@ export interface TDiscount {
   productId: string;
 }
 
+export interface TGeneralState {
+  general: {
+    internet: boolean;
+  };
+}
+
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

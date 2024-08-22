@@ -17,7 +17,6 @@ function AllProductsPage() {
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
   const allProducts: TProduct[] = data?.data as TProduct[];
   const filterState = useAppSelector((state) => state.filters.filters);
-  console.log("PArent rendered");
 
   useEffect(() => {
     if (isSuccess && data) {

@@ -3,15 +3,33 @@ import { TDiscount } from "../types/AllTypes";
 import DiscountSectionComponent from "./DiscountSectionComponent";
 import { PropagateLoader } from "react-spinners";
 import { useGetAllDiscountsQuery } from "../redux/api/allApiEndpoints";
+import Lottie from "react-lottie";
+import no_internet from "../../public/no_internet.json";
+import { useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { updateInternetState } from "../redux/features/generalSlice";
 
 function DiscountCarouselSectionComponent() {
   const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery(
     [],
     {}
   );
+  const refWidth = useRef(null);
+  const dispatch = useAppDispatch();
+  const [width, setWidth] = useState<number>(0);
   const discounts: TDiscount[] = data?.data as TDiscount[];
+
+  if (isError) {
+    dispatch(updateInternetState(false));
+  }
+
+  useEffect(() => {
+    if (refWidth.current) {
+      setWidth(refWidth.current.offsetWidth);
+    }
+  }, []);
   return (
-    <div>
+    <div ref={refWidth} className="mt-2 mb-2">
       {isSuccess && (
         <div className="overflow-clip">
           <Carousel
@@ -36,7 +54,18 @@ function DiscountCarouselSectionComponent() {
           <PropagateLoader color="#CBA32A" />
         </div>
       )}
-      {isError && <div>Error</div>}
+      {isError && (
+        <div>
+          <Lottie
+            options={{
+              animationData: no_internet,
+              loop: true,
+            }}
+            width={width / 2}
+            height={width / 3}
+          ></Lottie>
+        </div>
+      )}
     </div>
   );
 }
