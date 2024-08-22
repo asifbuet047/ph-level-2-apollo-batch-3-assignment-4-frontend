@@ -17,12 +17,12 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   clearFilter,
   updateFilter,
-} from "../redux/features/products/filterSlice";
+} from "../redux/features/filterSlice";
 import {
   removeAllProducts,
   storeAllProducts,
   updateProducts,
-} from "../redux/features/products/productsSlice";
+} from "../redux/features/productsSlice";
 import { TFilterData, TProduct } from "../types/AllTypes";
 import Rating from "react-rating";
 

@@ -47,4 +47,15 @@ export interface TGeneralState {
   };
 }
 
+export interface TCartData {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface TCartState {
+  cart: TCartData[];
+}
+
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

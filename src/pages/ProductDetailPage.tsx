@@ -1,13 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Image } from "antd";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { BarLoader } from "react-spinners";
 import { useGetProductQuery } from "../redux/api/allApiEndpoints";
+import { useAppDispatch } from "../redux/hooks";
+import { addToCart } from "../redux/features/cartSlice";
 
 function ProductDetailPage() {
   const { productId } = useParams();
+  const id = productId as string;
+  const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
   const refForWidth = useRef(null);
   const {
@@ -28,7 +32,6 @@ function ProductDetailPage() {
     setQuantity(quantity - 1);
   };
 
-  useEffect(() => {}, [product]);
   return (
     <div>
       {isSuccess && (
@@ -54,7 +57,19 @@ function ProductDetailPage() {
                   style={{ fontSize: "29px", color: "#000000" }}
                 ></PlusSquareOutlined>
               </div>
-              <Button className="bg-[#AF161B] text-white ml-6">
+              <Button
+                className="bg-[#AF161B] text-white ml-6"
+                onClick={() =>
+                  dispatch(
+                    addToCart({
+                      id,
+                      name: product.data.name,
+                      price: product.data.price,
+                      quantity,
+                    })
+                  )
+                }
+              >
                 ADD TO CART
               </Button>
             </div>

@@ -2,7 +2,7 @@ import { PropagateLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
-import { updateFilter } from "../redux/features/products/filterSlice";
+import { updateFilter } from "../redux/features/filterSlice";
 import { TFilterData } from "../types/AllTypes";
 import { useGetCategoriesQuery } from "../redux/api/allApiEndpoints";
 import { Alert } from "@mui/material";

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { storeAllProducts } from "../redux/features/products/productsSlice";
+import { storeAllProducts } from "../redux/features/productsSlice";
 import { TProduct } from "../types/AllTypes";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
 import AllProductsComponent from "../components/AllProductsComponent";
-import { updateSearch } from "../redux/features/products/searchSlice";
+import { updateSearch } from "../redux/features/searchSlice";
 import SortSelectComponent from "../components/SortSelectComponent";
 import { useGetAllProductsQuery } from "../redux/api/allApiEndpoints";
 

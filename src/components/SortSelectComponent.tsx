@@ -11,7 +11,7 @@ import { useAppDispatch } from "../redux/hooks";
 import {
   removeAllProducts,
   updateProducts,
-} from "../redux/features/products/productsSlice";
+} from "../redux/features/productsSlice";
 
 function SortSelectComponent({ products }) {
   const allProducts: TProduct[] = products as TProduct[];

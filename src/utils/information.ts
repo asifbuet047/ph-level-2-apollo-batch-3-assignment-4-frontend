@@ -4,7 +4,7 @@ export const information = {
   contact_number: "01301027976",
   developer_picture:
     "https://res.cloudinary.com/dy75paijg/image/upload/v1724235252/me_pgv1n4.jpg",
-  slogan: "Gear Up. Play Strong. Perform Better.",
+  slogan: "Gear Up. Play Strong. Perform Better",
   vision:
     "To be the leading global destination for athletes and sports enthusiasts, empowering them with innovative, high-quality gear and apparel that fuels their passion and performance.",
   mission:
