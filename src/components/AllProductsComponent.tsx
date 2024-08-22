@@ -6,7 +6,7 @@ function AllProductsComponent() {
   const searchField = useAppSelector((state) => state.search.field);
 
   return (
-    <div className="grid lg:grid-cols-8 md:grid-cols-2 gap-2">
+    <div className="grid lg:grid-cols-8 md:grid-cols-4 sm:grid-cols-2 gap-2 m-2">
       {searchField.length > 0
         ? products
             .filter((product) => product.name.includes(searchField))

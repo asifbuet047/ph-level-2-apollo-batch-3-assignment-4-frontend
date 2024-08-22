@@ -9,14 +9,15 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ProductFilterPanelComponent from "../components/ProductFilterPanelComponent";
 import AllProductsComponent from "../components/AllProductsComponent";
 import { updateSearch } from "../redux/features/products/searchSlice";
-import { useLocation } from "react-router-dom";
+import SortSelectComponent from "../components/SortSelectComponent";
 
 function AllProductsPage() {
   const dispatch = useAppDispatch();
-  const { state } = useLocation();
   const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
+  const allProducts: TProduct[] = data?.data as TProduct[];
   const filterState = useAppSelector((state) => state.filters.filters);
+  console.log("PArent rendered");
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -24,7 +25,7 @@ function AllProductsPage() {
         dispatch(storeAllProducts(data.data as TProduct[]));
       }
     }
-  });
+  }, [isSuccess]);
 
   const onSearchCloseIconClick = () => {
     setSearch("");
@@ -45,7 +46,9 @@ function AllProductsPage() {
           )}
         </div>
         <div className="flex flex-row justify-start items-center p-2">
+          <SortSelectComponent products={allProducts} />
           <TextField
+            className="w-full"
             label="Search Product"
             InputProps={{
               endAdornment: (
@@ -68,7 +71,7 @@ function AllProductsPage() {
         {isSuccess && (
           <>
             <ProductFilterPanelComponent
-              products={data.data}
+              products={allProducts}
             ></ProductFilterPanelComponent>{" "}
             <AllProductsComponent></AllProductsComponent>
           </>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { motion } from "framer-motion";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import {
   Accordion,
   AccordionSummary,
@@ -22,6 +24,7 @@ import {
   updateProducts,
 } from "../redux/features/products/productsSlice";
 import { TFilterData, TProduct } from "../types/AllTypes";
+import Rating from "react-rating";
 
 function ProductFilterPanelComponent({ products }) {
   const temp: TProduct[] = products as TProduct[];
@@ -191,7 +194,7 @@ function ProductFilterPanelComponent({ products }) {
   };
 
   return (
-    <motion.div className="flex flex-col justify-start">
+    <motion.div className="flex flex-col justify-start rounded-md m-2">
       <div className="flex flex-row justify-around items-center bg-[#72BF44]">
         <Typography className="text-white" variant="h5" fontSize={20}>
           Filter By
@@ -204,7 +207,7 @@ function ProductFilterPanelComponent({ products }) {
           variant="h6"
           fontSize={15}
         >
-          Reset
+          <button>Reset</button>
         </Typography>
       </div>
       <Divider />
@@ -267,7 +270,7 @@ function ProductFilterPanelComponent({ products }) {
                             />
                           }
                           label={each.filter_value}
-                        ></FormControlLabel>
+                        />
                       ) : (
                         <FormControlLabel
                           control={
@@ -279,7 +282,7 @@ function ProductFilterPanelComponent({ products }) {
                             />
                           }
                           label={each.filter_value}
-                        ></FormControlLabel>
+                        />
                       )}
                     </>
                   ) : (
@@ -295,7 +298,7 @@ function ProductFilterPanelComponent({ products }) {
                           />
                         }
                         label={each.filter_value}
-                      ></FormControlLabel>
+                      />
                     </>
                   )}
 
@@ -348,7 +351,7 @@ function ProductFilterPanelComponent({ products }) {
                             />
                           }
                           label={each.filter_value}
-                        ></FormControlLabel>
+                        />
                       )}
                     </>
                   ) : (
@@ -364,7 +367,7 @@ function ProductFilterPanelComponent({ products }) {
                           />
                         }
                         label={each.filter_value}
-                      ></FormControlLabel>
+                      />
                     </>
                   )}
 
@@ -394,30 +397,66 @@ function ProductFilterPanelComponent({ products }) {
                       {activeFilters.findIndex(
                         (filter) => filter.filter_value == each.filter_value
                       ) >= 0 ? (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={true}
-                              onChange={(event) => {
-                                each.filter_checked = event.target.checked;
-                                dispatch(updateFilter(each));
-                              }}
-                            />
-                          }
-                          label={each.filter_value}
-                        ></FormControlLabel>
+                        <>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={true}
+                                onChange={(event) => {
+                                  each.filter_checked = event.target.checked;
+                                  dispatch(updateFilter(each));
+                                }}
+                              />
+                            }
+                            label={each.filter_value}
+                          />
+                          <Rating
+                            readonly
+                            initialRating={each.filter_value}
+                            emptySymbol={
+                              <StarBorderOutlinedIcon
+                                sx={{ width: "15px", height: "15px" }}
+                              />
+                            }
+                            fullSymbol={
+                              <StarOutlinedIcon
+                                sx={{ width: "15px", height: "15px" }}
+                              />
+                            }
+                            stop={each.filter_value}
+                            className="pt-2 pb-2 w-56"
+                          />
+                        </>
                       ) : (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={(event) => {
-                                each.filter_checked = event.target.checked;
-                                dispatch(updateFilter(each));
-                              }}
-                            />
-                          }
-                          label={each.filter_value}
-                        ></FormControlLabel>
+                        <>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={(event) => {
+                                  each.filter_checked = event.target.checked;
+                                  dispatch(updateFilter(each));
+                                }}
+                              />
+                            }
+                            label={each.filter_value}
+                          />
+                          <Rating
+                            readonly
+                            initialRating={each.filter_value}
+                            emptySymbol={
+                              <StarBorderOutlinedIcon
+                                sx={{ width: "15px", height: "15px" }}
+                              />
+                            }
+                            fullSymbol={
+                              <StarOutlinedIcon
+                                sx={{ width: "15px", height: "15px" }}
+                              />
+                            }
+                            stop={each.filter_value}
+                            className="pt-2 pb-2 w-56"
+                          />
+                        </>
                       )}
                     </>
                   ) : (
@@ -433,7 +472,23 @@ function ProductFilterPanelComponent({ products }) {
                           />
                         }
                         label={each.filter_value}
-                      ></FormControlLabel>
+                      />
+                      <Rating
+                        readonly
+                        initialRating={each.filter_value}
+                        emptySymbol={
+                          <StarBorderOutlinedIcon
+                            sx={{ width: "15px", height: "15px" }}
+                          />
+                        }
+                        fullSymbol={
+                          <StarOutlinedIcon
+                            sx={{ width: "15px", height: "15px" }}
+                          />
+                        }
+                        stop={each.filter_value}
+                        className="pt-2 pb-2 w-56"
+                      />
                     </>
                   )}
 
