@@ -27,9 +27,9 @@ function CategoriesSectionComponent() {
       <div>
         <p className="text-6xl text-center p-5 font-bold">Product Categories</p>
       </div>
-      {isSuccess &&
-        allCategories.map((category, index) => (
-          <div>
+      {isSuccess && (
+        <div className="flex flex-row justify-center items-center gap-4">
+          {allCategories.map((category, index) => (
             <motion.button
               whileHover={{ scale: 1.1 }}
               key={index}
@@ -42,8 +42,9 @@ function CategoriesSectionComponent() {
             >
               #{category}
             </motion.button>
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
       {isFetching && (
         <div className="flex flex-row justify-center items-center">
           <PropagateLoader color="#CBA32A" />

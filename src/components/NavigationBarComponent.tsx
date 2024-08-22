@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 function NavigationBarComponent() {
   return (
     <div className="navbar bg-[#fefae0] rounded-md justify-end">
-      <div className="flex flex-col border-2 border-red-800">
+      <div className="flex flex-col">
         <ul className="menu menu-horizontal px-1">
           <li className="pl-2 pr-2">
             <NavLink to={"/"}>Homepage</NavLink>

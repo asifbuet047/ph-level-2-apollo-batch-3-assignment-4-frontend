@@ -15,12 +15,13 @@ function FeaturedProductsSectionComponent() {
       <div>
         <p className="text-6xl text-center p-5 font-bold">Featured products</p>
       </div>
-      {isSuccess &&
-        featuredProducts.map((product) => (
-          <div>
+      {isSuccess && (
+        <div className="grid grid-cols-5 gap-6">
+          {featuredProducts.map((product) => (
             <FeaturedProductCardComponent product={product} />
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
       {isFetching && (
         <div className="flex flex-row justify-center items-center">
           <PropagateLoader color="#CBA32A" />

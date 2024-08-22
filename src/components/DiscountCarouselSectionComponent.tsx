@@ -6,14 +6,13 @@ import { useGetAllDiscountsQuery } from "../redux/api/allApiEndpoints";
 import Lottie from "react-lottie";
 import no_internet from "../../public/no_internet.json";
 import { useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import { updateInternetState } from "../redux/features/generalSlice";
 
 function DiscountCarouselSectionComponent() {
-  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery(
-    [],
-    {}
-  );
+  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery([], {
+    pollingInterval: 10000,
+  });
   const refWidth = useRef(null);
   const dispatch = useAppDispatch();
   const [width, setWidth] = useState<number>(0);

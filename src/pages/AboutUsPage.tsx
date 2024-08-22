@@ -65,14 +65,7 @@ function AboutUsPage() {
               >
                 About the Company
               </motion.p>
-              <p className=" text-justify">
-                Sportify Hub is a dynamic e-commerce platform dedicated to
-                providing athletes and sports enthusiasts with premium-quality
-                sports gear, apparel, and accessories. Founded on a passion for
-                sports and a commitment to excellence, Sportify Hub has quickly
-                become a trusted name in the industry, offering a vast selection
-                of products for all types of sports, from mainstream to niche.
-              </p>
+              <p className=" text-justify">{information.about}</p>
             </Grid>
           </Grid>
           <Divider />
@@ -84,11 +77,7 @@ function AboutUsPage() {
               >
                 Our Vision
               </motion.p>
-              <p className=" text-justify">
-                "To be the leading global destination for athletes and sports
-                enthusiasts, empowering them with innovative, high-quality gear
-                and apparel that fuels their passion and performance."
-              </p>
+              <p className=" text-justify">{information.vision}</p>
             </Grid>
           </Grid>
           <Divider />
@@ -100,14 +89,7 @@ function AboutUsPage() {
               >
                 Our Mission
               </motion.p>
-              <p className="text-justify">
-                "At Sportify Hub, our mission is to provide top-tier sports
-                products and exceptional customer service, inspiring individuals
-                of all ages and skill levels to pursue their athletic goals. We
-                are committed to offering a diverse range of high-quality goods,
-                promoting a healthy and active lifestyle, and fostering a
-                community where every athlete can thrive."
-              </p>
+              <p className="text-justify">{information.mission}</p>
             </Grid>
           </Grid>
           <Divider />

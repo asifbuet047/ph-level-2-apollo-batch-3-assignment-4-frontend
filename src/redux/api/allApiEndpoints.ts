@@ -85,6 +85,11 @@ export const allApiEndPoints = baseApi.injectEndpoints({
             data: response.data,
           };
         },
+        transformErrorResponse: (response) => {
+          return {
+            error: response.data,
+          };
+        },
       }),
       getLatestProducts: builder.query({
         query: () => {

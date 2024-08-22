@@ -6,10 +6,12 @@ import Rating from "react-rating";
 import { motion } from "framer-motion";
 import { Button, Card, CardContent } from "@mui/material";
 import { Image } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function FeaturedProductCardComponent({ product }) {
   const productDetails: TProduct = product as TProduct;
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
     <div>
       <Card raised={true} className="w-full h-full">
@@ -47,7 +49,12 @@ function FeaturedProductCardComponent({ product }) {
               </p>
             </motion.div>
             <div className="flex flex-row justify-center">
-              <Button variant="outlined">View Details</Button>
+              <Button
+                variant="outlined"
+                onClick={() => navigate(`/details/${productDetails._id}`)}
+              >
+                View Details
+              </Button>
             </div>
           </CardContent>
         </motion.div>
