@@ -12,7 +12,9 @@ function ProductQuantityButtonComponent({ id }) {
   ) as TCartData[];
   const dispatch = useAppDispatch();
   const productId: string = id;
-  const quantity = cartDetails.find((cart) => cart.id === productId)?.quantity;
+  const currentProduct = cartDetails.find(
+    (cart) => cart.id === productId
+  ) as TCartData;
 
   useEffect(() => {
     console.log("Mounted and rendered");
@@ -21,9 +23,7 @@ function ProductQuantityButtonComponent({ id }) {
   console.log("Re-rendered");
 
   const onIncreaseQuantity = () => {
-    const cart = cartDetails.find((each) => each.id === productId) as TCartData;
-    cart.quantity = cart.quantity + 1;
-    dispatch(updateCart(cart));
+    dispatch(updateCart(currentProduct));
   };
 
   const onDecreaseQuantity = () => {
@@ -41,7 +41,7 @@ function ProductQuantityButtonComponent({ id }) {
           disableElevation
           disableRipple
         >
-          {quantity}
+          {currentProduct.quantity}
         </Button>
         <Button startIcon={<AddIcon />} onClick={onIncreaseQuantity}></Button>
       </ButtonGroup>
