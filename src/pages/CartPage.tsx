@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -8,12 +9,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import { TCartData } from "../types/AllTypes";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ProductQuantityButtonComponent from "../components/ProductQuantityButtonComponent";
+import { removeFromCart } from "../redux/features/cartSlice";
 
 function CartPage() {
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
+  const dispatch = useAppDispatch();
   const subTotal = cart
     .map((each) => each.price * each.quantity)
     .reduce((accumulator, current) => {
@@ -21,6 +26,9 @@ function CartPage() {
     }, 0);
   const grandTotal = subTotal * 0.15 + subTotal;
 
+  const onProductRemovedFromCart = (id: string) => {
+    dispatch(removeFromCart(id));
+  };
 
   return (
     <div className="border-4 pt-4 pb-4">
@@ -48,7 +56,7 @@ function CartPage() {
                     <TableCell>
                       <p className="text-black font-bold text-xl">Quantity</p>
                     </TableCell>
-                    <TableCell>
+                    <TableCell colSpan={2}>
                       <p className="text-black font-bold text-xl">Subtotal</p>
                     </TableCell>
                   </TableRow>
@@ -78,6 +86,16 @@ function CartPage() {
                         <p className="text-black font-semibold text-lg">
                           {each.price * each.quantity}
                         </p>
+                      </TableCell>
+                      <TableCell>
+                        <Tooltip title="Remove from cart" placement="right">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => onProductRemovedFromCart(each.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                   ))}

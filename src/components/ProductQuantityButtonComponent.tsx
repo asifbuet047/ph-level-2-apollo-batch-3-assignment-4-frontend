@@ -1,47 +1,58 @@
 import { Button, ButtonGroup } from "@mui/material";
-import React, { useEffect } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { TCartData } from "../types/AllTypes";
-import { removeFromCart, updateCart } from "../redux/features/cartSlice";
+import { TCartData, TProduct } from "../types/AllTypes";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+} from "../redux/features/cartSlice";
+import { toast } from "react-toastify";
 
 function ProductQuantityButtonComponent({ id }) {
   const cartDetails = useAppSelector(
     (state) => state.cart.items
   ) as TCartData[];
+  const allproducts = useAppSelector(
+    (state) => state.products.products
+  ) as TProduct[];
   const dispatch = useAppDispatch();
   const productId: string = id;
-  const currentProduct = cartDetails.find(
+  const currentProductsCart = cartDetails.find(
     (cart) => cart.id === productId
   ) as TCartData;
-
-  useEffect(() => {
-    console.log("Mounted and rendered");
-  }, []);
-
-  console.log("Re-rendered");
+  const currentProduct = allproducts.find(
+    (product) => product._id === productId
+  ) as TProduct;
 
   const onIncreaseQuantity = () => {
-    dispatch(updateCart(currentProduct));
+    if (currentProductsCart.quantity < currentProduct.quantity) {
+      dispatch(increaseQuantity(currentProductsCart.id));
+      toast.success(`${currentProductsCart.name} quantity increased into cart`);
+    } else {
+      toast.warn(`${currentProductsCart.name} is no stock in our inventory`);
+    }
   };
 
   const onDecreaseQuantity = () => {
-    const cart = cartDetails.find((each) => each.id === productId) as TCartData;
-    dispatch(removeFromCart(cart.id));
+    dispatch(decreaseQuantity(currentProductsCart.id));
   };
 
   return (
     <div className="flex flex-row justify-center items-center">
       <ButtonGroup variant="outlined">
-        <Button endIcon={<RemoveIcon />} onClick={onDecreaseQuantity}></Button>
+        <Button
+          disabled={currentProductsCart.quantity > 1 ? false : true}
+          endIcon={<RemoveIcon />}
+          onClick={onDecreaseQuantity}
+        ></Button>
         <Button
           disableFocusRipple
           disableTouchRipple
           disableElevation
           disableRipple
         >
-          {currentProduct.quantity}
+          {currentProductsCart.quantity}
         </Button>
         <Button startIcon={<AddIcon />} onClick={onIncreaseQuantity}></Button>
       </ButtonGroup>

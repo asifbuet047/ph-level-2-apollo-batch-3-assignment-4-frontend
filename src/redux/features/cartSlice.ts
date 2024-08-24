@@ -19,11 +19,18 @@ const cart = createSlice({
         (product) => product.id != action.payload
       );
     },
-    updateCart: (state: TCartState, action: PayloadAction<TCartData>) => {
-      const { id, quantity } = action.payload;
-      const item = state.items.find((each) => (each.id = id));
-      if (item) {
-        item.quantity = quantity + 1;
+    increaseQuantity: (state: TCartState, action: PayloadAction<string>) => {
+      const current = state.items.find((each) => each.id === action.payload);
+      if (current) {
+        const { quantity: currentQuantity } = current;
+        current.quantity = currentQuantity + 1;
+      }
+    },
+    decreaseQuantity: (state: TCartState, action: PayloadAction<string>) => {
+      const current = state.items.find((each) => each.id === action.payload);
+      if (current) {
+        const { quantity: currentQuantity } = current;
+        current.quantity = currentQuantity - 1;
       }
     },
     clearCart: (state: TCartState) => {
@@ -32,6 +39,11 @@ const cart = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart, updateCart } =
-  cart.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  increaseQuantity,
+  decreaseQuantity,
+} = cart.actions;
 export const cartReducer = cart.reducer;

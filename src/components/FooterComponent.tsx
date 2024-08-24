@@ -1,5 +1,3 @@
-import React from "react";
-
 function FooterComponent() {
   return (
     <footer className="footer bg-[#fefae0] p-10 rounded-md">
