@@ -5,8 +5,9 @@ import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { BarLoader } from "react-spinners";
 import { useGetProductQuery } from "../redux/api/allApiEndpoints";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/features/cartSlice";
+import { TProduct } from "../types/AllTypes";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -14,14 +15,16 @@ function ProductDetailPage() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
   const refForWidth = useRef(null);
-  const {
-    data: product,
-    isSuccess,
-    isFetching,
-  } = useGetProductQuery(productId);
+  const allProducts = useAppSelector(
+    (state) => state.products.products
+  ) as TProduct[];
+
+  const currentProduct = allProducts.find(
+    (product) => product._id === productId
+  ) as TProduct;
 
   const onIncreaseQuantity = () => {
-    if (quantity < product?.data.quantity) {
+    if (quantity < currentProduct.quantity) {
       setQuantity(quantity + 1);
     } else {
       toast.error("Product stock limited");
@@ -34,17 +37,17 @@ function ProductDetailPage() {
 
   return (
     <div>
-      {isSuccess && (
+      {
         <div ref={refForWidth} className="flex flex-row justify-center">
           <div className="mr-6">
-            <Image src={product.data.product_image_url} height={500}></Image>
+            <Image src={currentProduct.product_image_url} height={500}></Image>
           </div>
           <div className="flex flex-col justify-start pr-2">
             <h2 className="text-xl mt-2 mb-2">
-              Availability:{product.data.quantity} in stock
+              Availability:{currentProduct.quantity} in stock
             </h2>
-            <h1 className="text-3xl mt-2 mb-2">{product.data.name}</h1>
-            <h3 className="text-2xl mt-2 mb-2">${product.data.price}</h3>
+            <h1 className="text-3xl mt-2 mb-2">{currentProduct.name}</h1>
+            <h3 className="text-2xl mt-2 mb-2">${currentProduct.price}</h3>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row justify-between items-center flex-grow bg-[#F7F8FA]">
                 <MinusSquareOutlined
@@ -63,8 +66,8 @@ function ProductDetailPage() {
                   dispatch(
                     addToCart({
                       id,
-                      name: product.data.name,
-                      price: product.data.price,
+                      name: currentProduct.name,
+                      price: currentProduct.price,
                       quantity,
                     })
                   )
@@ -73,12 +76,10 @@ function ProductDetailPage() {
                 ADD TO CART
               </Button>
             </div>
-            <p className="text-xl mt-2 mb-2">{product.data.description}</p>
+            <p className="text-xl mt-2 mb-2">{currentProduct.description}</p>
           </div>
         </div>
-      )}
-
-      <div>{isFetching && <BarLoader></BarLoader>}</div>
+      }
     </div>
   );
 }

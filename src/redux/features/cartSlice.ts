@@ -10,9 +10,15 @@ const cart = createSlice({
   initialState,
   reducers: {
     addToCart: (state: TCartState, action: PayloadAction<TCartData>) => {
-      return {
-        items: [...state.items, action.payload],
-      };
+      if (state.items.find((cart) => cart.id === action.payload.id)) {
+        const index = state.items.findIndex(
+          (cart) => cart.id === action.payload.id
+        );
+        state.items[index].quantity =
+          state.items[index].quantity + action.payload.quantity;
+      } else {
+        state.items.push(action.payload);
+      }
     },
     removeFromCart: (state: TCartState, action: PayloadAction<string>) => {
       state.items = state.items.filter(
