@@ -8,9 +8,11 @@ function CheckoutButtonComponent() {
     checkoutButton: boolean;
   };
   console.log(buttonEnable);
+
   return (
     <div className="flex flex-row justify-center items-center">
       <Button
+        disabled={buttonEnable.checkoutButton ? false : true}
         variant="contained"
         className="w-full"
         sx={{ backgroundColor: "#AF161B" }}

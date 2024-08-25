@@ -9,6 +9,7 @@ import {
 } from "../redux/features/cartSlice";
 import { stat } from "fs";
 import { toast } from "react-toastify";
+import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 
 function ProductQuantityButtonComponent({ id }) {
   const cartDetails = useAppSelector(
@@ -23,19 +24,21 @@ function ProductQuantityButtonComponent({ id }) {
     (state) => state.products.products
   ) as TProduct[];
   const currentProduct = allProducts.find(
-    (product) => product._id === currentProductsCart.id
+    (product) => product._id === productId
   ) as TProduct;
-  console.log(allProducts);
 
   const onIncreaseQuantity = () => {
     if (currentProductsCart.quantity < currentProduct.quantity) {
+      dispatch(updateCheckoutButtonState(true));
       dispatch(increaseQuantity(currentProductsCart.id));
     } else {
+      dispatch(updateCheckoutButtonState(false));
       toast.warn("Quantity reach out of stock limit");
     }
   };
 
   const onDecreaseQuantity = () => {
+    dispatch(updateCheckoutButtonState(true));
     dispatch(decreaseQuantity(currentProductsCart.id));
   };
 
