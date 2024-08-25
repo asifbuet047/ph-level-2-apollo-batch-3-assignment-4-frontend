@@ -9,7 +9,7 @@ function NavigationBarComponent() {
   return (
     <div className="navbar bg-[#fefae0] rounded-md justify-between">
       <div className="rounded-full overflow-clip">
-        <Image src="logo_03.jpg" width={80} preview={false} />
+        <Image src="./logo_03.jpg" width={80} preview={false} />
       </div>
       <div className="">
         <ul className="menu menu-horizontal px-1">

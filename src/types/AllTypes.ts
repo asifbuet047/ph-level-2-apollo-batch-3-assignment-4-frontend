@@ -44,6 +44,7 @@ export interface TDiscount {
 export interface TGeneralState {
   general: {
     internet: boolean;
+    checkoutButton: boolean;
   };
 }
 

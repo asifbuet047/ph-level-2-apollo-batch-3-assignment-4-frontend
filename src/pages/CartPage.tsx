@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
+  Button,
   IconButton,
   Paper,
   Table,
@@ -15,6 +16,7 @@ import { TCartData } from "../types/AllTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ProductQuantityButtonComponent from "../components/ProductQuantityButtonComponent";
 import { removeFromCart } from "../redux/features/cartSlice";
+import CheckoutButtonComponent from "../components/CheckoutButtonComponent";
 
 function CartPage() {
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
@@ -148,6 +150,13 @@ function CartPage() {
                       <p className="text-black font-semibold text-lg">
                         {grandTotal}
                       </p>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={2}>
+                      <div>
+                        <CheckoutButtonComponent />
+                      </div>
                     </TableCell>
                   </TableRow>
                 </TableBody>
