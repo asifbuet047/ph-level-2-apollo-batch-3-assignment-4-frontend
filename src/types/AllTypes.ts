@@ -59,4 +59,9 @@ export interface TCartState {
   items: TCartData[];
 }
 
+export interface TPaymentIntentParams {
+  amount: number;
+  currency: string;
+}
+
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

@@ -1,6 +1,8 @@
+import { PaymentIntent, PaymentIntentConfirmParams } from "@stripe/stripe-js";
 import {
   TDiscount,
   TGenericSuccessfulResponse,
+  TPaymentIntentParams,
   TProduct,
   TReduxResponse,
 } from "../../types/AllTypes";
@@ -124,11 +126,17 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
       }),
-      getStripeSecretKey: builder.query({
-        query: () => {
+      getStripePaymentIntent: builder.query({
+        query: (paymentIntentParams: Partial<TPaymentIntentParams>) => {
           return {
-            url: "/secretkey",
-            method: "GET",
+            url: "/cart/secret",
+            method: "POST",
+            body: paymentIntentParams,
+          };
+        },
+        transformResponse: (response: TGenericSuccessfulResponse<any>) => {
+          return {
+            data: response.data,
           };
         },
       }),
@@ -144,5 +152,5 @@ export const {
   useGetAllDiscountsQuery,
   useGetLatestProductsQuery,
   useGetCategoriesQuery,
-  useGetStripeSecretKeyQuery,
+  useGetStripePaymentIntentQuery,
 } = allApiEndPoints;
