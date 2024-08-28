@@ -10,6 +10,7 @@ import UpdateProductPage from "../pages/UpdateProductPage";
 import DeleteProductPage from "../pages/DeleteProductPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
 import AboutUsPage from "../pages/AboutUsPage";
+import CheckoutPage from "../pages/CheckoutPage";
 
 const browserRouter: BrowserRouterProps = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const browserRouter: BrowserRouterProps = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUsPage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
       },
     ],
   },

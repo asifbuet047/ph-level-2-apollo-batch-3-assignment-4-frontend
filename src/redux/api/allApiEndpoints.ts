@@ -124,6 +124,14 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
       }),
+      getStripeSecretKey: builder.query({
+        query: () => {
+          return {
+            url: "/secretkey",
+            method: "GET",
+          };
+        },
+      }),
     };
   },
 });
@@ -136,4 +144,5 @@ export const {
   useGetAllDiscountsQuery,
   useGetLatestProductsQuery,
   useGetCategoriesQuery,
+  useGetStripeSecretKeyQuery,
 } = allApiEndPoints;

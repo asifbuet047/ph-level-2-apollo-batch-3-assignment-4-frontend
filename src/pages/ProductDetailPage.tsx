@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { Button, Image } from "antd";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
-import { BarLoader } from "react-spinners";
-import { useGetProductQuery } from "../redux/api/allApiEndpoints";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/features/cartSlice";
 import { TProduct } from "../types/AllTypes";
