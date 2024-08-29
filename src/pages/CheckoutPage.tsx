@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
+import { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { AddressElement, Elements } from "@stripe/react-stripe-js";
 import StripeCheckoutFormComponent from "../components/StripeCheckoutFormComponent";
 import { Button } from "@mui/material";
@@ -57,7 +57,7 @@ function CheckoutPage() {
           </div>
         ) : (
           <StripeCheckoutFormComponent
-            address={stripeAddress}
+            clientInfo={stripeAddress}
             amount={grandTotal}
             currency={"usd"}
           />

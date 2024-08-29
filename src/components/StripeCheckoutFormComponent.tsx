@@ -7,27 +7,34 @@ import {
 import { Button } from "@mui/material";
 import { information } from "../utils/information";
 import { useGetStripePaymentIntentQuery } from "../redux/api/allApiEndpoints";
+import { toast } from "react-toastify";
 
-function StripeCheckoutFormComponent({
-  address: clientInfo,
-  amount,
-  currency,
-}) {
+function StripeCheckoutFormComponent({ clientInfo, amount, currency }) {
   const stripe = useStripe();
   const elements = useElements();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { data: serverPaymentIntent, isSuccess } =
     useGetStripePaymentIntentQuery({ amount, currency }, {});
-  console.log(serverPaymentIntent);
   const client_secret = serverPaymentIntent?.data.client_secret as string;
-  console.log(client_secret);
+
+  if (isSuccess) {
+    toast.success(
+      "Stripe payment gateway is ready for Your secure transaction"
+    );
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (stripe && elements) {
       const { error: submitError } = await elements.submit();
       if (submitError) {
-        setErrorMessage(submitError.message);
+        setErrorMessage(submitError.message as string);
+        toast.error(
+          `Your input credentials have problem. Please double check before payment.
+          Current error message:
+          ${submitError.message}
+          `
+        );
         return;
       }
       const { error, paymentIntent } = await stripe.confirmPayment({
@@ -54,7 +61,12 @@ function StripeCheckoutFormComponent({
 
       if (paymentIntent) {
         console.log(paymentIntent);
+        toast.success(`Payment is successful`);
       }
+    } else {
+      toast.error(
+        "Stripe payment gateway faces problem. Please wait for some time and try again."
+      );
     }
   };
 
@@ -76,8 +88,6 @@ function StripeCheckoutFormComponent({
             </Button>
           </div>
         )}
-
-        {errorMessage && <p>{errorMessage}</p>}
       </form>
     </div>
   );
