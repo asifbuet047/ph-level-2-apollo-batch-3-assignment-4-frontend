@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { Provider } from "react-redux";
-import store, { ReduxStore } from "./redux/store.ts";
+import { ReduxStore } from "./redux/store.ts";
 import { RouterProvider } from "react-router-dom";
 import browserRouter from "./router/browserRouter.tsx";
 import { ToastContainer } from "react-toastify";

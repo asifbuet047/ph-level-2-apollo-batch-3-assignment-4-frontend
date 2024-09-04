@@ -7,7 +7,6 @@ import {
   increaseQuantity,
   decreaseQuantity,
 } from "../redux/features/cartSlice";
-import { stat } from "fs";
 import { toast } from "react-toastify";
 import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 

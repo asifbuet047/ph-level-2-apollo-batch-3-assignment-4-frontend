@@ -2,6 +2,7 @@ import { PaymentIntent, PaymentIntentConfirmParams } from "@stripe/stripe-js";
 import {
   TDiscount,
   TGenericSuccessfulResponse,
+  TOrder,
   TPaymentIntentParams,
   TProduct,
   TReduxResponse,
@@ -129,8 +130,9 @@ export const allApiEndPoints = baseApi.injectEndpoints({
       getStripePaymentIntent: builder.query({
         query: (paymentIntentParams: Partial<TPaymentIntentParams>) => {
           return {
-            url: "/cart/secret",
+            url: "/order/secret",
             method: "POST",
+            timeout: 3000,
             body: paymentIntentParams,
           };
         },
@@ -140,12 +142,35 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
       }),
+
+      creatOrder: builder.mutation({
+        query: (order) => {
+          console.log(order);
+          return {
+            url: "/order",
+            method: "POST",
+            body: order,
+          };
+        },
+        transformResponse: (response: TGenericSuccessfulResponse<TOrder>) => {
+          return {
+            data: response.data,
+          };
+        },
+        transformErrorResponse: (error) => {
+          console.log(error);
+          return {
+            data: error.data,
+          };
+        },
+      }),
     };
   },
 });
 
 export const {
   useCreateProductMutation,
+  useCreatOrderMutation,
   useGetProductQuery,
   useGetAllProductsQuery,
   useUpdateproductMutation,

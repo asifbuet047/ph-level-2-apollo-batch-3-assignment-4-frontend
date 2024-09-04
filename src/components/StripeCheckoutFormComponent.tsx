@@ -9,12 +9,12 @@ import { information } from "../utils/information";
 import { useGetStripePaymentIntentQuery } from "../redux/api/allApiEndpoints";
 import { toast } from "react-toastify";
 
-function StripeCheckoutFormComponent({ clientInfo, amount, currency }) {
+function StripeCheckoutFormComponent({ deliveryAddress, amount }) {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { data: serverPaymentIntent, isSuccess } =
-    useGetStripePaymentIntentQuery({ amount, currency }, {});
+    useGetStripePaymentIntentQuery({ amount, currency: "usd" }, {});
   const client_secret = serverPaymentIntent?.data.client_secret as string;
 
   if (isSuccess) {
@@ -43,15 +43,15 @@ function StripeCheckoutFormComponent({ clientInfo, amount, currency }) {
         confirmParams: {
           payment_method_data: {
             billing_details: {
-              name: clientInfo.name,
+              name: deliveryAddress.address.name,
               address: {
-                city: clientInfo.address.city,
-                country: clientInfo.address.country,
-                line1: clientInfo.address.line1,
-                line2: clientInfo.address.line2,
-                postal_code: clientInfo.address.postal_code,
+                city: deliveryAddress.address.city,
+                country: deliveryAddress.address.country,
+                line1: deliveryAddress.address.line1,
+                line2: deliveryAddress.address.line2,
+                postal_code: deliveryAddress.address.postal_code,
               },
-              phone: clientInfo.phone,
+              phone: deliveryAddress.phone,
             },
           },
           return_url: information.redirect_url, // Replace with your own URL

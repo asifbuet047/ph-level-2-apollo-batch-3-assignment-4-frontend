@@ -64,4 +64,16 @@ export interface TPaymentIntentParams {
   currency: string;
 }
 
+export interface TOrder {
+  client_secret: string | null;
+  client_name: string;
+  client_phone_number: string;
+  client_country: string;
+  payment_status: "paid" | "cod";
+  product_id: string[];
+  product_name: string[];
+  product_quantity: number[];
+  product_price: number[];
+}
+
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;
