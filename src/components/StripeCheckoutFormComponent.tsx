@@ -6,18 +6,29 @@ import {
 } from "@stripe/react-stripe-js";
 import { Button } from "@mui/material";
 import { information } from "../utils/information";
-import { useGetStripePaymentIntentQuery } from "../redux/api/allApiEndpoints";
+import {
+  useCreatOrderMutation,
+  useGetStripePaymentIntentQuery,
+} from "../redux/api/allApiEndpoints";
 import { toast } from "react-toastify";
+import { TOrder } from "../types/AllTypes";
+import { useNavigate } from "react-router-dom";
 
-function StripeCheckoutFormComponent({ deliveryAddress, amount }) {
+function StripeCheckoutFormComponent({ deliveryAddress, amount, order }) {
   const stripe = useStripe();
   const elements = useElements();
+  console.log(order);
+  const stripeOrder = order as TOrder;
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { data: serverPaymentIntent, isSuccess } =
     useGetStripePaymentIntentQuery({ amount, currency: "usd" }, {});
   const client_secret = serverPaymentIntent?.data.client_secret as string;
+  const navigate = useNavigate();
+  const [createOrder, { data, isSuccess: isOrderSuccess, isLoading }] =
+    useCreatOrderMutation();
 
   if (isSuccess) {
+    stripeOrder.client_secret = client_secret;
     toast.success(
       "Stripe payment gateway is ready for Your secure transaction"
     );
@@ -60,8 +71,9 @@ function StripeCheckoutFormComponent({ deliveryAddress, amount }) {
       });
 
       if (paymentIntent) {
-        console.log(paymentIntent);
         toast.success(`Payment is successful`);
+        createOrder(stripeOrder);
+        navigate("/success");
       }
     } else {
       toast.error(

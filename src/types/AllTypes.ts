@@ -70,10 +70,10 @@ export interface TOrder {
   client_phone_number: string;
   client_country: string;
   payment_status: "paid" | "cod";
-  product_id: string[];
-  product_name: string[];
-  product_quantity: number[];
-  product_price: number[];
+  products_id: string[];
+  products_name: string[];
+  products_quantity: number[];
+  products_price: number[];
 }
 
 export type TReduxResponse<T> = TGenericSuccessfulResponse<T> & BaseQueryApi;

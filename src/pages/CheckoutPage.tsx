@@ -25,7 +25,7 @@ const stripePromise = loadStripe(
 
 function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<string>("1");
-  const [deliveryAddress, setDeliveryAddress] = useState();
+  const [deliveryAddress, setDeliveryAddress] = useState<any>();
   const [isStripePayment, setIsStripePayment] = useState<boolean>(false);
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
   const subTotal = cart
@@ -36,6 +36,17 @@ function CheckoutPage() {
   const [createOrder, { data, isSuccess, isLoading }] = useCreatOrderMutation();
   const grandTotal = (subTotal * 0.15 + subTotal) * 100;
   const navigate = useNavigate();
+  const order: TOrder = {
+    client_country: deliveryAddress?.address.country as string,
+    client_name: deliveryAddress?.name as string,
+    client_phone_number: deliveryAddress?.phone as string,
+    client_secret: "",
+    payment_status: "paid",
+    products_id: cart.map((each) => each.id),
+    products_name: cart.map((each) => each.name),
+    products_price: cart.map((each) => each.price),
+    products_quantity: cart.map((each) => each.quantity),
+  };
 
   const onPaymentMethodChange = (event: SelectChangeEvent) => {
     setPaymentMethod(event.target.value);
@@ -45,24 +56,11 @@ function CheckoutPage() {
     if (paymentMethod == "2") {
       setIsStripePayment(true);
     } else {
-      const order: TOrder = {
-        client_country: deliveryAddress?.address.country as string,
-        client_name: deliveryAddress?.name as string,
-        client_phone_number: deliveryAddress?.phone as string,
-        client_secret: "",
-        payment_status: "cod",
-        product_id: cart.map((each) => each.id),
-        product_name: cart.map((each) => each.name),
-        product_price: cart.map((each) => each.price),
-        product_quantity: cart.map((each) => each.quantity),
-      };
-      console.log(order);
+      order.payment_status = "cod";
       createOrder(order);
       navigate("/success");
     }
   };
-
-  console.log(data);
 
   return (
     <div>
@@ -79,6 +77,7 @@ function CheckoutPage() {
           <StripeCheckoutFormComponent
             deliveryAddress={deliveryAddress}
             amount={grandTotal}
+            order={order}
           />
         ) : (
           <div className="flex flex-col justify-center ml-5 mr-5 p-2 items-center border-2 rounded-md">
