@@ -12,12 +12,12 @@ function SingleProductCardComponent({ product, discounts }) {
   const temp: Partial<TProduct> = { ...product };
   const allDiscounts = discounts as TDiscount[];
 
-  const myDiscount = allDiscounts.find(
+  const myDiscount = allDiscounts?.find(
     (discount) => discount.productId === temp._id
   )?.product_discount;
 
   const gotoProductDetailPage = () => {
-    navigation(`/details/${temp._id}`);
+    navigation(`/details/${temp._id}`, { state: { discount: myDiscount } });
   };
 
   return (

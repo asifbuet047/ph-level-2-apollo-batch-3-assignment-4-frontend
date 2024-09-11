@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Button, Image } from "antd";
 import { MinusSquareOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 
 function ProductDetailPage() {
   const { productId } = useParams();
+  const state = useLocation();
   const id = productId as string;
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
@@ -43,10 +44,21 @@ function ProductDetailPage() {
           </div>
           <div className="flex flex-col justify-start pr-2">
             <h2 className="text-xl mt-2 mb-2">
-              Availability:{currentProduct.quantity} in stock
+              Availability: {currentProduct.quantity} in stock
             </h2>
             <h1 className="text-3xl mt-2 mb-2">{currentProduct.name}</h1>
-            <h3 className="text-2xl mt-2 mb-2">${currentProduct.price}</h3>
+            {state.state?.discount ? (
+              <h3 className="text-2xl mt-2 mb-2">
+                Now <span className="font-bold">{state.state?.discount}%</span>{" "}
+                discount current price $
+                <span className="font-bold">
+                  {currentProduct.price -
+                    (currentProduct.price * state.state?.discount) / 100}
+                </span>
+              </h3>
+            ) : (
+              <h3 className="text-2xl mt-2 mb-2">${currentProduct.price}</h3>
+            )}
             <div className="flex flex-row justify-between">
               <div className="flex flex-row justify-between items-center flex-grow bg-[#F7F8FA]">
                 <MinusSquareOutlined
@@ -59,22 +71,43 @@ function ProductDetailPage() {
                   style={{ fontSize: "29px", color: "#000000" }}
                 ></PlusSquareOutlined>
               </div>
-              <Button
-                className="bg-[#AF161B] text-white ml-6"
-                onClick={() => {
-                  dispatch(
-                    addToCart({
-                      id,
-                      name: currentProduct.name,
-                      price: currentProduct.price,
-                      quantity,
-                    })
-                  );
-                  dispatch(updateCheckoutButtonState(true));
-                }}
-              >
-                ADD TO CART
-              </Button>
+              {state.state?.discount ? (
+                <Button
+                  className="bg-[#AF161B] text-white ml-6"
+                  onClick={() => {
+                    dispatch(
+                      addToCart({
+                        id,
+                        name: currentProduct.name,
+                        price:
+                          currentProduct.price -
+                          (currentProduct.price * state.state.discount) / 100,
+                        quantity,
+                      })
+                    );
+                    dispatch(updateCheckoutButtonState(true));
+                  }}
+                >
+                  ADD TO CART
+                </Button>
+              ) : (
+                <Button
+                  className="bg-[#AF161B] text-white ml-6"
+                  onClick={() => {
+                    dispatch(
+                      addToCart({
+                        id,
+                        name: currentProduct.name,
+                        price: currentProduct.price,
+                        quantity,
+                      })
+                    );
+                    dispatch(updateCheckoutButtonState(true));
+                  }}
+                >
+                  ADD TO CART
+                </Button>
+              )}
             </div>
             <p className="text-xl mt-2 mb-2">{currentProduct.description}</p>
           </div>
