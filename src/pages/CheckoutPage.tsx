@@ -58,7 +58,7 @@ function CheckoutPage() {
     } else {
       order.payment_status = "cod";
       createOrder(order);
-      navigate("/success");
+      navigate("/success", { state: { success: true } });
     }
   };
 
