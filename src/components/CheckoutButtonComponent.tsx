@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@mui/material";
 import { useAppSelector } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";

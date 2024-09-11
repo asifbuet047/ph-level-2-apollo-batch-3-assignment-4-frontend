@@ -4,7 +4,7 @@ import { TGeneralState } from "../../types/AllTypes";
 const initialState: TGeneralState = {
   general: {
     internet: true,
-    checkoutButton: true,
+    checkoutButton: false,
   },
 };
 

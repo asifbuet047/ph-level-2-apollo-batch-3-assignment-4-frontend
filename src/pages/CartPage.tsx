@@ -17,6 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ProductQuantityButtonComponent from "../components/ProductQuantityButtonComponent";
 import { removeFromCart } from "../redux/features/cartSlice";
 import CheckoutButtonComponent from "../components/CheckoutButtonComponent";
+import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 
 function CartPage() {
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
@@ -31,6 +32,12 @@ function CartPage() {
   const onProductRemovedFromCart = (id: string) => {
     dispatch(removeFromCart(id));
   };
+
+  useEffect(() => {
+    if (cart.length <= 0) {
+      dispatch(updateCheckoutButtonState(false));
+    }
+  });
 
   return (
     <div className="border-4 pt-4 pb-4">

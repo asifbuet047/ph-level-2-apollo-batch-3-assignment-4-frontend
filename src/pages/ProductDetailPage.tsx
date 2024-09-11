@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/features/cartSlice";
 import { TProduct } from "../types/AllTypes";
+import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -60,7 +61,7 @@ function ProductDetailPage() {
               </div>
               <Button
                 className="bg-[#AF161B] text-white ml-6"
-                onClick={() =>
+                onClick={() => {
                   dispatch(
                     addToCart({
                       id,
@@ -68,8 +69,9 @@ function ProductDetailPage() {
                       price: currentProduct.price,
                       quantity,
                     })
-                  )
-                }
+                  );
+                  dispatch(updateCheckoutButtonState(true));
+                }}
               >
                 ADD TO CART
               </Button>
