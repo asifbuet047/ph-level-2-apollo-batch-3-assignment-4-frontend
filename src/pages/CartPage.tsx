@@ -139,8 +139,8 @@ function CartPage() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg">
-                          {subTotal}
+                        <p className="text-black font-semibold text-lg text-right">
+                          {subTotal.toFixed(2)}
                         </p>
                       </TableCell>
                     </TableRow>
@@ -149,8 +149,8 @@ function CartPage() {
                         <p className="text-black font-semibold text-lg">VAT</p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg">
-                          {subTotal * 0.15}
+                        <p className="text-black font-semibold text-lg text-right">
+                          {(subTotal * 0.15).toFixed(2)}
                         </p>
                       </TableCell>
                     </TableRow>
@@ -161,8 +161,8 @@ function CartPage() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg">
-                          {grandTotal}
+                        <p className="text-black font-semibold text-lg text-right">
+                          {grandTotal.toFixed(2)}
                         </p>
                       </TableCell>
                     </TableRow>

@@ -36,7 +36,7 @@ function AllProductsPage() {
   return (
     <div className="flex flex-col items-center p-4">
       <div className="flex flex-row justify-between rounded-md border-2 w-full mt-2 mb-2">
-        <div className="flex flex-row justify-start items-center p-2">
+        <div className="flex flex-row justify-start items-center p-2 w-1/2">
           <Typography className="text-2xl font-bold">
             All Sporty Goods
           </Typography>
@@ -46,7 +46,7 @@ function AllProductsPage() {
             </Typography>
           )}
         </div>
-        <div className="flex flex-row justify-start items-center p-2">
+        <div className="flex flex-row justify-between items-center p-2 w-1/2">
           <SortSelectComponent products={allProducts} />
           <TextField
             className="w-full"
@@ -73,7 +73,7 @@ function AllProductsPage() {
           <>
             <ProductFilterPanelComponent
               products={allProducts}
-            ></ProductFilterPanelComponent>{" "}
+            ></ProductFilterPanelComponent>
             <AllProductsComponent></AllProductsComponent>
           </>
         )}
