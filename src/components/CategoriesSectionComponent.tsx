@@ -15,12 +15,7 @@ function CategoriesSectionComponent() {
   const allCategories: string[] = data?.data as string[];
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  let filterData: TFilterData = {
-    filter_name: "category",
-    filter_value: "",
-    filter_quantity: 0,
-    filter_checked: true,
-  };
+
 
   return (
     <div className="mt-2 mb-2">

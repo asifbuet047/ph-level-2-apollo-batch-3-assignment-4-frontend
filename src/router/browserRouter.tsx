@@ -12,7 +12,6 @@ import ProductDetailPage from "../pages/ProductDetailPage";
 import AboutUsPage from "../pages/AboutUsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import PlaceOrderSuccessPage from "../pages/PlaceOrderSuccessPage";
-import StripePaymentPage from "../components/StripeCheckoutFormComponent";
 
 const browserRouter: BrowserRouterProps = createBrowserRouter([
   {

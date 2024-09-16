@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { motion } from "framer-motion";
 import { Card } from "antd";
 import { BarLoader } from "react-spinners";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { TProduct } from "../types/AllTypes";
 import {
   parseInputForProductUpdateSubmit,
@@ -20,9 +19,7 @@ function UpdateProductPage() {
     isFetching: isFetchingQuery,
     isSuccess: isSuccessQuery,
   } = useGetAllProductsQuery([]);
-  const dispatch = useAppDispatch();
   const [width, setWidth] = useState(0);
-  const [fetchState, setFetchState] = useState(false);
   const [updateProduct, { data, isError, isSuccess, isLoading, error }] =
     useUpdateproductMutation();
   const {
@@ -38,7 +35,7 @@ function UpdateProductPage() {
   const submit = () => {
     const temp = parseInputForProductUpdateSubmit(getValues());
     if (validateWithZodSchema(temp) == true) {
-      const { __v, product_image_url, ...data } = temp;
+      const {...data } = temp;
       updateProduct(data);
     }
   };

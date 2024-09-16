@@ -1,4 +1,3 @@
-import { PaymentIntent, PaymentIntentConfirmParams } from "@stripe/stripe-js";
 import {
   TDiscount,
   TGenericSuccessfulResponse,
