@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { motion } from "framer-motion";
@@ -11,7 +11,12 @@ import {
   validateWithZodSchema,
 } from "../utils/DataValidationUtilFunctions";
 import { toast } from "react-toastify";
-import { useGetAllProductsQuery, useUpdateproductMutation } from "../redux/api/allApiEndpoints";
+import {
+  useGetAllProductsQuery,
+  useUpdateproductMutation,
+} from "../redux/api/allApiEndpoints";
+import { ZodIssue } from "zod";
+import { useAppDispatch } from "../redux/hooks";
 
 function UpdateProductPage() {
   const {
@@ -29,23 +34,32 @@ function UpdateProductPage() {
     setValue,
     formState: { errors },
   } = useForm();
+  const dispatch = useAppDispatch();
 
   const refForWidth = useRef(null);
 
   const submit = () => {
-    const temp = parseInputForProductUpdateSubmit(getValues());
-    if (validateWithZodSchema(temp) == true) {
-      const {...data } = temp;
-      updateProduct(data);
+    const refinedProduct = parseInputForProductUpdateSubmit(getValues());
+    if (validateWithZodSchema(refinedProduct) == true) {
+      updateProduct(refinedProduct);
+    } else {
+      const issues = validateWithZodSchema(refinedProduct) as ZodIssue[];
+      issues.forEach((issue, index) =>
+        toast.warn(`${index + 1}. ${issue.message}`)
+      );
     }
   };
 
+  if (isError) {
+    toast.error("Error happens while updating Product");
+  }
+  if (isSuccess) {
+    toast.success(`${getValues().name} is successfully updated`);
+  }
+
   useEffect(() => {
     setWidth(refForWidth.current.offsetWidth);
-    if (isError) {
-      toast.error(error);
-    }
-  }, [refForWidth, isError, isSuccessQuery]);
+  }, [refForWidth]);
 
   return (
     <div className="flex flex-col items-center justify-between align-middle w-full">
@@ -56,27 +70,10 @@ function UpdateProductPage() {
               disabled
               id="search-products"
               className="w-full mt-2 mb-2"
-              options={products?.data as TProduct[]}
+              options={products.data as TProduct[]}
               renderInput={(params) => (
                 <TextField {...params} label="Search Product" />
               )}
-              onChange={(event, product) => {
-                Object.keys(product).forEach((element) => {
-                  setValue(element, product[element]);
-                });
-              }}
-              getOptionLabel={(option) => option.name}
-              getOptionKey={(option) => option._id}
-              renderOption={(props, option) => {
-                const { key, ...optionProps } = props;
-                return (
-                  <div {...optionProps}>
-                    <motion.div key={key} whileHover={{ scaleX: 1.1 }}>
-                      {option.name}
-                    </motion.div>
-                  </div>
-                );
-              }}
             ></Autocomplete>
           ) : (
             <Autocomplete
@@ -87,8 +84,8 @@ function UpdateProductPage() {
                 <TextField {...params} label="Search Product" />
               )}
               onChange={(event, product) => {
-                Object.keys(product).forEach((element) => {
-                  setValue(element, product[element]);
+                Object.keys(product as TProduct).forEach((property) => {
+                  setValue(property, product[property]);
                 });
               }}
               getOptionLabel={(option) => option.name}
@@ -96,11 +93,13 @@ function UpdateProductPage() {
               renderOption={(props, option) => {
                 const { key, ...optionProps } = props;
                 return (
-                  <div {...optionProps}>
-                    <motion.div key={key} whileHover={{ scaleX: 1.1 }}>
-                      {option.name}
-                    </motion.div>
-                  </div>
+                  <motion.div
+                    key={key}
+                    {...optionProps}
+                    whileHover={{ scale: 1.01 }}
+                  >
+                    {option.name}
+                  </motion.div>
                 );
               }}
             ></Autocomplete>
@@ -115,7 +114,7 @@ function UpdateProductPage() {
           renderInput={(params) => <TextField {...params} label="no product" />}
         ></Autocomplete>
       )}
-      <div className="w-full md:w-1/2 flex flex-col items-center">
+      <div className="md:w-1/2 flex flex-col items-center">
         <Card title="Update Product" className="w-full" ref={refForWidth}>
           <form
             onSubmit={handleSubmit(submit)}
@@ -140,7 +139,7 @@ function UpdateProductPage() {
                     type="text"
                     label="Product name"
                     disabled
-                    value={data.response.data.name}
+                    value={data.data.name}
                     className="mt-2 mb-2"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -181,7 +180,7 @@ function UpdateProductPage() {
                     label="Product description"
                     disabled
                     className="mt-2 mb-2"
-                    value={data.response.data.description}
+                    value={data.data.description}
                     fullWidth
                     sx={{ marginBottom: 2 }}
                   />
@@ -191,9 +190,9 @@ function UpdateProductPage() {
                     type="text"
                     label="Product description"
                     defaultValue={products?.data[0].description}
-                    className="mt-2 mb-2"
                     error={errors.description ? true : false}
                     fullWidth
+                    className="mt-2 mb-2"
                     disabled={isLoading}
                     sx={{ marginBottom: 2 }}
                     {...register("description", { required: true })}
@@ -223,7 +222,7 @@ function UpdateProductPage() {
                     disabled
                     label="Product category"
                     className="mt-2 mb-2"
-                    value={data.response.data.category}
+                    value={data.data.category}
                     fullWidth
                     sx={{ marginBottom: 2 }}
                   />
@@ -264,7 +263,7 @@ function UpdateProductPage() {
                     type="text"
                     label="Product brand"
                     disabled
-                    value={data.response.data.brand}
+                    value={data.data.brand}
                     className="mt-2 mb-2"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -306,7 +305,7 @@ function UpdateProductPage() {
                     type="number"
                     disabled
                     label="Product quantity"
-                    value={data.response.data.quantity}
+                    value={data.data.quantity}
                     className="mt-2 mb-2"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -348,7 +347,7 @@ function UpdateProductPage() {
                     type="number"
                     disabled
                     label="Product price"
-                    value={data.response.data.price}
+                    value={data.data.price}
                     className="mt-2 mb-2"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -384,7 +383,7 @@ function UpdateProductPage() {
               </button>
             ) : (
               <button disabled className="btn mt-2 mb-2" type="submit">
-                `{data.response.data.name} is updated`
+                `{data.data.name} is updated`
               </button>
             )}
           </form>

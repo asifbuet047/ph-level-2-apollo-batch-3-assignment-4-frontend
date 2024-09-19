@@ -41,15 +41,28 @@ export const allApiEndPoints = baseApi.injectEndpoints({
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
           return {
-            response: response.data,
+            data: response.data,
           };
         },
       }),
       getProduct: builder.query({
-        query: (productId) => {
+        query: (productId: string) => {
           return {
             url: `/product/${productId}`,
             method: "GET",
+          };
+        },
+        transformResponse: (response: TReduxResponse<TProduct>) => {
+          return {
+            data: response.data,
+          };
+        },
+      }),
+      deleteProduct: builder.mutation({
+        query: (productId: string) => {
+          return {
+            url: `/product/${productId}`,
+            method: "DELETE",
           };
         },
         transformResponse: (response: TReduxResponse<TProduct>) => {
@@ -144,7 +157,6 @@ export const allApiEndPoints = baseApi.injectEndpoints({
 
       creatOrder: builder.mutation({
         query: (order) => {
-          console.log(order);
           return {
             url: "/order",
             method: "POST",
@@ -157,7 +169,6 @@ export const allApiEndPoints = baseApi.injectEndpoints({
           };
         },
         transformErrorResponse: (error) => {
-          console.log(error);
           return {
             data: error.data,
           };
@@ -177,4 +188,5 @@ export const {
   useGetLatestProductsQuery,
   useGetCategoriesQuery,
   useGetStripePaymentIntentQuery,
+  useDeleteProductMutation,
 } = allApiEndPoints;

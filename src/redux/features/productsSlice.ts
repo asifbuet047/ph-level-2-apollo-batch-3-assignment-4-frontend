@@ -26,9 +26,9 @@ export const productsSlice = createSlice({
         state.products[index] = action.payload;
       }
     },
-    removeSingleProduct: (state, action: PayloadAction<TProduct>) => {
+    removeSingleProduct: (state, action: PayloadAction<string>) => {
       state.products = state.products.filter(
-        (product) => product.name != action.payload.name
+        (product) => product._id != action.payload
       );
     },
     removeAllProducts: (state) => {

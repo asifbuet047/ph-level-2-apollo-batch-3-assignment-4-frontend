@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BarLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { storeAllProducts } from "../redux/features/productsSlice";
@@ -12,21 +12,22 @@ import SortSelectComponent from "../components/SortSelectComponent";
 import { useGetAllProductsQuery } from "../redux/api/allApiEndpoints";
 
 function AllProductsPage() {
+  const [width, setWidth] = useState(0);
+  const refForWidth = useRef(null);
   const dispatch = useAppDispatch();
   const [search, setSearch] = useState("");
-  const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {});
+  const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {
+    pollingInterval: 10000,
+    refetchOnMountOrArgChange: true,
+  });
   const allProducts: TProduct[] = data?.data as TProduct[];
-  const filterState = useAppSelector(
-    (state) => state.filters.filters
-  ) as TFilterData[];
 
   useEffect(() => {
-    if (isSuccess && data) {
-      if (filterState.length == 0) {
-        dispatch(storeAllProducts(data.data as TProduct[]));
-      }
+    setWidth(refForWidth.current.offsetWidth);
+    if (isSuccess) {
+      dispatch(storeAllProducts(data.data as TProduct[]));
     }
-  }, [isSuccess]);
+  }, []);
 
   const onSearchCloseIconClick = () => {
     setSearch("");
@@ -34,8 +35,8 @@ function AllProductsPage() {
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
-      <div className="flex flex-row justify-between rounded-md border-2 w-full mt-2 mb-2">
+    <div className="flex flex-col items-center p-4" ref={refForWidth}>
+      <div className="flex flex-row justify-between rounded-md w-full border-2 mt-2 mb-2">
         <div className="flex flex-row justify-start items-center p-2 w-1/2">
           <Typography className="text-2xl font-bold">
             All Sporty Goods
@@ -68,6 +69,7 @@ function AllProductsPage() {
           ></TextField>
         </div>
       </div>
+      <div>{isFetching && <BarLoader width={width}></BarLoader>}</div>
       <div className="flex flex-row justify-around">
         {isSuccess && (
           <>
@@ -78,7 +80,6 @@ function AllProductsPage() {
           </>
         )}
       </div>
-      <div>{isFetching && <BarLoader></BarLoader>}</div>
     </div>
   );
 }
