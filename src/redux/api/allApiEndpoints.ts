@@ -30,6 +30,11 @@ export const allApiEndPoints = baseApi.injectEndpoints({
             data: response.data,
           };
         },
+        transformErrorResponse: (response) => {
+          return {
+            error: response.data,
+          };
+        },
       }),
       updateproduct: builder.mutation({
         query: (product: TProduct) => {

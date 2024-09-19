@@ -13,6 +13,8 @@ import {
 } from "../redux/api/allApiEndpoints";
 import { useAppDispatch } from "../redux/hooks";
 import { removeSingleProduct } from "../redux/features/productsSlice";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function DeleteProductPage() {
   const {
@@ -21,6 +23,7 @@ function DeleteProductPage() {
     isSuccess: isSuccessQuery,
   } = useGetAllProductsQuery([]);
   const [width, setWidth] = useState(0);
+  const navigate = useNavigate();
   const [deleteProduct, { data, isError, isSuccess, isLoading, error }] =
     useDeleteProductMutation();
   const {
@@ -354,13 +357,22 @@ function DeleteProductPage() {
             )}
 
             {!isSuccess ? (
-              <button className="btn mt-2 mb-2" type="submit">
+              <Button
+                variant="contained"
+                className="btn mt-2 mb-2"
+                type="submit"
+                disabled={isLoading}
+              >
                 Delete product
-              </button>
+              </Button>
             ) : (
-              <button disabled className="btn mt-2 mb-2" type="submit">
-                `{data.data.name} is deleted`
-              </button>
+              <Button
+                variant="outlined"
+                className="btn mt-2 mb-2"
+                onClick={() => navigate("/products")}
+              >
+                Go to All Product Page
+              </Button>
             )}
           </form>
         </Card>

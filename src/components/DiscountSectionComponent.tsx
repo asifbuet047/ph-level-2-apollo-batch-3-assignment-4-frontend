@@ -4,6 +4,7 @@ import { Button } from "antd";
 import { motion } from "framer-motion";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
+import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
 
 function DiscountSectionComponent({ discount }) {
   const discountInfo: TDiscount = discount;
@@ -11,23 +12,13 @@ function DiscountSectionComponent({ discount }) {
   const navigate = useNavigate();
 
   const onBuyNowButtonClick = () => {
-    navigate(`/details/${discountInfo.productId}`);
+    navigate(`/details/${discountInfo.productId}`, {
+      state: { discount: discountInfo.product_discount },
+    });
   };
 
-  const customTheme = createTheme({
-    breakpoints: {
-      values: {
-        xs: 425,
-        sm: 640,
-        md: 768,
-        lg: 1024,
-        xl: 1280,
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={customTheme}>
+    <ThemeProvider theme={myCustomMuiTheme}>
       <Grid
         container
         className="bg-[url('sales_2.jpg')] bg-cover bg-center text-black md:pl-4 md:pr-4 md:h-80"

@@ -7,16 +7,18 @@ import { useEffect, useRef, useState } from "react";
 import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
 import { useCreateProductMutation } from "../redux/api/allApiEndpoints";
 import { toast } from "react-toastify";
-import { TextField } from "@mui/material";
+import { Button, TextField, ThemeProvider } from "@mui/material";
 import Rating from "react-rating";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
 
 function AddProductPage() {
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm();
   const [creatProduct, { data, isError, isSuccess, isLoading, error }] =
@@ -26,7 +28,7 @@ function AddProductPage() {
   const [viewWidth, setViewWidth] = useState(0);
 
   if (isError) {
-    toast.error("Error happens while creating Product");
+    toast.error("Product addition error. Please try later");
   }
   if (isSuccess) {
     toast.success(`${getValues().name} is successfully created`);
@@ -42,10 +44,7 @@ function AddProductPage() {
     creatProduct(parseInputForProductAddSubmit(getValues()));
   };
   return (
-    <div
-      className="flex flex-col items-center justify-between align-middle w-full"
-      ref={refForWidth}
-    >
+    <div className="flex flex-col items-center justify-between align-middle w-full">
       <Card title="Add Product" className="w-1/2">
         <div>
           <form
@@ -223,21 +222,26 @@ function AddProductPage() {
 
             {errors.price && <p>Price is required</p>}
 
-            <Rating
-              initialRating={0}
-              emptySymbol={
-                <StarBorderOutlinedIcon
-                  sx={{ width: "15px", height: "15px" }}
-                />
-              }
-              fullSymbol={
-                <StarOutlinedIcon sx={{ width: "15px", height: "15px" }} />
-              }
-              stop={10}
-              onChange={(value) => console.log(value)}
-              className="border-2 border-red-800 w-full text-center"
-              
-            ></Rating>
+            {isLoading ? (
+              <Rating
+                readonly
+                initialRating={getValues().rating ? getValues().rating : 1}
+                emptySymbol={<StarBorderOutlinedIcon className="w-28 h-28" />}
+                fullSymbol={<StarOutlinedIcon className="w-28 h-28" />}
+                stop={10}
+                className="w-full text-center"
+                onChange={(value) => setValue("rating", value)}
+              />
+            ) : (
+              <Rating
+                initialRating={1}
+                emptySymbol={<StarBorderOutlinedIcon className="w-28 h-28" />}
+                fullSymbol={<StarOutlinedIcon className="w-28 h-28" />}
+                stop={10}
+                className="w-full text-center"
+                onChange={(value) => setValue("rating", value)}
+              />
+            )}
 
             <input
               type="file"
@@ -256,13 +260,22 @@ function AddProductPage() {
             )}
 
             {!isSuccess ? (
-              <button className="btn mt-2 mb-2" type="submit">
+              <Button
+                variant="contained"
+                className="btn mt-2 mb-2"
+                type="submit"
+                disabled={isLoading}
+              >
                 Add product
-              </button>
+              </Button>
             ) : (
-              <button disabled className="btn mt-2 mb-2" type="submit">
-                `{data.data.name} is ccreated`
-              </button>
+              <Button
+                variant="outlined"
+                className="btn mt-2 mb-2"
+                onClick={() => navigate("/products")}
+              >
+                Go to All Product Page
+              </Button>
             )}
           </form>
         </div>

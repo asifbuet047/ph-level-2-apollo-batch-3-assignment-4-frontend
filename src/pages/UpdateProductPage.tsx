@@ -17,6 +17,8 @@ import {
 } from "../redux/api/allApiEndpoints";
 import { ZodIssue } from "zod";
 import { useAppDispatch } from "../redux/hooks";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function UpdateProductPage() {
   const {
@@ -25,6 +27,7 @@ function UpdateProductPage() {
     isSuccess: isSuccessQuery,
   } = useGetAllProductsQuery([]);
   const [width, setWidth] = useState(0);
+  const navigate = useNavigate();
   const [updateProduct, { data, isError, isSuccess, isLoading, error }] =
     useUpdateproductMutation();
   const {
@@ -378,13 +381,21 @@ function UpdateProductPage() {
             )}
 
             {!isSuccess ? (
-              <button className="btn mt-2 mb-2" type="submit">
+              <Button
+                variant="contained"
+                className="btn mt-2 mb-2"
+                type="submit"
+              >
                 Update product
-              </button>
+              </Button>
             ) : (
-              <button disabled className="btn mt-2 mb-2" type="submit">
-                `{data.data.name} is updated`
-              </button>
+              <Button
+                variant="outlined"
+                className="btn mt-2 mb-2"
+                onClick={() => navigate("/products")}
+              >
+                Go to All Product Page
+              </Button>
             )}
           </form>
         </Card>
