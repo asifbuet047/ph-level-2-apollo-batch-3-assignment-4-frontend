@@ -6,7 +6,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
 
-function DiscountSectionComponent({ discount }) {
+function DiscountComponent({ discount }) {
   const discountInfo: TDiscount = discount;
   const titles: string[] = discountInfo.title.split(" ");
   const navigate = useNavigate();
@@ -117,4 +117,4 @@ function DiscountSectionComponent({ discount }) {
   );
 }
 
-export default DiscountSectionComponent;
+export default DiscountComponent;

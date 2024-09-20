@@ -2,7 +2,7 @@ import { PropagateLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
-import { updateFilter } from "../redux/features/filterSlice";
+import { clearFilter, updateFilter } from "../redux/features/filterSlice";
 import { TFilterData } from "../types/AllTypes";
 import { useGetCategoriesQuery } from "../redux/api/allApiEndpoints";
 import { Alert } from "@mui/material";
@@ -15,7 +15,6 @@ function CategoriesSectionComponent() {
   const allCategories: string[] = data?.data as string[];
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
 
   return (
     <div className="mt-2 mb-2">
@@ -30,8 +29,14 @@ function CategoriesSectionComponent() {
               key={index}
               className="text-xl"
               onClick={() => {
-                filterData.filter_value = category;
-                dispatch(updateFilter(filterData));
+                const activeFilter: TFilterData = {
+                  filter_name: "category",
+                  filter_checked: true,
+                  filter_quantity: 1,
+                  filter_value: category,
+                };
+                dispatch(clearFilter());
+                dispatch(updateFilter(activeFilter));
                 navigate("/products");
               }}
             >

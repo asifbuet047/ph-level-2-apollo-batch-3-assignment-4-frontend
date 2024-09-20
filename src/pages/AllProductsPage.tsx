@@ -13,9 +13,9 @@ import { useGetAllProductsQuery } from "../redux/api/allApiEndpoints";
 
 function AllProductsPage() {
   const [width, setWidth] = useState(0);
+  const [search, setSearch] = useState("");
   const refForWidth = useRef(null);
   const dispatch = useAppDispatch();
-  const [search, setSearch] = useState("");
   const { data, isFetching, isSuccess } = useGetAllProductsQuery([], {
     pollingInterval: 10000,
     refetchOnMountOrArgChange: true,

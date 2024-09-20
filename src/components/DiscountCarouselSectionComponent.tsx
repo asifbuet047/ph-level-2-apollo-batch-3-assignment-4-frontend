@@ -1,6 +1,6 @@
 import { Carousel } from "antd";
 import { TDiscount } from "../types/AllTypes";
-import DiscountSectionComponent from "./DiscountSectionComponent";
+import DiscountComponent from "./DiscountComponent";
 import { PropagateLoader } from "react-spinners";
 import { useGetAllDiscountsQuery } from "../redux/api/allApiEndpoints";
 import Lottie from "react-lottie";
@@ -39,10 +39,10 @@ function DiscountCarouselSectionComponent() {
           >
             {discounts.map((discount, index) => {
               return (
-                <DiscountSectionComponent
+                <DiscountComponent
                   discount={discount}
                   key={index}
-                ></DiscountSectionComponent>
+                ></DiscountComponent>
               );
             })}
           </Carousel>
