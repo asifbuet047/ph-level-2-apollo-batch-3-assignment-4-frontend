@@ -70,6 +70,7 @@ const browserRouter: BrowserRouterProps = createBrowserRouter([
         element: <PlaceOrderSuccessPage />,
       },
     ],
+    errorElement: <NoRouteFoundPage />,
   },
 ]);
 
