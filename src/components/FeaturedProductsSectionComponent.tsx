@@ -29,7 +29,7 @@ function FeaturedProductsSectionComponent() {
         <p className="text-6xl text-center p-5 font-bold">Featured products</p>
       </div>
       {isSuccess && isDiscountSuccess && (
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4 lg:gap-6 pl-2 pr-2">
           {featuredProducts.map((product) => (
             <FeaturedProductCardComponent
               product={product}

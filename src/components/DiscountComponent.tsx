@@ -1,13 +1,12 @@
 import { TDiscount } from "../types/AllTypes";
-import { createTheme, Grid, ThemeProvider } from "@mui/material";
 import { Button } from "antd";
 import { motion } from "framer-motion";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
-import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
+import Percentage from "../assets/Percentage";
 
 function DiscountComponent({ discount }) {
-  const discountInfo: TDiscount = discount;
+  const discountInfo = discount as TDiscount;
   const titles: string[] = discountInfo.title.split(" ");
   const navigate = useNavigate();
 
@@ -18,102 +17,61 @@ function DiscountComponent({ discount }) {
   };
 
   return (
-    <ThemeProvider theme={myCustomMuiTheme}>
-      <Grid
-        container
-        className="bg-[url('sales_2.jpg')] bg-cover bg-center text-black md:pl-4 md:pr-4 sm:h-40 md:h-60 lg:h-80 sm:rounded-sm md:rounded-md lg:rounded-lg"
-      >
-        <Grid
-          container
-          item
-          direction="column"
-          md={6}
-          justifyContent={"space-around"}
-          alignContent={"space-evenly"}
-          className="p-4"
+    <div className="bg-[url('sales_2.jpg')] bg-cover bg-center flex flex-col md:flex-row justify-between pt-2 pb-2 pl-2 pr-2 md:pl-4 md:pr-4 sm:rounded-sm md:rounded-md lg:rounded-lg">
+      <div className="flex flex-col justify-evenly">
+        <div className="mt-2 mb-2">
+          <p className="text-4xl font-bold">{discountInfo.product_name}</p>
+        </div>
+        <motion.div
+          animate={{ scale: 1.09 }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear",
+          }}
+          className="p-4 inline-block mt-2 mb-2"
         >
-          <Grid item>
-            <p className="text-4xl font-bold">{discountInfo.product_name}</p>
-          </Grid>
+          <div className="flex flex-row">
+            <p className="text-5xl">{discountInfo.product_discount}</p>
+            <Percentage />
+            <p className="text-3xl ml-4 ">discount</p>
+          </div>
+        </motion.div>
 
-          <Grid
-            container
-            item
-            justifyContent={"flex-start"}
-            alignItems={"center"}
-            direction={"row"}
+        <div className="mt-2 mb-2 xs:hidden md:flex">
+          <Button
+            size="large"
+            type="dashed"
+            iconPosition="start"
+            icon={<ShoppingCartOutlinedIcon />}
+            className="w-1/2 font-bold"
+            onClick={onBuyNowButtonClick}
           >
-            <motion.div
-              animate={{ scale: 1.09 }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "linear",
-              }}
-              className="p-4 inline-block"
-            >
-              <div className="flex flex-row">
-                <p className="text-5xl">{discountInfo.product_discount}</p>
-                <svg
-                  className="w-12"
-                  viewBox="0 0 48 48"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M0 0h48v48H0z" fill="none" />
-                  <g id="Shopicon">
-                    <rect
-                      x="2.201"
-                      y="22"
-                      transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.9411 23.9997)"
-                      width="43.598"
-                      height="4"
-                    />
-                    <path
-                      d="M14,22c4.418,0,8-3.582,8-8s-3.582-8-8-8s-8,3.582-8,8S9.582,22,14,22z M14,10c2.206,0,4,1.794,4,4c0,2.206-1.794,4-4,4
-		s-4-1.794-4-4C10,11.794,11.794,10,14,10z"
-                    />
-                    <path
-                      d="M34,42c4.418,0,8-3.582,8-8s-3.582-8-8-8s-8,3.582-8,8S29.582,42,34,42z M34,30c2.206,0,4,1.794,4,4c0,2.206-1.794,4-4,4
-		s-4-1.794-4-4C30,31.794,31.794,30,34,30z"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </motion.div>
-            <Grid item>
-              <p className="text-3xl ml-4 ">discount</p>
-            </Grid>
-          </Grid>
-          <Grid container item>
-            <Button
-              size="large"
-              type="dashed"
-              iconPosition="start"
-              icon={<ShoppingCartOutlinedIcon />}
-              className="w-1/2 font-bold"
-              onClick={onBuyNowButtonClick}
-            >
-              Buy now
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          item
-          direction={"column"}
-          alignItems={"flex-end"}
-          justifyContent={"center"}
-          md={6}
+            Buy now
+          </Button>
+        </div>
+      </div>
+      <div className="flex flex-col justify-center">
+        {titles.map((each) => (
+          <div>
+            <p className="text-5xl font-extrabold pr-2">{each}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 mb-2 md:hidden">
+        <Button
+          size="large"
+          type="dashed"
+          iconPosition="start"
+          icon={<ShoppingCartOutlinedIcon />}
+          className="w-1/2 font-bold"
+          onClick={onBuyNowButtonClick}
         >
-          {titles.map((each) => (
-            <Grid item>
-              <p className="text-5xl font-extrabold pr-2">{each}</p>
-            </Grid>
-          ))}
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+          Buy now
+        </Button>
+      </div>
+    </div>
   );
 }
 

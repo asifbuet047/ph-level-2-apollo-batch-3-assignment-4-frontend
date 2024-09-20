@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Button, Card, CardContent } from "@mui/material";
 import { Image } from "antd";
 import { useNavigate } from "react-router-dom";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 function FeaturedProductCardComponent({ product, discounts }) {
   const productDetails: TProduct = product as TProduct;
@@ -18,8 +19,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
   const navigate = useNavigate();
   if (discountedProduct) {
     return (
-      <div>
-        <Card raised={true} className="w-full h-full">
+      <div className="bg-[#BD8B9C]">
+        <Card className="bg-[#BD8B9C]">
           <motion.div
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
@@ -38,7 +39,7 @@ function FeaturedProductCardComponent({ product, discounts }) {
               </motion.div>
               <motion.div
                 className="flex flex-row justify-center"
-                animate={{ scale: isHovered ? 1.2 : 1 }}
+                animate={{ scale: isHovered ? 1.06 : 1 }}
               >
                 <Rating
                   readonly
@@ -46,7 +47,6 @@ function FeaturedProductCardComponent({ product, discounts }) {
                   emptySymbol={<StarBorderOutlinedIcon />}
                   fullSymbol={<StarOutlinedIcon />}
                   stop={10}
-                  className="pt-2 pb-2 w-56"
                 ></Rating>
               </motion.div>
               <motion.div animate={{ y: isHovered ? -15 : 0 }}>
@@ -78,7 +78,7 @@ function FeaturedProductCardComponent({ product, discounts }) {
   } else {
     return (
       <div>
-        <Card raised={true} className="w-full h-full">
+        <Card raised={true} sx={{ backgroundColor: "#BD8B9C" }}>
           <motion.div
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
@@ -92,15 +92,14 @@ function FeaturedProductCardComponent({ product, discounts }) {
               </motion.div>
               <motion.div
                 className="flex flex-row justify-center"
-                animate={{ scale: isHovered ? 1.2 : 1 }}
+                animate={{ scale: isHovered ? 1.1 : 1 }}
               >
                 <Rating
                   readonly
                   initialRating={productDetails.rating}
-                  emptySymbol={<StarBorderOutlinedIcon />}
-                  fullSymbol={<StarOutlinedIcon />}
+                  emptySymbol={<FaRegStar className="w-3 h-3" />}
+                  fullSymbol={<FaStar className="w-3 h-3" />}
                   stop={10}
-                  className="pt-2 pb-2 w-56"
                 ></Rating>
               </motion.div>
               <motion.div animate={{ y: isHovered ? -15 : 0 }}>
