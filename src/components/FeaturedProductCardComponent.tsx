@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TDiscount, TProduct } from "../types/AllTypes";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import Rating from "react-rating";
 import { motion } from "framer-motion";
 import { Button, Card, CardContent } from "@mui/material";
 import { Image } from "antd";
 import { useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 function FeaturedProductCardComponent({ product, discounts }) {
   const productDetails: TProduct = product as TProduct;
@@ -19,8 +18,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
   const navigate = useNavigate();
   if (discountedProduct) {
     return (
-      <div className="bg-[#BD8B9C]">
-        <Card className="bg-[#BD8B9C]">
+      <div>
+        <Card raised={true} sx={{ backgroundColor: "#BD8B9C" }}>
           <motion.div
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
@@ -32,7 +31,7 @@ function FeaturedProductCardComponent({ product, discounts }) {
                     src={productDetails.product_image_url}
                     title={productDetails.name}
                   ></Image>
-                  <p className="absolute bg-red-300 right-0 top-0 z-10 pl-1 pr-1">
+                  <p className="absolute bg-red-500 right-0 top-0 z-10 pl-1 pr-1">
                     {discountedProduct.product_discount}% off
                   </p>
                 </div>
@@ -44,22 +43,29 @@ function FeaturedProductCardComponent({ product, discounts }) {
                 <Rating
                   readonly
                   initialRating={productDetails.rating}
-                  emptySymbol={<StarBorderOutlinedIcon />}
-                  fullSymbol={<StarOutlinedIcon />}
+                  emptySymbol={<FaRegStar className="w-3 h-3" />}
+                  fullSymbol={<FaStar className="w-3 h-3" />}
                   stop={10}
                 ></Rating>
               </motion.div>
-              <motion.div animate={{ y: isHovered ? -15 : 0 }}>
-                <p className="pt-2 pb-2 font-bold text-2xl">
+              <motion.div
+                animate={{ y: isHovered ? -15 : 0 }}
+                className="flex flex-col justify-evenly"
+              >
+                <p className="pt-1 pb-1 font-bold text-2xl">
                   {productDetails.name}
                 </p>
-                <p className="pt-2 pb-2">{productDetails.category}</p>
-                <p className="pt-2 pb-2 font-bold text-xl">
-                  {productDetails.price}
-                </p>
+                <p className="pt-1 pb-1">{productDetails.category}</p>
+                <div className="flex flex-row justify-start items-center">
+                  <span className="pt-1 pb-1 font-bold text-xl">
+                    {productDetails.price}
+                  </span>
+                  <TbCurrencyTaka className="inline" />
+                </div>
               </motion.div>
               <div className="flex flex-row justify-center">
                 <Button
+                  sx={{ color: "#000000" }}
                   variant="outlined"
                   onClick={() =>
                     navigate(`/details/${productDetails._id}`, {
@@ -103,16 +109,20 @@ function FeaturedProductCardComponent({ product, discounts }) {
                 ></Rating>
               </motion.div>
               <motion.div animate={{ y: isHovered ? -15 : 0 }}>
-                <p className="pt-2 pb-2 font-bold text-2xl">
+                <p className="pt-1 pb-1 font-bold text-2xl">
                   {productDetails.name}
                 </p>
-                <p className="pt-2 pb-2">{productDetails.category}</p>
-                <p className="pt-2 pb-2 font-bold text-xl">
-                  {productDetails.price}
-                </p>
+                <p className="pt-1 pb-1">{productDetails.category}</p>
+                <div className="flex flex-row justify-start items-center">
+                  <span className="pt-1 pb-1 font-bold text-xl">
+                    {productDetails.price}
+                  </span>
+                  <TbCurrencyTaka className="inline" />
+                </div>
               </motion.div>
               <div className="flex flex-row justify-center">
                 <Button
+                  sx={{ color: "#000000" }}
                   variant="outlined"
                   onClick={() => navigate(`/details/${productDetails._id}`)}
                 >

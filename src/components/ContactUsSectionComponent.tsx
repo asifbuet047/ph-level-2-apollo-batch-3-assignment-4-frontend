@@ -19,7 +19,7 @@ function ContactUsSectionComponent() {
   const isInternet = useAppSelector((state) => state.general.general.internet);
 
   emailjs.init({
-    publicKey: "MeXa0qVlupvi7AdyI",
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     blockHeadless: true,
     limitRate: {
       id: "app",
@@ -29,14 +29,18 @@ function ContactUsSectionComponent() {
 
   const onSubmit = () => {
     emailjs
-      .send("service_zcevm4c", "template_iqts0qn", {
-        from: getValues().mail,
-        cc: getValues().mail,
-        from_name: getValues().name,
-        title: getValues().title,
-        to_name: "Guys",
-        message: getValues().body,
-      })
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from: getValues().mail,
+          cc: getValues().mail,
+          from_name: getValues().name,
+          title: getValues().title,
+          to_name: "Guys",
+          message: getValues().body,
+        }
+      )
       .then((response) => {
         if (response.status == 200) {
           toast.success("Feedback sent successfully");
@@ -47,99 +51,52 @@ function ContactUsSectionComponent() {
       .catch((error) => toast.error(error));
   };
   return (
-    <Grid container direction={"row"} className="pt-2 pb-2 mt-2 mb-2">
-      <Grid item md={12}>
+    <div className="pt-2 pb-2 mt-2 mb-2 flex flex-col justify-center items-center">
+      <div>
         <p className="text-6xl text-center p-5 font-bold">Contact Us</p>
-      </Grid>
-      <Grid item container direction={"row"} md={12}>
-        <Grid
-          item
-          container
-          direction={"row"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          md={6}
-        >
-          <Grid
-            item
-            container
-            md={6}
-            justifyContent={"center"}
-            className="h-full"
-          >
-            <Lottie options={{ animationData: gmail }} width={100}></Lottie>
-          </Grid>
-          <Grid
-            item
-            container
-            direction={"column"}
-            md={6}
-            justifyContent={"center"}
-            alignItems={"flex-start"}
-            className="h-full"
-          >
-            <Grid item md={6} alignContent={"end"} className="w-full">
-              <p className="text-3xl font-semibold">Your mail</p>
-            </Grid>
-            <Grid
-              item
-              container
-              direction={"row"}
-              justifyContent={"flex-start"}
-              columnGap={2}
-              md={6}
-              alignItems={"center"}
-              className=""
-            >
-              <Grid
-                item
-                container
-                md={6}
-                direction={"column"}
-                justifyContent={"flex-start"}
-              >
-                <TextField
-                  disabled={!isInternet}
-                  label="Mail"
-                  {...register("mail", {
-                    required: "Mail must be given",
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: "Please enter valid mail",
-                    },
-                  })}
-                ></TextField>
-                {errors.mail && (
-                  <p className="text-red-600">{errors.mail.message}</p>
-                )}
-              </Grid>
+      </div>
+      <div>
+        <Lottie options={{ animationData: gmail }} width={100}></Lottie>
+      </div>
+      <div className="flex flex-col md:flex-row w-full justify-evenly items-center">
+        <div>
+          <div className="mt-1 mb-1">
+            <p className="text-3xl font-semibold">Let Us know Your feedback</p>
+          </div>
+          <div className="flex flex-row justify-center mt-1 mb-1">
+            <div>
+              <TextField
+                disabled={!isInternet}
+                label="Mail"
+                {...register("mail", {
+                  required: "Mail must be given",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Please enter valid mail",
+                  },
+                })}
+              ></TextField>
+              {errors.mail && (
+                <p className="text-red-600">{errors.mail.message}</p>
+              )}
+            </div>
 
-              <motion.div
-                whileHover={{
-                  scale: 1.5,
-                }}
-                className=""
+            <motion.div
+              whileHover={{
+                x: 15,
+              }}
+            >
+              <IconButton
+                disabled={!isInternet}
+                onClick={handleSubmit(onSubmit)}
               >
-                <IconButton
-                  disabled={!isInternet}
-                  onClick={handleSubmit(onSubmit)}
-                >
-                  <SendIcon fontSize="large" />
-                </IconButton>
-              </motion.div>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          justifyContent={"space-evenly"}
-          direction={"column"}
-          md={6}
-          rowGap={1}
-          className=""
-        >
-          <Grid item>
+                <SendIcon fontSize="large" />
+              </IconButton>
+            </motion.div>
+          </div>
+        </div>
+        <div className="mt-1">
+          <div className="mt-2 mb-2">
             <TextField
               disabled={!isInternet}
               label="Your name"
@@ -148,8 +105,8 @@ function ContactUsSectionComponent() {
             {errors.name && (
               <p className="text-red-600">{errors.name.message}</p>
             )}
-          </Grid>
-          <Grid item>
+          </div>
+          <div className="mt-2 mb-2">
             <TextField
               disabled={!isInternet}
               label="Title"
@@ -158,8 +115,8 @@ function ContactUsSectionComponent() {
             {errors.title && (
               <p className="text-red-600">{errors.title.message}</p>
             )}
-          </Grid>
-          <Grid item>
+          </div>
+          <div className="mt-2 mb-2">
             <TextField
               disabled={!isInternet}
               label="Your message"
@@ -176,10 +133,10 @@ function ContactUsSectionComponent() {
             {errors.body && (
               <p className="text-red-600">{errors.body.message}</p>
             )}
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
