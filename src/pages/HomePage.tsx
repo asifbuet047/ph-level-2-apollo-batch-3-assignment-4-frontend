@@ -7,7 +7,7 @@ import OurTeamSectionComponent from "../components/OurTeamSectionComponent";
 
 function HomePage() {
   return (
-    <div className="">
+    <div className="bg-[#C0F5FA]">
       <DiscountCarouselSectionComponent />
       <Divider />
       <FeaturedProductsSectionComponent />

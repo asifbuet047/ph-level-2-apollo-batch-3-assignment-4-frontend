@@ -7,9 +7,11 @@ import { TCartData } from "../types/AllTypes";
 function NavigationBarComponent() {
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
   return (
-    <div className="navbar bg-[#fefae0] rounded-md justify-between">
+    <div className="navbar bg-[#87F1FF] rounded-md justify-between">
       <div className="rounded-full overflow-clip">
-        <Image src="./logo_03.jpg" width={80} preview={false} />
+        <a href="/">
+          <Image src="./logo_03.jpg" width={80} preview={false} />
+        </a>
       </div>
       <div className="">
         <ul className="menu menu-horizontal px-1">

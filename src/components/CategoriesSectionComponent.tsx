@@ -22,12 +22,12 @@ function CategoriesSectionComponent() {
         <p className="text-6xl text-center p-5 font-bold">Product Categories</p>
       </div>
       {isSuccess && (
-        <div className="flex flex-row justify-center items-center gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10 gap-1 md:gap-2 lg:gap-4">
           {allCategories.map((category, index) => (
             <motion.button
               whileHover={{ scale: 1.1 }}
               key={index}
-              className="text-xl"
+              className="text-sm md:text-base lg:text-lg text-center"
               onClick={() => {
                 const activeFilter: TFilterData = {
                   filter_name: "category",
@@ -51,7 +51,7 @@ function CategoriesSectionComponent() {
         </div>
       )}
       {isError && (
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center items-center">
           <Alert variant="outlined" severity="error" className="w-1/2">
             No Internet Connection
           </Alert>

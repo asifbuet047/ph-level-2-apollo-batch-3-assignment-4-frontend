@@ -21,7 +21,7 @@ function DiscountComponent({ discount }) {
     <ThemeProvider theme={myCustomMuiTheme}>
       <Grid
         container
-        className="bg-[url('sales_2.jpg')] bg-cover bg-center text-black md:pl-4 md:pr-4 md:h-80"
+        className="bg-[url('sales_2.jpg')] bg-cover bg-center text-black md:pl-4 md:pr-4 sm:h-40 md:h-60 lg:h-80 sm:rounded-sm md:rounded-md lg:rounded-lg"
       >
         <Grid
           container

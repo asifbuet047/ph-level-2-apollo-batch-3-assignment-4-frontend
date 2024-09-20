@@ -28,7 +28,7 @@ function DiscountCarouselSectionComponent() {
     }
   }, []);
   return (
-    <div ref={refWidth} className="mt-2 mb-2">
+    <div ref={refWidth} className="mb-2 sm:rounded-sm md:rounded-md lg:rounded-lg h-full">
       {isSuccess && (
         <div className="overflow-clip">
           <Carousel
