@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Rating from "react-rating";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 function SingleProductCardComponent({ product, discounts }) {
   const navigation = useNavigate();
@@ -49,14 +50,20 @@ function SingleProductCardComponent({ product, discounts }) {
       </motion.div>
 
       <div className="flex flex-col justify-center items-center text-center">
-        <motion.h1>{temp.name}</motion.h1>
+        <motion.h1 animate={{ scale: 1.01 }}>{temp.name}</motion.h1>
         <p className="p-2">{temp.brand}</p>
         {myDiscount ? (
-          <p className="p-2 font-bold">
-            {temp.price - (temp.price * myDiscount) / 100}
-          </p>
+          <div className="flex flex-row justify-start items-center">
+            <span className="pt-1 pb-1 font-bold text-xl">
+              {temp.price ? temp.price - (temp.price * myDiscount) / 100 : 0}
+            </span>
+            <TbCurrencyTaka className="inline" />
+          </div>
         ) : (
-          <p className="p-2">{temp.price}</p>
+          <div className="flex flex-row justify-start items-center">
+            <span className="pt-1 pb-1 font-bold text-xl">{temp.price}</span>
+            <TbCurrencyTaka className="inline" />
+          </div>
         )}
 
         <Rating

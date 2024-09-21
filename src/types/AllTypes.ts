@@ -48,6 +48,10 @@ export interface TGeneralState {
   };
 }
 
+export interface TPriceSliderState {
+  values: [low: number, high: number];
+}
+
 export interface TCartData {
   id: string;
   name: string;

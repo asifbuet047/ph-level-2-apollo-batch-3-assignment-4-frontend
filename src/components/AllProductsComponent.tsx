@@ -8,13 +8,14 @@ function AllProductsComponent() {
     (state) => state.products.products
   ) as TProduct[];
   const searchField = useAppSelector((state) => state.search.field);
-  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery([], {
-    pollingInterval: 10000,
-  });
+  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery(
+    [],
+    {}
+  );
   const discounts = data?.data as TDiscount[];
 
   return (
-    <div className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-2 m-2">
+    <div className="grid xs:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 grid-cols-6 gap-2 m-2">
       {searchField.length > 0
         ? products
             .filter((product) =>

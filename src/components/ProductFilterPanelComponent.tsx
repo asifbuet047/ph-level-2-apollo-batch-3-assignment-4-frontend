@@ -9,7 +9,6 @@ import {
   Checkbox,
   Divider,
   FormControlLabel,
-  Grid,
   Slider,
   Typography,
 } from "@mui/material";
@@ -23,7 +22,7 @@ import {
 import { TFilterData, TProduct } from "../types/AllTypes";
 import Rating from "react-rating";
 
-function ProductFilterPanelComponent({ products }) {
+function ProductFilterPanelComponent({ products, onSendData }) {
   const temp: TProduct[] = products as TProduct[];
   const allProducts = [...temp].sort((a, b) => b.price - a.price);
   const dispatch = useAppDispatch();
@@ -31,11 +30,12 @@ function ProductFilterPanelComponent({ products }) {
     0,
     allProducts[0].price,
   ]);
-  const filterState = useAppSelector((state) => state.filters.filters);
+  const filterState = useAppSelector(
+    (state) => state.filters.filters
+  ) as TFilterData[];
   const activeFilters: TFilterData[] = filterState.filter(
     (each) => each.filter_checked
   );
-  const [open, setOpen] = useState<boolean>(true);
 
   const brandPanelData = allProducts
     .map((product) => product.brand)
@@ -152,6 +152,7 @@ function ProductFilterPanelComponent({ products }) {
       return;
     }
     if (activeThumb === 0) {
+      onSendData([Math.min(newValue[0], priceRange[1] - 10), priceRange[1]]);
       setPriceRange([Math.min(newValue[0], priceRange[1] - 10), priceRange[1]]);
       dispatch(removeAllProducts());
       dispatch(
@@ -170,6 +171,7 @@ function ProductFilterPanelComponent({ products }) {
         )
       );
     } else {
+      onSendData([priceRange[0], Math.max(newValue[1], priceRange[0] + 10)]);
       setPriceRange([priceRange[0], Math.max(newValue[1], priceRange[0] + 10)]);
       dispatch(removeAllProducts());
       dispatch(
@@ -199,6 +201,7 @@ function ProductFilterPanelComponent({ products }) {
         <Typography
           onClick={() => {
             dispatch(clearFilter());
+            setPriceRange([0, allProducts[0].price]);
           }}
           className="text-black"
           variant="h5"
@@ -271,6 +274,7 @@ function ProductFilterPanelComponent({ products }) {
                         <FormControlLabel
                           control={
                             <Checkbox
+                              checked={false}
                               onChange={(event) => {
                                 each.filter_checked = event.target.checked;
                                 dispatch(updateFilter(each));

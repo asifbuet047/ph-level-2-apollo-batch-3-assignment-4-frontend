@@ -16,29 +16,39 @@ import Lottie from "react-lottie";
 function AllProductsPage() {
   const [width, setWidth] = useState(0);
   const [search, setSearch] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, -1]);
   const refForWidth = useRef(null);
   const dispatch = useAppDispatch();
   const { data, isFetching, isSuccess, isError } = useGetAllProductsQuery([], {
-    pollingInterval: 10000,
-    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
   });
   const allProducts: TProduct[] = data?.data as TProduct[];
+  const filterState = useAppSelector(
+    (state) => state.filters.filters
+  ) as TFilterData[];
+  const activeFilters: TFilterData[] = filterState.filter(
+    (each) => each.filter_checked
+  );
 
   useEffect(() => {
     setWidth(refForWidth.current.offsetWidth);
-    if (isSuccess) {
-      dispatch(storeAllProducts(data.data as TProduct[]));
-    }
   }, []);
 
+  if (isSuccess) {
+    if (activeFilters.length === 0) {
+      if (priceRange[1] === -1) {
+        dispatch(storeAllProducts(allProducts));
+      }
+    }
+  }
+
+  const handlePriceSlider = (values: [number, number]) => {
+    setPriceRange(values);
+  };
   const onSearchCloseIconClick = () => {
     setSearch("");
     dispatch(clearSearch());
   };
-
-  if (isSuccess) {
-    dispatch(storeAllProducts(data.data as TProduct[]));
-  }
 
   return (
     <div
@@ -94,6 +104,7 @@ function AllProductsPage() {
             <div>
               <ProductFilterPanelComponent
                 products={allProducts}
+                onSendData={handlePriceSlider}
               ></ProductFilterPanelComponent>
             </div>
             <div>

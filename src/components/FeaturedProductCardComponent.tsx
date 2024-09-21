@@ -19,7 +19,7 @@ function FeaturedProductCardComponent({ product, discounts }) {
   if (discountedProduct) {
     return (
       <div>
-        <Card raised={true} sx={{ backgroundColor: "#BD8B9C" }}>
+        <Card raised={true} sx={{ backgroundColor: "#55E4F1" }}>
           <motion.div
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
@@ -84,7 +84,7 @@ function FeaturedProductCardComponent({ product, discounts }) {
   } else {
     return (
       <div>
-        <Card raised={true} sx={{ backgroundColor: "#BD8B9C" }}>
+        <Card raised={true} sx={{ backgroundColor: "#55E4F1" }}>
           <motion.div
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
