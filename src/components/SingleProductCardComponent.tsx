@@ -22,7 +22,7 @@ function SingleProductCardComponent({ product, discounts }) {
 
   return (
     <div
-      className="border-2 shadow-md rounded-md flex flex-col justify-between items-center p-2"
+      className="border-2 shadow-md rounded-md flex flex-col justify-between items-center p-2 bg-[#55E4F1] text-black"
       onClick={gotoProductDetailPage}
     >
       <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 1.05 }}>

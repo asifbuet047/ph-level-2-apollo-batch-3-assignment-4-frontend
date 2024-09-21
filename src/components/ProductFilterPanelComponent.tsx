@@ -14,10 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import {
-  clearFilter,
-  updateFilter,
-} from "../redux/features/filterSlice";
+import { clearFilter, updateFilter } from "../redux/features/filterSlice";
 import {
   removeAllProducts,
   storeAllProducts,
@@ -194,44 +191,43 @@ function ProductFilterPanelComponent({ products }) {
   };
 
   return (
-    <motion.div className="flex flex-col justify-start rounded-md m-2">
-      <div className="flex flex-row justify-around items-center bg-[#72BF44]">
-        <Typography className="text-white" variant="h5" fontSize={20}>
+    <div className="flex flex-col justify-start rounded-md m-2">
+      <div className="flex flex-row justify-around items-center bg-[#72BF44] rounded-md py-1">
+        <Typography className="text-black" variant="h5" fontSize={20}>
           Filter By
         </Typography>
         <Typography
           onClick={() => {
             dispatch(clearFilter());
           }}
-          className="text-white"
-          variant="h6"
-          fontSize={15}
+          className="text-black"
+          variant="h5"
+          fontSize={20}
         >
           <button>Reset</button>
         </Typography>
       </div>
       <Divider />
-      <Grid container direction={"column"}>
-        <Grid item container direction={"column"}>
-          <Grid item container direction={"row"} className="p-2">
-            <Grid item md={6} className="">
+      <div>
+        <div>
+          <div className="p-2 flex flex-row gap-1">
+            <div className="w-1/2">
               <input
                 type="text"
                 value={priceRange[0]}
-                className="border-2 border-black w-full rounded-md text-center"
+                className="border-2 border-black rounded-md text-center"
               />
-            </Grid>
-            <Grid item md={6} className="">
+            </div>
+            <div className="w-1/2">
               <input
                 type="text"
                 value={priceRange[1]}
-                className="border-2 border-black w-full rounded-md text-center"
+                className="border-2 border-black rounded-md text-center"
               />
-            </Grid>
-          </Grid>
-          <Grid item className="pl-2 pr-2">
+            </div>
+          </div>
+          <div className="px-2">
             <Slider
-              className="w-full"
               value={priceRange}
               size="medium"
               max={allProducts[0].price}
@@ -240,10 +236,10 @@ function ProductFilterPanelComponent({ products }) {
               disableSwap
               color="primary"
             ></Slider>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
 
-        <Grid item>
+        <div>
           <Accordion>
             <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
               Brand
@@ -309,10 +305,10 @@ function ProductFilterPanelComponent({ products }) {
               ))}
             </div>
           </Accordion>
-        </Grid>
+        </div>
 
         <Divider />
-        <Grid item>
+        <div>
           <Accordion>
             <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
               Category
@@ -378,26 +374,29 @@ function ProductFilterPanelComponent({ products }) {
               ))}
             </div>
           </Accordion>
-        </Grid>
+        </div>
 
         <Divider />
-        <Grid item>
+        <div>
           <Accordion>
             <AccordionSummary expandIcon={<ArrowDownwardIcon />}>
               Rating
             </AccordionSummary>
-            <div>
+            <div className="">
               {ratingPanelData.map((each, index) => (
-                <div key={index} className="flex flex-row justify-between m-2">
+                <div
+                  key={index}
+                  className="flex flex-row justify-between m-2 border-2 border-red-500"
+                >
                   {activeFilters.length > 0 &&
                   activeFilters.findIndex(
                     (filter) => filter.filter_name == "rating"
                   ) >= 0 ? (
-                    <>
+                    <div>
                       {activeFilters.findIndex(
                         (filter) => filter.filter_value == each.filter_value
                       ) >= 0 ? (
-                        <>
+                        <div>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -424,11 +423,11 @@ function ProductFilterPanelComponent({ products }) {
                               />
                             }
                             stop={each.filter_value}
-                            className="pt-2 pb-2 w-56"
+                            className="pt-2 pb-2"
                           />
-                        </>
+                        </div>
                       ) : (
-                        <>
+                        <div className="border-2 border-red-500">
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -456,11 +455,11 @@ function ProductFilterPanelComponent({ products }) {
                             stop={each.filter_value}
                             className="pt-2 pb-2 w-56"
                           />
-                        </>
+                        </div>
                       )}
-                    </>
+                    </div>
                   ) : (
-                    <>
+                    <div className="border-2 border-red-500 w-full">
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -489,7 +488,7 @@ function ProductFilterPanelComponent({ products }) {
                         stop={each.filter_value}
                         className="pt-2 pb-2 w-56"
                       />
-                    </>
+                    </div>
                   )}
 
                   <p className="pl-2 pr-2 border-2 rounded-md text-center">
@@ -499,9 +498,9 @@ function ProductFilterPanelComponent({ products }) {
               ))}
             </div>
           </Accordion>
-        </Grid>
-      </Grid>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 }
 
