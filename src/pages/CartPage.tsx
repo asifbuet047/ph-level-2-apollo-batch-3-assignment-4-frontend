@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   Button,
@@ -21,6 +21,7 @@ import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 import Lottie from "react-lottie";
 import shopping_cart from "../../public/shopping_cart.json";
 import { useNavigate } from "react-router-dom";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 function CartPage() {
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
@@ -45,15 +46,15 @@ function CartPage() {
 
   if (cart.length > 0) {
     return (
-      <div className="border-4 pt-4 pb-4">
-        <div className="flex flex-col justify-center items-center ">
-          <div className="flex flex-row justify-center ">
+      <div className="px-2 py-2 bg-[#C0F5FA]">
+        <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-row justify-center w-full">
             <p className="text-6xl text-center p-5 font-bold text-black ">
               SHOPPING CART
             </p>
           </div>
-          <div className="flex flex-row gap-4">
-            <div>
+          <div className="flex flex-col lg:flex-row lg:justify-center items-center lg:items-start gap-1 lg:gap-4 w-full">
+            <div className="border-2 w-full lg:w-2/3 rounded-md xs:cursor-w-resize md:cursor-auto">
               <TableContainer component={Paper}>
                 <Table aria-label="cart">
                   <TableHead className="bg-[#F7F7F7]">
@@ -70,10 +71,14 @@ function CartPage() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-bold text-xl">Quantity</p>
+                        <p className="text-black font-bold text-xl text-center">
+                          Quantity
+                        </p>
                       </TableCell>
                       <TableCell colSpan={2}>
-                        <p className="text-black font-bold text-xl">Subtotal</p>
+                        <p className="text-black font-bold text-xl text-left">
+                          Total
+                        </p>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -91,17 +96,23 @@ function CartPage() {
                           </p>
                         </TableCell>
                         <TableCell>
-                          <p className="text-black font-semibold text-lg">
-                            {each.price}
-                          </p>
+                          <div className="flex flex-row justify-center items-center">
+                            <p className="text-black font-semibold text-lg">
+                              {each.price}
+                            </p>
+                            <TbCurrencyTaka />
+                          </div>
                         </TableCell>
                         <TableCell>
                           <ProductQuantityButtonComponent id={each.id} />
                         </TableCell>
                         <TableCell>
-                          <p className="text-black font-semibold text-lg">
-                            {each.price * each.quantity}
-                          </p>
+                          <div className="flex flex-row justify-center items-center">
+                            <p className="text-black font-semibold text-lg">
+                              {each.price * each.quantity}
+                            </p>
+                            <TbCurrencyTaka />
+                          </div>
                         </TableCell>
                         <TableCell>
                           <Tooltip title="Remove from cart" placement="right">
@@ -119,7 +130,7 @@ function CartPage() {
                 </Table>
               </TableContainer>
             </div>
-            <div>
+            <div className="border-2 xs:w-full md:w-1/2 lg:w-1/3 rounded-md">
               <TableContainer component={Paper}>
                 <Table aria-label="cart-total">
                   <TableHead className="bg-[#F7F7F7]">
@@ -139,9 +150,12 @@ function CartPage() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg text-right">
-                          {subTotal.toFixed(2)}
-                        </p>
+                        <div className="flex flex-row justify-end items-center">
+                          <p className="text-black font-semibold text-lg text-right">
+                            {subTotal.toFixed(2)}
+                          </p>
+                          <TbCurrencyTaka />
+                        </div>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -149,9 +163,12 @@ function CartPage() {
                         <p className="text-black font-semibold text-lg">VAT</p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg text-right">
-                          {(subTotal * 0.15).toFixed(2)}
-                        </p>
+                        <div className="flex flex-row justify-end items-center">
+                          <p className="text-black font-semibold text-lg text-right">
+                            {(subTotal * 0.15).toFixed(2)}
+                          </p>
+                          <TbCurrencyTaka />
+                        </div>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -161,9 +178,12 @@ function CartPage() {
                         </p>
                       </TableCell>
                       <TableCell>
-                        <p className="text-black font-semibold text-lg text-right">
-                          {grandTotal.toFixed(2)}
-                        </p>
+                        <div className="flex flex-row justify-end items-center">
+                          <p className="text-black font-semibold text-lg text-right">
+                            {grandTotal.toFixed(2)}
+                          </p>
+                          <TbCurrencyTaka />
+                        </div>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -183,7 +203,7 @@ function CartPage() {
     );
   } else {
     return (
-      <div className="flex flex-col justify-center items-center mt-2 mb-2">
+      <div className="flex flex-col justify-center items-center px-2 py-2 bg-[#C0F5FA]">
         <div className="flex flex-row justify-center">
           <p className="text-6xl text-center p-5 font-bold text-black ">
             SHOPPING CART

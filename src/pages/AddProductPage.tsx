@@ -44,8 +44,8 @@ function AddProductPage() {
     creatProduct(parseInputForProductAddSubmit(getValues()));
   };
   return (
-    <div className="flex flex-col items-center justify-between align-middle w-full">
-      <Card title="Add Product" className="w-1/2">
+    <div className="flex flex-col items-center justify-between align-middle w-full bg-[#C0F5FA] py-2">
+      <Card title="Add Product" className="md:w-1/2">
         <div>
           <form
             onSubmit={handleSubmit(submit)}

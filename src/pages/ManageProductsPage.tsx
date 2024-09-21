@@ -16,16 +16,16 @@ function ManageProductsPage() {
     navigate("/manage/delete");
   };
   return (
-    <div className="flex flex-col md:flex-row flex-grow justify-between align-middle items-center">
-      <div onClick={addProduct} className="m-2 flex-grow w-full">
+    <div className="flex flex-col md:flex-row flex-grow justify-between items-center md:h-[60vh] bg-[#C0F5FA]">
+      <div onClick={addProduct} className="m-2 flex flex-col w-full">
         <AddProductButtonComponent></AddProductButtonComponent>
       </div>
 
-      <div onClick={updateProduct} className="m-2 flex-grow w-full">
+      <div onClick={updateProduct} className="m-2 flex flex-col w-full">
         <UpdateProductButtonComponent></UpdateProductButtonComponent>
       </div>
 
-      <div onClick={deleteProduct} className="m-2 flex-grow w-full">
+      <div onClick={deleteProduct} className="m-2 flex flex-col w-full">
         <DeleteProductButtonComponent></DeleteProductButtonComponent>
       </div>
     </div>

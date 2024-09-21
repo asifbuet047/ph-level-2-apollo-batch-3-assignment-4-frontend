@@ -16,7 +16,6 @@ import {
   useUpdateproductMutation,
 } from "../redux/api/allApiEndpoints";
 import { ZodIssue } from "zod";
-import { useAppDispatch } from "../redux/hooks";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +36,6 @@ function UpdateProductPage() {
     setValue,
     formState: { errors },
   } = useForm();
-  const dispatch = useAppDispatch();
 
   const refForWidth = useRef(null);
 
@@ -60,12 +58,16 @@ function UpdateProductPage() {
     toast.success(`${getValues().name} is successfully updated`);
   }
 
+  if (isSuccessQuery) {
+    toast.info("Please select a product from above to update");
+  }
+
   useEffect(() => {
     setWidth(refForWidth.current.offsetWidth);
   }, [refForWidth]);
 
   return (
-    <div className="flex flex-col items-center justify-between align-middle w-full">
+    <div className="flex flex-col items-center justify-between px-2 py-2 bg-[#C0F5FA]">
       {isSuccessQuery ? (
         <>
           {isSuccess ? (
@@ -117,8 +119,12 @@ function UpdateProductPage() {
           renderInput={(params) => <TextField {...params} label="no product" />}
         ></Autocomplete>
       )}
-      <div className="md:w-1/2 flex flex-col items-center">
-        <Card title="Update Product" className="w-full" ref={refForWidth}>
+      <div className="flex flex-col items-center justify-between align-middle w-full">
+        <Card
+          title="Update Product"
+          className="md:w-1/2 w-full"
+          ref={refForWidth}
+        >
           <form
             onSubmit={handleSubmit(submit)}
             className="flex flex-col justify-center align-middle items-center p-5"
@@ -140,7 +146,6 @@ function UpdateProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product name"
                     disabled
                     value={data.data.name}
                     className="mt-2 mb-2"
@@ -152,10 +157,11 @@ function UpdateProductPage() {
                     error={errors.name ? true : false}
                     variant="outlined"
                     label="Product name"
+                    placeholder="Product name"
                     fullWidth
                     disabled={isLoading}
                     type="text"
-                    defaultValue={products?.data[0].name}
+                    focused
                     sx={{ marginBottom: 2 }}
                     {...register("name", { required: true, minLength: 4 })}
                   />
@@ -180,7 +186,6 @@ function UpdateProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product description"
                     disabled
                     className="mt-2 mb-2"
                     value={data.data.description}
@@ -192,7 +197,8 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="text"
                     label="Product description"
-                    defaultValue={products?.data[0].description}
+                    placeholder="Product description"
+                    focused
                     error={errors.description ? true : false}
                     fullWidth
                     className="mt-2 mb-2"
@@ -223,7 +229,6 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="text"
                     disabled
-                    label="Product category"
                     className="mt-2 mb-2"
                     value={data.data.category}
                     fullWidth
@@ -234,7 +239,8 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="text"
                     label="Product category"
-                    defaultValue={products?.data[0].category}
+                    placeholder="Product category"
+                    focused
                     className="mt-2 mb-2"
                     error={errors.category ? true : false}
                     fullWidth
@@ -264,7 +270,6 @@ function UpdateProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product brand"
                     disabled
                     value={data.data.brand}
                     className="mt-2 mb-2"
@@ -276,7 +281,8 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="text"
                     label="Product brand"
-                    defaultValue={products?.data[0].brand}
+                    placeholder="Product brand"
+                    focused
                     className="mt-2 mb-2"
                     error={errors.brand ? true : false}
                     fullWidth
@@ -307,7 +313,6 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="number"
                     disabled
-                    label="Product quantity"
                     value={data.data.quantity}
                     className="mt-2 mb-2"
                     fullWidth
@@ -318,7 +323,8 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="number"
                     label="Product quantity"
-                    defaultValue={products?.data[0].quantity}
+                    placeholder="Product quantity"
+                    focused
                     className="mt-2 mb-2"
                     error={errors.quantity ? true : false}
                     fullWidth
@@ -349,7 +355,6 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="number"
                     disabled
-                    label="Product price"
                     value={data.data.price}
                     className="mt-2 mb-2"
                     fullWidth
@@ -360,7 +365,8 @@ function UpdateProductPage() {
                     variant="outlined"
                     type="number"
                     label="Product price"
-                    defaultValue={products?.data[0].price}
+                    placeholder="Product price"
+                    focused
                     className="mt-2 mb-2"
                     error={errors.price ? true : false}
                     fullWidth

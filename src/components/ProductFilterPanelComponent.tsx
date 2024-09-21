@@ -23,8 +23,7 @@ import { TFilterData, TProduct } from "../types/AllTypes";
 import Rating from "react-rating";
 
 function ProductFilterPanelComponent({ products, onSendData }) {
-  const temp: TProduct[] = products as TProduct[];
-  const allProducts = [...temp].sort((a, b) => b.price - a.price);
+  const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
   const [priceRange, setPriceRange] = useState<number[]>([
     0,
@@ -202,6 +201,7 @@ function ProductFilterPanelComponent({ products, onSendData }) {
           onClick={() => {
             dispatch(clearFilter());
             setPriceRange([0, allProducts[0].price]);
+            onSendData([0, allProducts[0].price]);
           }}
           className="text-black"
           variant="h5"
@@ -388,10 +388,7 @@ function ProductFilterPanelComponent({ products, onSendData }) {
             </AccordionSummary>
             <div className="">
               {ratingPanelData.map((each, index) => (
-                <div
-                  key={index}
-                  className="flex flex-row justify-between m-2 border-2 border-red-500"
-                >
+                <div key={index} className="flex flex-row justify-between m-2">
                   {activeFilters.length > 0 &&
                   activeFilters.findIndex(
                     (filter) => filter.filter_name == "rating"
@@ -431,7 +428,7 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                           />
                         </div>
                       ) : (
-                        <div className="border-2 border-red-500">
+                        <div className="">
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -463,7 +460,7 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                       )}
                     </div>
                   ) : (
-                    <div className="border-2 border-red-500 w-full">
+                    <div className="w-full">
                       <FormControlLabel
                         control={
                           <Checkbox

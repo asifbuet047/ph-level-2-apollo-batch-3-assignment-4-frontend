@@ -16,12 +16,10 @@ import {
 } from "@mui/material";
 import { useAppSelector } from "../redux/hooks";
 import { TCartData, TOrder } from "../types/AllTypes";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCreatOrderMutation } from "../redux/api/allApiEndpoints";
 
-const stripePromise = loadStripe(
-  "pk_test_51OI5ZgDlSwco0gOTuyOoqoUItNwS9Axa6Ky0lvqURYC1iBYGTf3IBcPPHCdUSZXvllzwgR6gbz8nXVMWknvsJfN7005e11JoeJ"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<string>("1");
@@ -63,7 +61,7 @@ function CheckoutPage() {
   };
 
   return (
-    <div>
+    <div className="bg-[#C0F5FA]">
       <Elements
         stripe={stripePromise}
         options={{
@@ -80,8 +78,10 @@ function CheckoutPage() {
             order={order}
           />
         ) : (
-          <div className="flex flex-col justify-center ml-5 mr-5 p-2 items-center border-2 rounded-md">
+          <div className="flex flex-col justify-center ml-5 mr-5 p-2 items-center">
+            <p className="text-4xl font-bold my-2">Your Shipping Address</p>
             <AddressElement
+              className="w-full md:w-1/2"
               options={{
                 mode: "shipping",
                 display: { name: "split" },
@@ -89,12 +89,17 @@ function CheckoutPage() {
                 defaultValues: {
                   firstName: "Your first name",
                   lastName: "Your last name",
-                  address: { country: "bd", city: "Example: Dhaka" },
+                  address: {
+                    country: "bd",
+                    city: "Example: Dhaka",
+                    postal_code: "1200",
+                  },
                 },
               }}
               onChange={(event) => setDeliveryAddress(event.value)}
             />
-            <div className="flex flex-col justify-center mt-2">
+
+            <div className="flex flex-col justify-center itemcen my-4">
               <FormControl>
                 <InputLabel id="paymentMethod">Method of Payment</InputLabel>
                 <Select
@@ -102,19 +107,14 @@ function CheckoutPage() {
                   labelId="paymentMethod"
                   label="Method of Payment"
                   onChange={onPaymentMethodChange}
-                  className="m-2"
                 >
                   <MenuItem value={1}>Cash On Delivery</MenuItem>
                   <MenuItem value={2}>Online Payment (Stripe)</MenuItem>
                 </Select>
-                <Button
-                  variant="contained"
-                  onClick={onPlaceOrderButtonClick}
-                  className="pt-5"
-                >
-                  Place Order
-                </Button>
               </FormControl>
+              <Button variant="contained" onClick={onPlaceOrderButtonClick}>
+                Place Order
+              </Button>
             </div>
           </div>
         )}

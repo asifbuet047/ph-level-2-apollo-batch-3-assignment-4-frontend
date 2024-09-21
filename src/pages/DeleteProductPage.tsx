@@ -50,12 +50,16 @@ function DeleteProductPage() {
     toast.success(`${getValues} is successfully deleted`);
   }
 
+  if (isSuccessQuery) {
+    toast.info("Please select a product from above to delete");
+  }
+
   useEffect(() => {
     setWidth(refForWidth.current.offsetWidth);
   }, [refForWidth]);
 
   return (
-    <div className="flex flex-col items-center justify-between align-middle w-full">
+    <div className="flex flex-col items-center justify-between px-2 py-2 bg-[#C0F5FA]">
       {isSuccessQuery ? (
         <>
           {isSuccess ? (
@@ -107,8 +111,12 @@ function DeleteProductPage() {
           renderInput={(params) => <TextField {...params} label="no product" />}
         ></Autocomplete>
       )}
-      <div className="md:w-1/2 flex flex-col items-center">
-        <Card title="Delete Product" className="w-full" ref={refForWidth}>
+      <div className="flex flex-col items-center justify-between align-middle w-full">
+        <Card
+          title="Delete Product"
+          className="md:w-1/2 w-full"
+          ref={refForWidth}
+        >
           <form
             onSubmit={handleSubmit(submit)}
             className="flex flex-col justify-center align-middle items-center p-5"
@@ -130,7 +138,6 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product name"
                     disabled
                     value={data.data.name}
                     className="mt-2 mb-2"
@@ -141,10 +148,10 @@ function DeleteProductPage() {
                   <TextField
                     error={errors.name ? true : false}
                     variant="outlined"
-                    label="Product name"
+                    placeholder="Product name"
                     fullWidth
                     type="text"
-                    value={products?.data[0].name}
+                    disabled
                     sx={{ marginBottom: 2 }}
                     {...register("name", { required: true, minLength: 4 })}
                   />
@@ -180,9 +187,9 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product description"
-                    value={products?.data[0].description}
                     className="mt-2 mb-2"
+                    placeholder="Product description"
+                    disabled
                     error={errors.description ? true : false}
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -219,9 +226,9 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product category"
-                    value={products?.data[0].category}
+                    disabled
                     className="mt-2 mb-2"
+                    placeholder="Product category"
                     error={errors.category ? true : false}
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -258,9 +265,9 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="text"
-                    label="Product brand"
-                    value={products?.data[0].brand}
+                    disabled
                     className="mt-2 mb-2"
+                    placeholder="Product brand"
                     error={errors.brand ? true : false}
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -297,9 +304,9 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="number"
-                    label="Product quantity"
-                    value={products?.data[0].quantity}
+                    disabled
                     className="mt-2 mb-2"
+                    placeholder="Product quantity"
                     error={errors.quantity ? true : false}
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -336,9 +343,9 @@ function DeleteProductPage() {
                   <TextField
                     variant="outlined"
                     type="number"
-                    label="Product price"
-                    value={products?.data[0].price}
+                    disabled
                     className="mt-2 mb-2"
+                    placeholder="Product price"
                     error={errors.price ? true : false}
                     fullWidth
                     sx={{ marginBottom: 2 }}
