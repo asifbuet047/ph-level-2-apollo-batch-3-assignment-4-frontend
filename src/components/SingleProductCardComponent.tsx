@@ -8,7 +8,13 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import { TbCurrencyTaka } from "react-icons/tb";
 
-function SingleProductCardComponent({ product, discounts }) {
+function SingleProductCardComponent({
+  product,
+  discounts,
+}: {
+  product: TProduct;
+  discounts: TDiscount[];
+}) {
   const navigation = useNavigate();
   const temp: Partial<TProduct> = { ...product };
   const allDiscounts = discounts as TDiscount[];
@@ -30,6 +36,8 @@ function SingleProductCardComponent({ product, discounts }) {
         {myDiscount ? (
           <div className="relative">
             <Image
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               src={temp.product_image_url}
               alt={temp.name}
               preview={false}
@@ -41,6 +49,8 @@ function SingleProductCardComponent({ product, discounts }) {
         ) : (
           <div>
             <Image
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //@ts-ignore
               src={temp.product_image_url}
               alt={temp.name}
               preview={false}
@@ -65,7 +75,8 @@ function SingleProductCardComponent({ product, discounts }) {
             <TbCurrencyTaka className="inline" />
           </div>
         )}
-
+        {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore */}
         <Rating
           readonly
           initialRating={product.rating}

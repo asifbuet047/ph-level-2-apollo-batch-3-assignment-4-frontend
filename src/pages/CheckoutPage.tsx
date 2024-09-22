@@ -15,6 +15,8 @@ import { TCartData, TOrder } from "../types/AllTypes";
 import { useNavigate } from "react-router-dom";
 import { useCreatOrderMutation } from "../redux/api/allApiEndpoints";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 function CheckoutPage() {

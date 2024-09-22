@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, TextField, ThemeProvider } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
 import { information } from "../utils/information";
@@ -131,6 +131,8 @@ function AboutUsPage() {
                     {...register("name", { required: "Name should be given" })}
                   />
                   {errors.name && (
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     <p className="text-red-600">{errors.name.message}</p>
                   )}
                 </Grid>

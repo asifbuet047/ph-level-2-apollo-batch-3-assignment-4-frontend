@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
@@ -21,7 +21,13 @@ import {
 import { TFilterData, TProduct } from "../types/AllTypes";
 import Rating from "react-rating";
 
-function ProductFilterPanelComponent({ products, onSendData }) {
+function ProductFilterPanelComponent({
+  products,
+  onSendData,
+}: {
+  products: TProduct[];
+  onSendData: any;
+}) {
   const allProducts: TProduct[] = products as TProduct[];
   const dispatch = useAppDispatch();
   const [priceRange, setPriceRange] = useState<number[]>([
@@ -142,6 +148,8 @@ function ProductFilterPanelComponent({ products, onSendData }) {
   }
 
   const handlePriceSlider = (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     event: Event,
     newValue: number | number[],
     activeThumb: number
@@ -409,6 +417,8 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                             }
                             label={each.filter_value}
                           />
+                          {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+                          {/* @ts-ignore */}
                           <Rating
                             readonly
                             initialRating={each.filter_value}
@@ -424,7 +434,7 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                             }
                             stop={each.filter_value}
                             className="pt-2 pb-2"
-                          />
+                          ></Rating>
                         </div>
                       ) : (
                         <div className="">
@@ -439,6 +449,8 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                             }
                             label={each.filter_value}
                           />
+                          {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+                          {/* @ts-ignore */}
                           <Rating
                             readonly
                             initialRating={each.filter_value}
@@ -472,6 +484,8 @@ function ProductFilterPanelComponent({ products, onSendData }) {
                         }
                         label={each.filter_value}
                       />
+                      {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+                      {/* @ts-ignore */}
                       <Rating
                         readonly
                         initialRating={each.filter_value}

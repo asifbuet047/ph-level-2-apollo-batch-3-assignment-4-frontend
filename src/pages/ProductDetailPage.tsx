@@ -51,7 +51,10 @@ function ProductDetailPage() {
           className="flex flex-col md:flex-row justify-center px-2 bg-[#C0F5FA]"
         >
           <div className="">
-            <Image src={currentProduct.product_image_url} height={500}></Image>
+            <Image
+              src={currentProduct.product_image_url as string}
+              height={500}
+            ></Image>
           </div>
           <div className="flex flex-col justify-start pr-2">
             <h2 className="text-xl mt-2 mb-2">
@@ -97,7 +100,7 @@ function ProductDetailPage() {
                   className="bg-[#AF161B] text-white ml-6"
                   onClick={() => {
                     if (
-                      currentCart.quantity + quantity <=
+                      (currentCart ? currentCart.quantity : 0) + quantity <=
                       currentProduct.quantity
                     ) {
                       dispatch(
@@ -128,8 +131,8 @@ function ProductDetailPage() {
                   className="bg-[#AF161B] text-white ml-6"
                   onClick={() => {
                     if (
-                      currentCart.quantity + quantity <=
-                      currentProduct.quantity
+                      (currentCart ? currentCart.quantity : 0) + quantity <=
+                      currentProduct?.quantity
                     ) {
                       dispatch(
                         addToCart({

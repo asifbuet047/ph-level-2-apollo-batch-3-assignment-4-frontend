@@ -1,6 +1,6 @@
 import { ProductValidation } from "./validationSchema";
 
-export const parseInputForProductUpdateSubmit = (data) => {
+export const parseInputForProductUpdateSubmit = (data:any) => {
   const temp = { ...data };
   for (const key in temp) {
     if (key === "quantity" || key === "price" || key === "rating") {
@@ -10,7 +10,7 @@ export const parseInputForProductUpdateSubmit = (data) => {
   return temp;
 };
 
-export const parseInputForProductAddSubmit = (dataObject) => {
+export const parseInputForProductAddSubmit = (dataObject: any) => {
   const temp = { ...dataObject };
   for (const key in temp) {
     if (key === "quantity" || key === "price" || key === "rating") {
@@ -26,7 +26,7 @@ export const parseInputForProductAddSubmit = (dataObject) => {
   };
 };
 
-export const validateWithZodSchema = (data) => {
+export const validateWithZodSchema = (data: any) => {
   const result =
     ProductValidation.productUpdateValidationSchema.safeParse(data);
   if (result.error) {

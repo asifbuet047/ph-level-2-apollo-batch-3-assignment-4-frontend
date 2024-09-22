@@ -5,7 +5,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { TProduct } from "../types/AllTypes";
 import { useAppDispatch } from "../redux/hooks";
 import {
@@ -13,7 +13,7 @@ import {
   updateProducts,
 } from "../redux/features/productsSlice";
 
-function SortSelectComponent({ products }) {
+function SortSelectComponent({ products }: { products: TProduct[] }) {
   const allProducts: TProduct[] = products as TProduct[];
   const [sort, setSort] = useState<string>("");
   const dispatch = useAppDispatch();

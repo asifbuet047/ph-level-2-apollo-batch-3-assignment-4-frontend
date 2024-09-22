@@ -24,7 +24,7 @@ function DeleteProductPage() {
   } = useGetAllProductsQuery([]);
   const [width, setWidth] = useState(0);
   const navigate = useNavigate();
-  const [deleteProduct, { data, isError, isSuccess, isLoading, error }] =
+  const [deleteProduct, { data, isError, isSuccess, isLoading }] =
     useDeleteProductMutation();
   const {
     register,
@@ -55,6 +55,8 @@ function DeleteProductPage() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     setWidth(refForWidth.current.offsetWidth);
   }, [refForWidth]);
 
@@ -80,7 +82,9 @@ function DeleteProductPage() {
               renderInput={(params) => (
                 <TextField {...params} label="Search Product" />
               )}
-              onChange={(event, product) => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              onChange={(event, product: TProduct) => {
                 Object.keys(product as TProduct).forEach((property) => {
                   setValue(property, product[property]);
                 });
@@ -90,6 +94,8 @@ function DeleteProductPage() {
               renderOption={(props, option) => {
                 const { key, ...optionProps } = props;
                 return (
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   <motion.div
                     key={key}
                     {...optionProps}

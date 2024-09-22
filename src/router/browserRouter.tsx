@@ -1,7 +1,7 @@
 import AllProductsPage from "../pages/AllProductsPage";
 import CartPage from "../pages/CartPage";
 import ManageProductsPage from "../pages/ManageProductsPage";
-import { BrowserRouterProps, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import NoRouteFoundPage from "../pages/ErrorPages/NoRouteFoundPage";
 import App from "../App";
 import HomePage from "../pages/HomePage";
@@ -13,7 +13,7 @@ import AboutUsPage from "../pages/AboutUsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import PlaceOrderSuccessPage from "../pages/PlaceOrderSuccessPage";
 
-const browserRouter = createBrowserRouter([
+export const browserRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -73,5 +73,3 @@ const browserRouter = createBrowserRouter([
     errorElement: <NoRouteFoundPage />,
   },
 ]);
-
-export default browserRouter;

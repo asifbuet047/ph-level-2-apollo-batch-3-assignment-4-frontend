@@ -24,11 +24,16 @@ function DiscountCarouselSectionComponent() {
 
   useEffect(() => {
     if (refWidth.current) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setWidth(refWidth.current.offsetWidth);
     }
   }, []);
   return (
-    <div ref={refWidth} className="mb-2 sm:rounded-sm md:rounded-md lg:rounded-lg h-full">
+    <div
+      ref={refWidth}
+      className="mb-2 sm:rounded-sm md:rounded-md lg:rounded-lg h-full"
+    >
       {isSuccess && (
         <div className="overflow-clip">
           <Carousel

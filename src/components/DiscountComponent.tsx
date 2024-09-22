@@ -5,7 +5,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import { FaPercentage } from "react-icons/fa";
 
-function DiscountComponent({ discount }) {
+function DiscountComponent({ discount }: { discount: TDiscount }) {
   const discountInfo = discount as TDiscount;
   const titles: string[] = discountInfo.title.split(" ");
   const navigate = useNavigate();

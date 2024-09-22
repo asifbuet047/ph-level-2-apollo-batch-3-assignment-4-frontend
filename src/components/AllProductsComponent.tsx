@@ -12,10 +12,7 @@ function AllProductsComponent() {
   ) as TProduct[];
   let temp: TProduct[] = [];
   const searchField = useAppSelector((state) => state.search.field);
-  const { data, isSuccess, isFetching, isError } = useGetAllDiscountsQuery(
-    [],
-    {}
-  );
+  const { data, isError } = useGetAllDiscountsQuery([], {});
   const [pageNo, setPageNo] = useState<number>(1);
   const discounts = data?.data as TDiscount[];
   const totalPages = Math.floor(products.length / 8) + 1;
@@ -62,6 +59,8 @@ function AllProductsComponent() {
           <Pagination
             count={totalPages}
             shape="circular"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             onChange={(event, page) => setPageNo(page)}
           />
         )}

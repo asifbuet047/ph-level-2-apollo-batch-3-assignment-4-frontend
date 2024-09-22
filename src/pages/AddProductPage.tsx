@@ -19,7 +19,7 @@ function AddProductPage() {
     setValue,
     formState: { errors },
   } = useForm();
-  const [creatProduct, { data, isError, isSuccess, isLoading, error }] =
+  const [creatProduct, { isError, isSuccess, isLoading }] =
     useCreateProductMutation();
   const navigate = useNavigate();
   const refForWidth = useRef(null);
@@ -34,6 +34,8 @@ function AddProductPage() {
 
   useEffect(() => {
     if (refForWidth.current) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setViewWidth(refForWidth.current.offsetWidth);
     }
   }, []);
@@ -221,6 +223,8 @@ function AddProductPage() {
             {errors.price && <p>Price is required</p>}
 
             {isLoading ? (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <Rating
                 readonly
                 initialRating={getValues().rating ? getValues().rating : 1}
@@ -231,6 +235,8 @@ function AddProductPage() {
                 onChange={(value) => setValue("rating", value)}
               />
             ) : (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <Rating
                 initialRating={1}
                 emptySymbol={<StarBorderOutlinedIcon className="w-28 h-28" />}

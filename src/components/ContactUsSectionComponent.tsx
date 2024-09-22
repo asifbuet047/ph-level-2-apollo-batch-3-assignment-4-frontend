@@ -1,4 +1,4 @@
-import {  IconButton, TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import Lottie from "react-lottie";
 import gmail from "../../public/gmail.json";
 import SendIcon from "@mui/icons-material/Send";
@@ -19,6 +19,8 @@ function ContactUsSectionComponent() {
   const isInternet = useAppSelector((state) => state.general.general.internet);
 
   emailjs.init({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     blockHeadless: true,
     limitRate: {
@@ -30,7 +32,11 @@ function ContactUsSectionComponent() {
   const onSubmit = () => {
     emailjs
       .send(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from: getValues().mail,
@@ -77,6 +83,8 @@ function ContactUsSectionComponent() {
                 })}
               ></TextField>
               {errors.mail && (
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 <p className="text-red-600">{errors.mail.message}</p>
               )}
             </div>
@@ -103,6 +111,8 @@ function ContactUsSectionComponent() {
               {...register("name", { required: "Name should be given" })}
             />
             {errors.name && (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <p className="text-red-600">{errors.name.message}</p>
             )}
           </div>
@@ -113,6 +123,8 @@ function ContactUsSectionComponent() {
               {...register("title", { required: "Title must be given" })}
             />
             {errors.title && (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <p className="text-red-600">{errors.title.message}</p>
             )}
           </div>
@@ -131,6 +143,8 @@ function ContactUsSectionComponent() {
               })}
             />
             {errors.body && (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <p className="text-red-600">{errors.body.message}</p>
             )}
           </div>

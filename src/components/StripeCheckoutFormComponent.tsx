@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   useStripe,
   useElements,
@@ -14,17 +13,23 @@ import { toast } from "react-toastify";
 import { TOrder } from "../types/AllTypes";
 import { useNavigate } from "react-router-dom";
 
-function StripeCheckoutFormComponent({ deliveryAddress, amount, order }) {
+function StripeCheckoutFormComponent({
+  deliveryAddress,
+  amount,
+  order,
+}: {
+  deliveryAddress: any;
+  amount: number;
+  order: TOrder;
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const stripeOrder = order as TOrder;
-  const [errorMessage, setErrorMessage] = useState<string>("");
   const { data: serverPaymentIntent, isSuccess } =
     useGetStripePaymentIntentQuery({ amount, currency: "usd" }, {});
   const client_secret = serverPaymentIntent?.data.client_secret as string;
   const navigate = useNavigate();
-  const [createOrder, { data, isSuccess: isOrderSuccess, isLoading }] =
-    useCreatOrderMutation();
+  const [createOrder] = useCreatOrderMutation();
 
   if (isSuccess) {
     stripeOrder.client_secret = client_secret;
@@ -33,12 +38,11 @@ function StripeCheckoutFormComponent({ deliveryAddress, amount, order }) {
     );
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (stripe && elements) {
       const { error: submitError } = await elements.submit();
       if (submitError) {
-        setErrorMessage(submitError.message as string);
         toast.error(
           `Your input credentials have problem. Please double check before payment.
           Current error message:
@@ -47,7 +51,7 @@ function StripeCheckoutFormComponent({ deliveryAddress, amount, order }) {
         );
         return;
       }
-      const { error, paymentIntent } = await stripe.confirmPayment({
+      const { paymentIntent } = await stripe.confirmPayment({
         elements,
         redirect: "if_required",
         confirmParams: {

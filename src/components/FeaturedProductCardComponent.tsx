@@ -8,7 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { TbCurrencyTaka } from "react-icons/tb";
 
-function FeaturedProductCardComponent({ product, discounts }) {
+function FeaturedProductCardComponent({
+  product,
+  discounts,
+}: {
+  product: TProduct;
+  discounts: TDiscount[];
+}) {
   const productDetails: TProduct = product as TProduct;
   const allDiscounts = discounts as TDiscount[];
   const discountedProduct = allDiscounts.find(
@@ -28,6 +34,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
               <motion.div animate={{ scale: isHovered ? 0.8 : 1 }}>
                 <div className="relative">
                   <Image
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
                     src={productDetails.product_image_url}
                     title={productDetails.name}
                   ></Image>
@@ -40,6 +48,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
                 className="flex flex-row justify-center"
                 animate={{ scale: isHovered ? 1.06 : 1 }}
               >
+                {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+                {/* @ts-ignore */}
                 <Rating
                   readonly
                   initialRating={productDetails.rating}
@@ -92,6 +102,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
             <CardContent>
               <motion.div animate={{ scale: isHovered ? 0.8 : 1 }}>
                 <Image
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   src={productDetails.product_image_url}
                   title={productDetails.name}
                 ></Image>
@@ -100,6 +112,8 @@ function FeaturedProductCardComponent({ product, discounts }) {
                 className="flex flex-row justify-center"
                 animate={{ scale: isHovered ? 1.1 : 1 }}
               >
+                {/* eslint-disable @typescript-eslint/ban-ts-comment */}
+                {/* @ts-ignore */}
                 <Rating
                   readonly
                   initialRating={productDetails.rating}

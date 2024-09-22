@@ -10,7 +10,7 @@ import {
 import { toast } from "react-toastify";
 import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 
-function ProductQuantityButtonComponent({ id }) {
+function ProductQuantityButtonComponent({ id }: { id: string }) {
   const cartDetails = useAppSelector(
     (state) => state.cart.items
   ) as TCartData[];
