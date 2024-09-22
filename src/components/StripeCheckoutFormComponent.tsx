@@ -76,7 +76,7 @@ function StripeCheckoutFormComponent({
       if (paymentIntent) {
         toast.success(`Payment is successful`);
         createOrder(stripeOrder);
-        navigate("/success");
+        navigate("/success", { state: { success: true } });
       }
     } else {
       toast.error(
