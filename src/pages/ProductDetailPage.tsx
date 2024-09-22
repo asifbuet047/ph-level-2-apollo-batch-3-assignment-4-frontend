@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/features/cartSlice";
 import { TCartData, TProduct } from "../types/AllTypes";
 import { updateCheckoutButtonState } from "../redux/features/generalSlice";
-import { stat } from "fs";
 import { TbCurrencyTaka } from "react-icons/tb";
 
 function ProductDetailPage() {

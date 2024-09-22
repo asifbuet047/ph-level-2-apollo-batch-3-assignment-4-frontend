@@ -1,4 +1,4 @@
-import { Grid, IconButton, TextField } from "@mui/material";
+import {  IconButton, TextField } from "@mui/material";
 import Lottie from "react-lottie";
 import gmail from "../../public/gmail.json";
 import SendIcon from "@mui/icons-material/Send";

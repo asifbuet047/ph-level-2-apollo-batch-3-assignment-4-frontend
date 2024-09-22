@@ -62,6 +62,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      react-helmet:
+        specifier: ^6.1.0
+        version: 6.1.0(react@18.3.1)
       react-hook-form:
         specifier: ^7.52.1
         version: 7.52.1(react@18.3.1)
@@ -114,6 +117,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.0
         version: 18.3.0
+      '@types/react-helmet':
+        specifier: ^6.1.11
+        version: 6.1.11
       '@types/react-lottie':
         specifier: ^1.2.10
         version: 1.2.10
@@ -875,6 +881,9 @@ packages:
 
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+
+  '@types/react-helmet@6.1.11':
+    resolution: {integrity: sha512-0QcdGLddTERotCXo3VFlUSWO3ztraw8nZ6e3zJSgG7apwV5xt+pJUS8ewPBqT4NYB1optGLprNQzFleIY84u/g==}
 
   '@types/react-lottie@1.2.10':
     resolution: {integrity: sha512-rCd1p3US4ELKJlqwVnP0h5b24zt5p9OCvKUoNpYExLqwbFZMWEiJ6EGLMmH7nmq5V7KomBIbWO2X/XRFsL0vCA==}
@@ -1936,6 +1945,14 @@ packages:
     resolution: {integrity: sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==}
     engines: {node: '>= 6'}
 
+  react-fast-compare@3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+
+  react-helmet@6.1.0:
+    resolution: {integrity: sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw==}
+    peerDependencies:
+      react: '>=16.3.0'
+
   react-hook-form@7.52.1:
     resolution: {integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==}
     engines: {node: '>=12.22.0'}
@@ -1996,6 +2013,11 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
+
+  react-side-effect@2.1.2:
+    resolution: {integrity: sha512-PVjOcvVOyIILrYoyGEpDN3vmYNLdy1CajSFNt4TDsVQC5KpTijDvWVoR+/7Rz2xT978D8/ZtFceXxzsPwZEDvw==}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
 
   react-spinners@0.14.1:
     resolution: {integrity: sha512-2Izq+qgQ08HTofCVEdcAQCXFEYfqTDdfeDQJeo/HHQiQJD4imOicNLhkfN2eh1NYEWVOX4D9ok2lhuDB0z3Aag==}
@@ -3023,6 +3045,10 @@ snapshots:
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.3.0':
+    dependencies:
+      '@types/react': 18.3.8
+
+  '@types/react-helmet@6.1.11':
     dependencies:
       '@types/react': 18.3.8
 
@@ -4245,6 +4271,16 @@ snapshots:
     dependencies:
       prop-types: 15.8.1
 
+  react-fast-compare@3.2.2: {}
+
+  react-helmet@6.1.0(react@18.3.1):
+    dependencies:
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-fast-compare: 3.2.2
+      react-side-effect: 2.1.2(react@18.3.1)
+
   react-hook-form@7.52.1(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -4297,6 +4333,10 @@ snapshots:
   react-router@6.24.1(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.17.1
+      react: 18.3.1
+
+  react-side-effect@2.1.2(react@18.3.1):
+    dependencies:
       react: 18.3.1
 
   react-spinners@0.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):

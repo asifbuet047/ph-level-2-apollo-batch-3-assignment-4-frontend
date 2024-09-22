@@ -2,16 +2,14 @@ import { Card } from "antd";
 import { useForm } from "react-hook-form";
 import { BarLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import SingleProductCardComponent from "../components/SingleProductCardComponent";
 import { useEffect, useRef, useState } from "react";
 import { parseInputForProductAddSubmit } from "../utils/DataValidationUtilFunctions";
 import { useCreateProductMutation } from "../redux/api/allApiEndpoints";
 import { toast } from "react-toastify";
-import { Button, TextField, ThemeProvider } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Rating from "react-rating";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
-import { myCustomMuiTheme } from "../utils/myCustomMuiTheme";
 
 function AddProductPage() {
   const {

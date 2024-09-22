@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { information } from "../utils/information";
 import { Image } from "antd";
 

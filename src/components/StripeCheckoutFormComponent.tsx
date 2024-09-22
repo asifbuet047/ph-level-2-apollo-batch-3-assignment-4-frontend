@@ -17,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 function StripeCheckoutFormComponent({ deliveryAddress, amount, order }) {
   const stripe = useStripe();
   const elements = useElements();
-  console.log(order);
   const stripeOrder = order as TOrder;
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { data: serverPaymentIntent, isSuccess } =

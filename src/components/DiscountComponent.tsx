@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { motion } from "framer-motion";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
-import Percentage from "../assets/Percentage";
+import { FaPercentage } from "react-icons/fa";
 
 function DiscountComponent({ discount }) {
   const discountInfo = discount as TDiscount;
@@ -32,9 +32,9 @@ function DiscountComponent({ discount }) {
           }}
           className="p-4 inline-block mt-2 mb-2"
         >
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-start items-center">
             <p className="text-5xl">{discountInfo.product_discount}</p>
-            <Percentage />
+            <FaPercentage size={"2em"} />
             <p className="text-3xl ml-4 ">discount</p>
           </div>
         </motion.div>

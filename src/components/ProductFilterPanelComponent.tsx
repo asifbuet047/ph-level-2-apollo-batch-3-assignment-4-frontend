@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { motion } from "framer-motion";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import {
