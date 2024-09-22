@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  loadStripe,
-  StripeAddressElementChangeEvent,
-  StripeShippingAddressElementChangeEvent,
-} from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { AddressElement, Elements } from "@stripe/react-stripe-js";
 import StripeCheckoutFormComponent from "../components/StripeCheckoutFormComponent";
 import {
@@ -31,7 +27,7 @@ function CheckoutPage() {
     .reduce((accumulator, current) => {
       return accumulator + current;
     }, 0);
-  const [createOrder, { data, isSuccess, isLoading }] = useCreatOrderMutation();
+  const [createOrder] = useCreatOrderMutation();
   const grandTotal = (subTotal * 0.15 + subTotal) * 100;
   const navigate = useNavigate();
   const order: TOrder = {

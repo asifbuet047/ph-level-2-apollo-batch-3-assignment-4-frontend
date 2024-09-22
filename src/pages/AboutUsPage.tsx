@@ -147,7 +147,7 @@ function AboutUsPage() {
                     })}
                   ></TextField>
                   {errors.mail && (
-                    <p className="text-red-600">{errors.mail.message}</p>
+                    <p className="text-red-600">errors.mail.message</p>
                   )}
                 </Grid>
                 <Grid item>
@@ -156,7 +156,7 @@ function AboutUsPage() {
                     {...register("title", { required: "Title must be given" })}
                   />
                   {errors.title && (
-                    <p className="text-red-600">{errors.title.message}</p>
+                    <p className="text-red-600">errors.title.message</p>
                   )}
                 </Grid>
                 <Grid item>
@@ -173,7 +173,7 @@ function AboutUsPage() {
                     })}
                   />
                   {errors.body && (
-                    <p className="text-red-600">{errors.body.message}</p>
+                    <p className="text-red-600">errors.body.message</p>
                   )}
                   <Grid item className="p-2">
                     <Button

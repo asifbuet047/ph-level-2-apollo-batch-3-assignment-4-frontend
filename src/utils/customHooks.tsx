@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useResize = (myRef) => {
+export const useResize = (myRef: any) => {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 

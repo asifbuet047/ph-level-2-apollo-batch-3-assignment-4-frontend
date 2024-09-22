@@ -1,6 +1,7 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
 export interface TProduct {
+  [x: string]: string | number;
   name: string;
   description: string;
   category: string;

@@ -13,7 +13,7 @@ import AboutUsPage from "../pages/AboutUsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import PlaceOrderSuccessPage from "../pages/PlaceOrderSuccessPage";
 
-const browserRouter: BrowserRouterProps = createBrowserRouter([
+const browserRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,

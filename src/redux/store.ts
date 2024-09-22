@@ -7,7 +7,6 @@ import { generalReducer } from "./features/generalSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { cartReducer } from "./features/cartSlice";
-import { priceSliderReducer } from "./features/priceSliderSlice";
 
 const persistConfiguratio = {
   key: "cart",
