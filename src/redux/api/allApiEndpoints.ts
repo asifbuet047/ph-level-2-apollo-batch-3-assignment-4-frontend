@@ -187,6 +187,7 @@ export const {
   useCreateProductMutation,
   useCreatOrderMutation,
   useGetProductQuery,
+  useLazyGetProductQuery,
   useGetAllProductsQuery,
   useUpdateproductMutation,
   useGetAllDiscountsQuery,

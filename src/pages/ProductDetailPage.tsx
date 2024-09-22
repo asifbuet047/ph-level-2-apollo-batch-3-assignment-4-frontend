@@ -8,6 +8,7 @@ import { addToCart } from "../redux/features/cartSlice";
 import { TCartData, TProduct } from "../types/AllTypes";
 import { updateCheckoutButtonState } from "../redux/features/generalSlice";
 import { TbCurrencyTaka } from "react-icons/tb";
+import { useGetProductQuery } from "../redux/api/allApiEndpoints";
 
 function ProductDetailPage() {
   const { productId } = useParams();
@@ -16,14 +17,10 @@ function ProductDetailPage() {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(1);
   const refForWidth = useRef(null);
-  const allProducts = useAppSelector(
-    (state) => state.products.products
-  ) as TProduct[];
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
 
-  const currentProduct = allProducts.find(
-    (product) => product._id === productId
-  ) as TProduct;
+  const { data, isSuccess } = useGetProductQuery(productId as string);
+  const currentProduct = data?.data as TProduct;
 
   const currentCart = cart.find((cart) => cart.id == productId) as TCartData;
 
@@ -50,38 +47,41 @@ function ProductDetailPage() {
           ref={refForWidth}
           className="flex flex-col md:flex-row justify-center px-2 bg-[#C0F5FA]"
         >
-          <div className="">
+          <div className="py-2 md:px-2">
             <Image
-              src={currentProduct.product_image_url as string}
+              src={currentProduct?.product_image_url as string}
               height={500}
             ></Image>
           </div>
           <div className="flex flex-col justify-start pr-2">
             <h2 className="text-xl mt-2 mb-2">
               Availability:{" "}
-              <span className="font-bold">{currentProduct.quantity}</span> in
+              <span className="font-bold">{currentProduct?.quantity}</span> in
               stock
             </h2>
             <h1 className="text-3xl mt-2 mb-2 font-bold">
-              {currentProduct.name}
+              {currentProduct?.name}
             </h1>
             {state.state?.discount ? (
               <div className="flex flex-row  justify-start">
                 <h3 className="text-2xl mt-2 mb-2">
                   Now{" "}
                   <span className="font-bold">{state.state?.discount}% </span>
-                  discount current price
+                  discount current price is{" "}
                 </h3>
-                <div className="flex flex-row justify-center items-center">
+                <div className="flex flex-row justify-start items-center text-2xl">
                   <span className="font-bold">
-                    {currentProduct.price -
-                      (currentProduct.price * state.state?.discount) / 100}
+                    {currentProduct?.price -
+                      (currentProduct?.price * state.state?.discount) / 100}
                   </span>
                   <TbCurrencyTaka />
                 </div>
               </div>
             ) : (
-              <h3 className="text-2xl mt-2 mb-2">${currentProduct.price}</h3>
+              <div className="flex flex-row justify-start items-center text-2xl">
+                <span className="font-bold">{currentProduct?.price}</span>
+                <TbCurrencyTaka />
+              </div>
             )}
             <div className="flex flex-row justify-between">
               <div className="flex flex-row justify-between items-center flex-grow bg-[#F7F8FA]">
@@ -101,25 +101,26 @@ function ProductDetailPage() {
                   onClick={() => {
                     if (
                       (currentCart ? currentCart.quantity : 0) + quantity <=
-                      currentProduct.quantity
+                      currentProduct?.quantity
                     ) {
                       dispatch(
                         addToCart({
                           id,
                           name: currentProduct.name,
                           price:
-                            currentProduct.price -
-                            (currentProduct.price * state.state.discount) / 100,
+                            currentProduct?.price -
+                            (currentProduct?.price * state.state.discount) /
+                              100,
                           quantity,
                         })
                       );
                       dispatch(updateCheckoutButtonState(true));
                       toast.success(
-                        `${currentProduct.name} is successfully added into cart`
+                        `${currentProduct?.name} is successfully added into cart`
                       );
                     } else {
                       toast.warn(
-                        `${currentProduct.name} is already added in Your cart and this additional added quantity exceed stock`
+                        `${currentProduct?.name} is already added in Your cart and this additional added quantity exceed stock`
                       );
                     }
                   }}
@@ -137,18 +138,18 @@ function ProductDetailPage() {
                       dispatch(
                         addToCart({
                           id,
-                          name: currentProduct.name,
-                          price: currentProduct.price,
+                          name: currentProduct?.name,
+                          price: currentProduct?.price,
                           quantity,
                         })
                       );
                       dispatch(updateCheckoutButtonState(true));
                       toast.success(
-                        `${currentProduct.name} is successfully added into cart`
+                        `${currentProduct?.name} is successfully added into cart`
                       );
                     } else {
                       toast.warn(
-                        `${currentProduct.name} is already added in Your cart and this additional added quantity exceed stock`
+                        `${currentProduct?.name} is already added in Your cart and this additional added quantity exceed stock`
                       );
                     }
                   }}
@@ -157,7 +158,7 @@ function ProductDetailPage() {
                 </Button>
               )}
             </div>
-            <p className="text-xl mt-2 mb-2">{currentProduct.description}</p>
+            <p className="text-xl mt-2 mb-2">{currentProduct?.description}</p>
           </div>
         </div>
       }

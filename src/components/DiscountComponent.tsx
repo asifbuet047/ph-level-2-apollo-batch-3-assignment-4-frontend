@@ -17,7 +17,7 @@ function DiscountComponent({ discount }: { discount: TDiscount }) {
   };
 
   return (
-    <div className="bg-[url('sales_2.jpg')] bg-cover bg-center flex flex-col md:flex-row justify-between pt-2 pb-2 pl-2 pr-2 md:pl-4 md:pr-4 sm:rounded-sm md:rounded-md lg:rounded-lg">
+    <div className="bg-[url('/sales_2.jpg')] bg-cover bg-center flex flex-col md:flex-row justify-between pt-2 pb-2 pl-2 pr-2 md:pl-4 md:pr-4 sm:rounded-sm md:rounded-md lg:rounded-lg">
       <div className="flex flex-col justify-evenly">
         <div className="mt-2 mb-2">
           <p className="text-4xl font-bold">{discountInfo.product_name}</p>

@@ -89,14 +89,14 @@ function StripeCheckoutFormComponent({
     <div className="p-2">
       <form onSubmit={handleSubmit}>
         {isSuccess ? (
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <PaymentElement />
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" className="my-2">
               Pay Now
             </Button>
           </div>
         ) : (
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <PaymentElement />
             <Button disabled variant="contained" type="submit">
               Pay Now
