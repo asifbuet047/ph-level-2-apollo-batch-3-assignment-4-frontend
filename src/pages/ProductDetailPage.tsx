@@ -19,7 +19,7 @@ function ProductDetailPage() {
   const refForWidth = useRef(null);
   const cart = useAppSelector((state) => state.cart.items) as TCartData[];
 
-  const { data, isSuccess } = useGetProductQuery(productId as string);
+  const { data } = useGetProductQuery(productId as string);
   const currentProduct = data?.data as TProduct;
 
   const currentCart = cart.find((cart) => cart.id == productId) as TCartData;
